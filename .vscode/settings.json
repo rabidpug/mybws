@@ -1,0 +1,22 @@
+{
+  "js-import.alias": {
+    "Assets": "./src/assets",
+    "Common": "./src/common",
+    "Components": "./src/components",
+    "Store": "./src/store",
+    "~": "./src"
+  },
+  "files.exclude": {
+    "**.vscode": true,
+    "**dist": false,
+    "**coverage": true,
+    "**logs": true,
+    "**node_modules": true,
+    "**yarn-error.log": false,
+    "**yarn.lock": false,
+    "**__mocks__": true,
+    "**/**__snapshots__": false,
+    "**/*.scss.flow": false,
+    "**.jenkins": true
+  }
+}

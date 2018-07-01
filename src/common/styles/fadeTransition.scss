@@ -1,0 +1,19 @@
+.appear,
+.enter {
+  opacity: 0;
+}
+
+.appearActive,
+.enterActive {
+  opacity: 1;
+  transition: opacity 0.4s linear;
+}
+
+.exit {
+  opacity: 1;
+  transition: opacity 0.4s linear;
+}
+
+.exitActive {
+  opacity: 0;
+}

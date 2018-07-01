@@ -1,0 +1,11 @@
+{
+  "name": "mybws",
+  "script": "npm",
+  "args": "start -- --color",
+  "log_date_format": "",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "watch": "./server",
+  "merge_logs": true
+}

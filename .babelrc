@@ -1,0 +1,22 @@
+{
+  "presets": [["env", { "modules": false }], "stage-0", "react", "flow"],
+  "plugins": [
+    "transform-decorators-legacy",
+    "react-hot-loader/babel"
+  ],
+  "env": {
+    "test": {
+      "presets": ["env", "stage-0", "react", "flow"],
+      "plugins": [
+        "dynamic-import-node",
+        "transform-decorators-legacy",
+        [
+          "webpack-alias",
+          {
+            "config": "./webpack.config.js"
+          }
+        ]
+      ]
+    }
+  }
+}

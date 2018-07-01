@@ -1,0 +1,15 @@
+{
+  "short_name": "myBWS",
+  "name": "myBWS",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#A11D96",
+  "background_color": "#968A83"
+}

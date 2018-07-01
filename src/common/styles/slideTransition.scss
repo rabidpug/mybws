@@ -1,0 +1,23 @@
+.appear,
+.enter {
+  transform: translateX(200%);
+  transform-origin: top right;
+}
+
+.appearActive,
+.enterActive {
+  transform: translateX(0%);
+  transform-origin: top right;
+  transition: transform 0.4s linear;
+}
+
+.exit {
+  transform: translateX(0%);
+  transform-origin: top left;
+  transition: transform 0.4s linear;
+}
+
+.exitActive {
+  transform: translateX(-200%);
+  transform-origin: top left;
+}
