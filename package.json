@@ -164,19 +164,20 @@
   "name": "mybws",
   "repository": "git+https://rabidpug@github.com/rabidpug/mybws.git",
   "scripts": {
-    "start": "node ./server",
+    "start": "node server",
     "dev": "run-p dev:*",
-    "dev:client": "cross-env NODE_ENV=development webpack-dev-server --mode development",
+    "dev:client": "webpack-dev-server --mode development",
     "dev:server": "pm2 start process.json && pm2 logs mybws --raw",
-    "build": "cross-env run-s clean build:client",
+    "build": "run-s clean build:client",
     "clean": "rimraf dist",
-    "build:client": "cross-env NODE_ENV=production webpack --mode production",
+    "build:client": "webpack --mode production",
     "test": "run-p test:*",
     "test:cssflow": "cross-env NODE_ENV=test css-modules-flow-types src -e scss",
     "test:lint": "cross-env NODE_ENV=test eslint \"src/**/*.{js,jsx}\" \"server/**/*.js\"",
     "test:flow": "cross-env NODE_ENV=test flow",
     "test:jest": "cross-env NODE_ENV=test jest --coverage",
-    "push": "./push.sh "
+    "kill": "pm2 stop all --watch",
+    "push": "./push.sh"
   },
   "engines": {
     "node": "10.x",
