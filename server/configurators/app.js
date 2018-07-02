@@ -1,6 +1,7 @@
-module.exports = ( { config, locator, } ) => {
+module.exports = async ( { config, locator, } ) => {
   const { loggerMiddleware, } = require( '../lib/logMaker' );
   const v1 = require( '../routes/v1' );
+
   const errorHandler = ( err, req, res ) => {
     if ( err.isControlled ) {
       req.log.add( 'warn', err.message );

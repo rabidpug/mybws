@@ -1,7 +1,6 @@
 /* eslint-disable */
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const Critters = require('critters-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -140,7 +139,6 @@ module.exports = (env, argv = {}) => {
       publicPath: '/',
     },
     plugins: [
-      new CleanWebpackPlugin(['dist']),
       new HtmlWebPackPlugin({
         favicon: path.join(__dirname, 'src', 'assets', 'favicon.ico'),
         filename: 'index.html',

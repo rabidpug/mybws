@@ -9,6 +9,7 @@
   "env": {
     "browser": true,
     "es6": true,
+    "serviceworker": true,
     "jest": true,
     "commonjs": true
   },
@@ -149,7 +150,7 @@
         "ignoreJSX": "multi-line"
       }
     ],
-    "no-extra-semi": "error",
+    "no-extra-semi": "warn",
     "no-floating-decimal": "warn",
     "no-func-assign": "error",
     "no-global-assign": "error",
@@ -323,7 +324,7 @@
     "require-await": "off",
     "rest-spread-spacing": ["error", "never"],
     "semi-spacing": "warn",
-    "semi-style": "error",
+    "semi-style": "warn",
     "semi": "warn",
     "sort-imports": "error",
     "sort-keys": [
@@ -356,7 +357,9 @@
   "overrides": [
     {
       "files": ["server/**/*.js"],
-      "env": { "node": true },
+      "env": {
+        "node": true
+      },
       "excludedFiles": "**/*.test.*",
       "rules": {
         "func-names": "off"
@@ -367,7 +370,6 @@
   "settings": {
     "polyfills": ["fetch", "promise"],
     "import/resolver": {
-      "babel-module": {},
       "webpack": {}
     }
   }

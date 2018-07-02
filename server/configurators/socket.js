@@ -2,6 +2,7 @@
 
 module.exports = ( { locator, config, } ) => {
   const { Logger, } = require( '../lib/logMaker' );
+
   const io = require( 'socket.io' )( locator.get( 'server' ), config.socket );
   const jwt = locator.get( 'jwt' );
   const log = locator.get( 'log' );

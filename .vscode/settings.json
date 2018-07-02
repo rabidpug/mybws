@@ -8,7 +8,7 @@
   },
   "files.exclude": {
     "**.vscode": true,
-    "**dist": false,
+    "**dist": true,
     "**coverage": true,
     "**logs": true,
     "**node_modules": true,
