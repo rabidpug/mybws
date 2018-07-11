@@ -8,7 +8,7 @@ import SlideWrap from 'Common/styles/SlideWrap'
 import { getPath, } from 'utilibelt'
 import getStatus from './getStatus'
 import gqlMyRangeStoreArticle from './Article.gql'
-import noProductImage from 'Assets/noProductImage.png'
+import noProductImage from 'Assets/noProductImage.webp'
 import { toast, } from 'react-toastify'
 import { withRouter, } from 'react-router-dom'
 

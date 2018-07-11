@@ -70,7 +70,19 @@ module.exports = {
         ],
       },
       {
-        test: [/\.bmp$/, /\.gif$/, /\.svg$/, /\.jpe?g$/, /\.png$/, /\.ttf$/, /\.woff$/, /\.woff2$/, /\.eot$/, /\.svg$/],
+        test: [
+          /\.bmp$/,
+          /\.webp$/,
+          /\.gif$/,
+          /\.svg$/,
+          /\.jpe?g$/,
+          /\.png$/,
+          /\.ttf$/,
+          /\.woff$/,
+          /\.woff2$/,
+          /\.eot$/,
+          /\.svg$/,
+        ],
         use: {
           loader: 'url-loader',
           options: {

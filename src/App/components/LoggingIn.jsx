@@ -1,6 +1,6 @@
 import React from 'react'
 import { Spinner, } from 'Common/components/Loaders'
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo.webp'
 
 const LoggingIn = () => (
   <div
