@@ -13,13 +13,9 @@ matchTagged=$(curl "https://api.github.com/repos/rabidpug/$name/releases" | grep
 echo "$dir $matchTagged"
 if [ ! -z "$dir" ] && [ ! -z "$matchTagged" ];
 then
-  echo 'copying package.json and client dist'
+  echo 'copying dist'
   rm -rf $dir/dist/*
-  cp -rf dist package.json $dir
-  echo 'copying server'
-  rsync -rvhm --delete-after server/ $dir/lib
-  echo 'installing server dependencies'
-  yarn install --cwd $dir --prod --check-files --non-interactive;
+  cp -rf dist $dir
 else
   echo 'Not a branch to publish';
 fi

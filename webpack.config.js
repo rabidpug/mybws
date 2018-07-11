@@ -9,7 +9,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
-require('dotenv').config()
 const path = require('path')
 
 const webpack = require('webpack')
@@ -138,8 +137,7 @@ module.exports = (env, argv = {}) => {
     plugins: [
       new CompressionPlugin(),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-        'process.env.API_ENDPOINT': JSON.stringify(process.env.API_ENDPOINT),
+        'process.env.NODE_ENV': JSON.stringify(argv.mode),
       }),
       new HtmlWebPackPlugin({
         filename: 'index.html',
