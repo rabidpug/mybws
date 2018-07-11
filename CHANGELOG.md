@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v0.0.2-alpha.1
+## v0.0.2-rc.0
 
 - Broke out backend to simplify package
 
