@@ -3,8 +3,9 @@ import React, { Component, } from 'react'
 import Button from 'Common/components/Button'
 import ClearDiv from './styled/ClearDiv'
 import StyledCard from './styled/StyledCard'
-import { authEndpoint, } from '../../endpoints'
+import { getPath, } from 'utilibelt'
 import gqlSignIn from './SignIn.gql'
+import { signEndpoint, } from '../../endpoints'
 import { toast, } from 'react-toastify'
 
 @gqlSignIn
@@ -25,7 +26,12 @@ export default class Signin extends Component {
   }
 
   render () {
-    const { data: { auth: { isAuthenticated, }, }, } = this.props
+    const {
+      data: { auth: { isAuthenticated, }, },
+      location,
+    } = this.props
+
+    const redirect = getPath( location, 'state.pathname', '' )
 
     return (
       <StyledCard>
@@ -34,10 +40,12 @@ export default class Signin extends Component {
           ? 'Sign in successful!'
           : (
             <Button
-              href={ authEndpoint() } icon={ [
+              href={ signEndpoint( redirect === '/' ? '' : redirect ) }
+              icon={ [
                 'fab',
                 'google',
-              ] } style={ { margin: 'auto', } }
+              ] }
+              style={ { margin: 'auto', } }
               variant='secondary'>
             Sign In With Google
             </Button>

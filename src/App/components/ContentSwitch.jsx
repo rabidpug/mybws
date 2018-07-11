@@ -5,12 +5,13 @@ import { MyProfileLoadable, } from '../MyProfile'
 import { MyRangeLoadable, } from '../MyRange'
 import React from 'react'
 import { SignInLoadable, } from '../SignIn'
+import getQueryVariable from '../../common/helpers/getQueryVariable'
 
 const PrivateRoute = ( { component: Component, isAuthenticated, ...props } ) => (
   <Route
     { ...props }
     render={ newProps =>
-      !isAuthenticated && window.location.pathname.indexOf( props.path ) === 0 ? (
+      !isAuthenticated && window.location.pathname.indexOf( props.path ) === 0 && !getQueryVariable( 'token', location ) ? (
         <Redirect
           to={ {
             pathname : '/signin',
@@ -26,15 +27,17 @@ const PrivateRoute = ( { component: Component, isAuthenticated, ...props } ) => 
 const PublicRoute = ( { component: Component, isAuthenticated, ...props } ) => (
   <Route
     { ...props }
-    render={ newProps => isAuthenticated && window.location.pathname.indexOf( props.path ) === 0 ? (
-      <Redirect
-        to={ {
-          pathname : '/myProfile',
-          state    : newProps.location,
-        } }
-      />
-    )
-      : <Component { ...newProps } />
+    render={ newProps =>
+      isAuthenticated && window.location.pathname.indexOf( props.path ) === 0 ? (
+        <Redirect
+          to={ {
+            pathname : '/myProfile',
+            state    : newProps.location,
+          } }
+        />
+      )
+        : <Component { ...newProps } />
+
     }
   />
 )

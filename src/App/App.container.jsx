@@ -59,7 +59,12 @@ export default class App extends PureComponent {
   }
 
   handleAuthRedirect = () => {
-    const { login, loaded, } = this.props
+    const {
+      login,
+      loaded,
+      history: { replace, },
+      location: { pathname, },
+    } = this.props
 
     const JWT = getQueryVariable( 'token', location )
 
@@ -72,6 +77,8 @@ export default class App extends PureComponent {
           refreshToken,
         },
       } )
+
+      replace( pathname )
     }
   }
 
