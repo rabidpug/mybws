@@ -309,7 +309,7 @@ export default function apollo ( cache ) {
       reconnect : true,
       timeout   : 30000,
     },
-    uri: `ws://${API_ENDPOINT.replace( /^(.*:\/\/)/, '' )}/graphql`,
+    uri: `wss://${API_ENDPOINT.replace( /^(.*:\/\/)/, '' )}/graphql`,
   } )
 
   const link = split( ( { query, } ) => {
