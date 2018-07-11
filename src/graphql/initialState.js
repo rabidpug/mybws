@@ -1,9 +1,9 @@
 const initialState = {
   auth: {
     __typename      : 'auth',
-    JWT             : localStorage.getItem( 'JWT' ),
-    isAuthenticated : !!localStorage.getItem( 'JWT' ),
-    refreshToken    : localStorage.getItem( 'refreshToken' ),
+    JWT             : '',
+    isAuthenticated : false,
+    refreshToken    : '',
   },
   browser : window.innerWidth,
   query   : {

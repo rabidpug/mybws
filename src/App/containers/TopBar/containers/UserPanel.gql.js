@@ -15,7 +15,7 @@ const gqlUserPanel = compose( graphql( gql`
     }
   ` ),
                               graphql( gql`
-      query UserDetails {
+      query GetUser {
         getUser {
           photo
           name
@@ -42,13 +42,7 @@ const gqlUserPanel = compose( graphql( gql`
 
                                            return { variables: { id: pathStore.length === 4 ? +pathStore : getPath( user, 'getUser.store' ), }, }
                                          },
-                                         skip ( { user = {}, data = {}, location: { pathname, }, } ) {
-                                           const pathStore = storeFromPath( pathname )
-
-                                           return !( getPath( data, 'auth.isAuthenticated' ) && pathStore.length === 4
-                                             ? +pathStore
-                                             : getPath( user, 'getUser.store' ) )
-                                         },
+                                         skip: ( { user = {}, data = {}, } ) => !( getPath( data, 'auth.isAuthenticated' ) && user.getUser ),
                                        } ) )
 
 export default gqlUserPanel

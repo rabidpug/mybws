@@ -24,28 +24,13 @@ iconLibrary()
 @withRouter
 @gqlApp
 export default class App extends PureComponent {
-  constructor ( props ) {
-    super( props )
-
-    this.state = { swipeWidth: 0, }
-  }
+  state = { swipeWidth: 0, }
 
   componentDidMount () {
-    const { login, updateBrowser, updateIsOnline, } = this.props
+    const { updateBrowser, updateIsOnline, loaded, } = this.props
+    console.log(loaded) //eslint-disable-line
 
-    const JWT = getQueryVariable( 'token', location )
-
-    const refreshToken = getQueryVariable( 'refreshToken', location )
-    console.log(JWT, refreshToken) //eslint-disable-line
-
-    if ( JWT || refreshToken ) {
-      login( {
-        variables: {
-          JWT,
-          refreshToken,
-        },
-      } )
-    }
+    loaded && this.handleAuthRedirect()
 
     window.addEventListener( 'beforeinstallprompt', this.handleAddToHome )
 
@@ -58,6 +43,10 @@ export default class App extends PureComponent {
     window.addEventListener( 'resize', updateBrowser )
   }
 
+  componentDidUpdate () {
+    getQueryVariable( 'token', location ) && this.handleAuthRedirect()
+  }
+
   componentWillUnmount () {
     const { updateBrowser, updateIsOnline, } = this.props
 
@@ -68,6 +57,24 @@ export default class App extends PureComponent {
     window.removeEventListener( 'offline', updateIsOnline )
 
     window.removeEventListener( 'resize', updateBrowser )
+  }
+
+  handleAuthRedirect = () => {
+    const { login, loaded, } = this.props
+
+    const JWT = getQueryVariable( 'token', location )
+
+    const refreshToken = getQueryVariable( 'refreshToken', location )
+    console.log({ JWT, refreshToken, loaded }) //eslint-disable-line
+
+    if ( JWT || refreshToken && loaded ) {
+      login( {
+        variables: {
+          JWT,
+          refreshToken,
+        },
+      } )
+    }
   }
 
   handleAddToHome = e => {
@@ -99,14 +106,10 @@ export default class App extends PureComponent {
   render () {
     const {
       location,
-      data: {
-        browser,
-        ui: { isSidebarCollapsed, },
-        auth: { isAuthenticated, },
-        loading,
-      },
+      data: { browser, ui = {}, auth, loading, },
     } = this.props
-
+    const { isSidebarCollapsed, } = ui
+    const { isAuthenticated, } = auth
     const { swipeWidth, } = this.state
 
     const currentKey = location.pathname.split( '/' ).slice( 1, 2 ) || '/'

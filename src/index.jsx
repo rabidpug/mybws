@@ -10,8 +10,8 @@ import LoggingIn from './App/components/LoggingIn'
 import { Router, } from 'react-router-dom'
 import apollo from './graphql'
 import createHistory from 'history/createBrowserHistory'
-import localforage from 'localforage'
-import { persistCache, } from 'apollo-cache-persist'
+// import localforage from 'localforage'
+// import { persistCache, } from 'apollo-cache-persist'
 import registerServiceWorker from './registerServiceWorker'
 import { render, } from 'react-dom'
 import styles from 'Common/styles'
@@ -29,15 +29,15 @@ class Index extends PureComponent {
 
     const client = apollo( cache )
 
-    try {
-      await persistCache( {
-        cache,
-        maxSize : false,
-        storage : localforage,
-      } )
-    } catch ( error ) {
-      console.error('Error restoring Apollo cache', error) //eslint-disable-line
-    }
+    // try {
+    //   await persistCache( {
+    //     cache,
+    //     maxSize : false,
+    //     storage : localforage,
+    //   } )
+    // } catch ( error ) {
+    //   console.error('Error restoring Apollo cache', error) //eslint-disable-line
+    // }
 
     this.setState( {
       client,
@@ -52,7 +52,7 @@ class Index extends PureComponent {
       <ApolloProvider client={ client }>
         <ThemeProvider theme={ styles.themes.main }>
           <Router history={ history }>
-            <App />
+            <App loaded={ loaded } />
           </Router>
         </ThemeProvider>
       </ApolloProvider>
