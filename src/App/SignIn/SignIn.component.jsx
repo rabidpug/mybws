@@ -1,43 +1,49 @@
-import React, { Component, } from 'react';
+import React, { Component, } from 'react'
 
-import Button from 'Common/components/Button';
-import ClearDiv from './styled/ClearDiv';
-import StyledCard from './styled/StyledCard';
-import { toast, } from 'react-toastify';
+import Button from 'Common/components/Button'
+import ClearDiv from './styled/ClearDiv'
+import StyledCard from './styled/StyledCard'
+import { authEndpoint, } from '../../endpoints'
+import gqlSignIn from './SignIn.gql'
+import { toast, } from 'react-toastify'
 
+@gqlSignIn
 export default class Signin extends Component {
   componentDidMount () {
     const {
-      location: { hash, search, },
+      location: { hash, },
       history,
-    } = this.props;
+    } = this.props
 
-    document.title = 'myBWS Sign In';
+    document.title = 'myBWS Sign In'
 
-    const redirect = search && search.slice( search.indexOf( '=' ) + 1, search.length ).replace( /%2F/g, '/' );
-
-    if ( redirect ) localStorage.setItem( 'redirect', redirect );
     if ( hash === '#failed' ) {
-      toast.error( 'Sign in failed. You must sign in with a valid Woolworths LTD Google account' );
+      toast.error( 'Sign in failed. You must sign in with a valid Woolworths LTD Google account' )
 
-      history.replace( '/signin' );
+      history.replace( '/signin' )
     }
   }
 
   render () {
+    const { data: { auth: { isAuthenticated, }, }, } = this.props
+
     return (
       <StyledCard>
         <ClearDiv />
-        <Button
-          href='/v1/google' icon={ [
-            'fab',
-            'google',
-          ] } style={ { margin: 'auto', } }
-          variant='secondary'>
-          Sign In With Google
-        </Button>
+        {isAuthenticated
+          ? 'Sign in successful!'
+          : (
+            <Button
+              href={ authEndpoint() } icon={ [
+                'fab',
+                'google',
+              ] } style={ { margin: 'auto', } }
+              variant='secondary'>
+            Sign In With Google
+            </Button>
+          )}
         <ClearDiv />
       </StyledCard>
-    );
+    )
   }
 }

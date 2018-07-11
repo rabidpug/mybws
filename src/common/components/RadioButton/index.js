@@ -1,1 +1,1 @@
-export { default, } from './RadioButton.component';
+export { default, } from './RadioButton.component'

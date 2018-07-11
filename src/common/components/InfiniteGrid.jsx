@@ -1,17 +1,17 @@
-import 'react-virtualized/styles.css';
+import 'react-virtualized/styles.css'
 
-import { AutoSizer, List, } from 'react-virtualized';
-import React, { PureComponent, } from 'react';
+import { AutoSizer, List, } from 'react-virtualized'
+import React, { PureComponent, } from 'react'
 
-import { MidBounceBall, } from './Loaders';
+import { MidBounceBall, } from './Loaders'
 
 export default class InfiniteGrid extends PureComponent {
   rowRenderer = ( { index, key, style, isVisible, isScrolling, } ) => {
-    const { Component, array, columnCount, maxPage, rowCount, } = this.props;
-    const arr = [];
-    const startIndex = index * columnCount;
+    const { Component, array, columnCount, maxPage, rowCount, } = this.props
+    const arr = []
+    const startIndex = index * columnCount
 
-    for ( let i = startIndex; i < Math.min( maxPage, startIndex * columnCount ); i++ ) arr.push( array[i] || `*^%${i}` );
+    for ( let i = startIndex; i < Math.min( maxPage, startIndex * columnCount ); i++ ) arr.push( array[i] || `*^%${i}` )
     return (
       <div key={ key } style={ style }>
         {array
@@ -19,11 +19,11 @@ export default class InfiniteGrid extends PureComponent {
           .map( ( item, i ) =>
             <Component fetch={ !isScrolling && isVisible } item={ item || `*^%${i}` } key={ item || `*^%${i}` } /> )}
       </div>
-    );
+    )
   };
 
   render () {
-    const { loading, message, rowCount, rowHeight, paramaters, loadMoreRows, } = this.props;
+    const { loading, message, rowCount, rowHeight, paramaters, loadMoreRows, } = this.props
 
     return (
       <AutoSizer>
@@ -45,6 +45,6 @@ export default class InfiniteGrid extends PureComponent {
           />
         )}
       </AutoSizer>
-    );
+    )
   }
 }

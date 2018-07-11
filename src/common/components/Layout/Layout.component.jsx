@@ -1,5 +1,5 @@
-import { LayoutContent, LayoutHeader, LayoutSideBar, LayoutWrapper, } from './Layout.styles';
-import React, { PureComponent, } from 'react';
+import { LayoutContent, LayoutHeader, LayoutSideBar, LayoutWrapper, } from './Layout.styles'
+import React, { PureComponent, } from 'react'
 
 export default class Layout extends PureComponent {
   static Content = LayoutContent;
@@ -9,6 +9,6 @@ export default class Layout extends PureComponent {
   static SideBar = LayoutSideBar;
 
   render () {
-    return <LayoutWrapper { ...this.props } />;
+    return <LayoutWrapper { ...this.props } />
   }
 }

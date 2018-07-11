@@ -1,6 +1,6 @@
-import styled, { keyframes, } from 'styled-components';
+import styled, { keyframes, } from 'styled-components'
 
-import React from 'react';
+import React from 'react'
 
 const move = keyframes`
     0% {
@@ -11,7 +11,7 @@ const move = keyframes`
     }
     100% {
       left: 100%;
-    }`;
+    }`
 const Wrapper = styled.div`
   & > div {
     width: 20px;
@@ -33,7 +33,7 @@ const Wrapper = styled.div`
   & > div:nth-child(4) {
     animation-delay: 450ms;
   }
-`;
+`
 
 const Spinner = ( { style, pastDelay = true, ...props } ) =>
   pastDelay && (
@@ -44,6 +44,6 @@ const Spinner = ( { style, pastDelay = true, ...props } ) =>
       <div style={ style } />
       <div style={ style } />
     </Wrapper>
-  );
+  )
 
-export default Spinner;
+export default Spinner

@@ -1,20 +1,21 @@
 /* eslint-disable */
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const Critters = require('critters-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const Critters = require('critters-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
+require('dotenv').config()
+const path = require('path')
 
-const path = require('path');
-
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 module.exports = (env, argv = {}) => {
-  const isProd = argv.mode === 'production';
+  const isProd = argv.mode === 'production'
 
   return {
     devServer: {
@@ -24,10 +25,6 @@ module.exports = (env, argv = {}) => {
       port: 9000,
       proxy: {
         '/v1': 'http://localhost:8090',
-        '/socket.io': {
-          target: 'http://localhost:8090',
-          ws: true,
-        },
       },
       watchOptions: { poll: true },
     },
@@ -139,8 +136,12 @@ module.exports = (env, argv = {}) => {
       publicPath: '/',
     },
     plugins: [
+      new CompressionPlugin(),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        'process.env.API_ENDPOINT': JSON.stringify(process.env.API_ENDPOINT),
+      }),
       new HtmlWebPackPlugin({
-        favicon: path.join(__dirname, 'src', 'assets', 'favicon.ico'),
         filename: 'index.html',
         template: path.join(__dirname, 'src', 'index.html'),
         title: 'myBWS',
@@ -155,16 +156,16 @@ module.exports = (env, argv = {}) => {
         filename: 'service-worker.js',
         importScripts: ['swPush.js'],
         logger(message) {
-          if (message.indexOf('Total precache size is') === 0) return;
+          if (message.indexOf('Total precache size is') === 0) return
 
-          console.log(message);
+          console.log(message)
         },
         minify: true,
         navigateFallback: '/index.html',
         navigateFallbackWhitelist: [/^(?!.*v[1-9]{1,})/],
         staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
       }),
-      new CopyWebpackPlugin([{ from: path.join(__dirname, 'src', 'pwa') }]),
+      new CopyWebpackPlugin([{ from: path.join(__dirname, 'src', 'static') }]),
       new Critters(),
       ...(isProd ? [] : [new webpack.HotModuleReplacementPlugin()]),
       // new BundleAnalyzerPlugin(),
@@ -181,5 +182,5 @@ module.exports = (env, argv = {}) => {
     },
     target: 'web',
     watch: !isProd,
-  };
-};
+  }
+}

@@ -1,8 +1,8 @@
-import Menu from 'Common/components/Menu';
-import React from 'react';
+import Menu from 'Common/components/Menu'
+import React from 'react'
 
 const mappedMenus = ( menuItems, isAuthenticated, subClick ) => {
-  const filterAuth = item => typeof item.isAuthenticated !== 'boolean' || item.isAuthenticated === !!isAuthenticated;
+  const filterAuth = item => typeof item.isAuthenticated !== 'boolean' || item.isAuthenticated === !!isAuthenticated
   const menuItemMap = item =>
     item.subMenu ? (
       <Menu.SubMenu
@@ -23,9 +23,9 @@ const mappedMenus = ( menuItems, isAuthenticated, subClick ) => {
         path={ item.path }
         text={ item.label }
       />
-    );
+    )
 
-  return menuItems.filter( filterAuth ).map( menuItemMap );
-};
+  return menuItems.filter( filterAuth ).map( menuItemMap )
+}
 
-export default mappedMenus;
+export default mappedMenus

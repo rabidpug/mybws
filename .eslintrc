@@ -9,11 +9,10 @@
   "env": {
     "browser": true,
     "es6": true,
-    "serviceworker": true,
     "jest": true,
     "commonjs": true
   },
-  "plugins": ["flowtype", "import", "react"],
+  "plugins": ["flowtype", "import", "react", "graphql"],
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 8,
@@ -150,7 +149,7 @@
         "ignoreJSX": "multi-line"
       }
     ],
-    "no-extra-semi": "warn",
+    "no-extra-semi": "error",
     "no-floating-decimal": "warn",
     "no-func-assign": "error",
     "no-global-assign": "error",
@@ -161,7 +160,14 @@
     "no-loop-func": "error",
     "no-mixed-spaces-and-tabs": "error",
     "no-multi-assign": "error",
-    "no-multi-spaces": ["off", { "exceptions": { "Property": true } }],
+    "no-multi-spaces": [
+      "off",
+      {
+        "exceptions": {
+          "Property": true
+        }
+      }
+    ],
     "no-multi-str": "error",
     "no-multiple-empty-lines": [
       "warn",
@@ -171,6 +177,7 @@
       }
     ],
     "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
     "no-negated-condition": "error",
     "no-new-func": "error",
     "no-new-object": "error",
@@ -294,7 +301,12 @@
     "react/jsx-indent": ["warn", 2],
     "react/jsx-indent-props": ["warn", 2],
     "react/jsx-key": "error",
-    "react/jsx-max-props-per-line": ["warn", { "maximum": 3 }],
+    "react/jsx-max-props-per-line": [
+      "warn",
+      {
+        "maximum": 3
+      }
+    ],
     "react/jsx-no-duplicate-props": "error",
     "react/jsx-no-undef": "error",
     "react/jsx-pascal-case": "error",
@@ -324,8 +336,8 @@
     "require-await": "off",
     "rest-spread-spacing": ["error", "never"],
     "semi-spacing": "warn",
-    "semi-style": "warn",
-    "semi": "warn",
+    "semi-style": "error",
+    "semi": ["warn", "never"],
     "sort-imports": "error",
     "sort-keys": [
       "error",
@@ -354,18 +366,6 @@
     "vars-on-top": "error",
     "yoda": "error"
   },
-  "overrides": [
-    {
-      "files": ["server/**/*.js"],
-      "env": {
-        "node": true
-      },
-      "excludedFiles": "**/*.test.*",
-      "rules": {
-        "func-names": "off"
-      }
-    }
-  ],
   "root": true,
   "settings": {
     "polyfills": ["fetch", "promise"],

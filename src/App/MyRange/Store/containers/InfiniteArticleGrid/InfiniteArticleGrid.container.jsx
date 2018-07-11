@@ -1,5 +1,4 @@
-import InfiniteGrid from 'Common/components/InfiniteGrid';
-import connectInfiniteArticleGrid from './InfiniteArticleGrid.connect';
-const InfiniteArticleGrid = connectInfiniteArticleGrid( InfiniteGrid );
+import InfiniteGrid from 'Common/components/InfiniteGrid'
+const InfiniteArticleGrid = InfiniteGrid
 
-export default InfiniteArticleGrid;
+export default InfiniteArticleGrid

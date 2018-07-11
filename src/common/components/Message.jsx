@@ -1,7 +1,7 @@
-import MiniCard from 'Common/components/MiniCard';
-import React from 'react';
-import { formatDate, } from 'Common/helpers/formatDate';
-import noImage from 'Assets/noImage.png';
+import MiniCard from 'Common/components/MiniCard'
+import React from 'react'
+import { formatDate, } from 'Common/helpers/formatDate'
+import noImage from 'Assets/noImage.png'
 const Message = ( { message, timestamp, userProfile, isUser, } ) => (
   <MiniCard alignRight={ isUser }>
     <MiniCard.Header
@@ -11,6 +11,6 @@ const Message = ( { message, timestamp, userProfile, isUser, } ) => (
     />
     <MiniCard.Body message={ message } />
   </MiniCard>
-);
+)
 
-export default Message;
+export default Message

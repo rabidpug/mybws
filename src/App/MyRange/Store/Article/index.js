@@ -1,2 +1,2 @@
-export { default, } from './Article.container';
-export { default as MyRangeStoreArticleLoadable, } from './Article.loadable';
+export { default, } from './Article.container'
+export { default as MyRangeStoreArticleLoadable, } from './Article.loadable'

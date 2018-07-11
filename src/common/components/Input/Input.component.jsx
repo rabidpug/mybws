@@ -1,12 +1,12 @@
-import { InputWrapper, TextArea, } from './Input.styles';
-import React, { Component, } from 'react';
+import { InputWrapper, TextArea, } from './Input.styles'
+import React, { Component, } from 'react'
 
 export default class Input extends Component {
   render () {
-    const { type, ...props } = this.props;
+    const { type, ...props } = this.props
 
-    if ( type === 'textarea' ) return <TextArea { ...props } />;
+    if ( type === 'textarea' ) return <TextArea { ...props } />
 
-    return <InputWrapper { ...props } type={ type } />;
+    return <InputWrapper { ...props } type={ type } />
   }
 }

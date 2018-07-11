@@ -1,11 +1,11 @@
-import { Text, Wrapper, } from './StrikeTitle.styles';
+import { Text, Wrapper, } from './StrikeTitle.styles'
 
-import React from 'react';
+import React from 'react'
 
 const StrikeTitle = props => (
   <Wrapper>
     <Text { ...props } />
   </Wrapper>
-);
+)
 
-export default StrikeTitle;
+export default StrikeTitle

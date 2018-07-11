@@ -1,26 +1,26 @@
-import ActionIcon from 'Common/components/ActionIcon';
-import React from 'react';
-import { Tooltip, } from 'react-tippy';
+import ActionIcon from 'Common/components/ActionIcon'
+import React from 'react'
+import { Tooltip, } from 'react-tippy'
 
-const ArticleActions = ( { activeRole, item, isBig, onClick, } ) => {
+const ArticleActions = ( { role, item, isBig, onClick, status, } ) => {
   const title = isBig
     ? 'De/Ranging Requests'
-    : item.status === 'Open'
+    : status === 'Open'
       ? 'Open Request Submitted'
-      : item.status === 'Available' && item.blockmsg
+      : status === 'Available' && item.blockmsg
         ? item.blockmsg
-        : item.status === 'Available'
+        : status === 'Available'
           ? 'Request Ranging'
-          : item.status === 'Store Request'
+          : status === 'Store Request'
             ? 'Request Deranging'
-            : 'Action Not Available';
+            : 'Action Not Available'
 
   return (
-    activeRole === 'Store Team' && (
+    role === 'Store Team' && (
       <span>
         <Tooltip distance={ 25 } title={ title } touchHold>
           <ActionIcon
-            icon={ isBig ? 'boxes' : item.status && item.status.includes( 'Available' ) ? 'cart-plus' : 'trash' }
+            icon={ isBig ? 'boxes' : status && status.includes( 'Available' ) ? 'cart-plus' : 'trash' }
             onClick={ () =>
               onClick( {
                 item,
@@ -30,11 +30,11 @@ const ArticleActions = ( { activeRole, item, isBig, onClick, } ) => {
             style={ {
               color: isBig
                 ? '#fff'
-                : item.status === 'Available' && !item.blocked || item.status === 'Store Request'
+                : status === 'Available' && !item.blocked || status === 'Store Request'
                   ? '#000'
                   : '#d3d3d3',
               cursor:
-                item.status === 'Available' && !item.blocked || item.status === 'Store Request' || isBig
+                status === 'Available' && !item.blocked || status === 'Store Request' || isBig
                   ? 'pointer'
                   : 'not-allowed',
             } }
@@ -42,7 +42,7 @@ const ArticleActions = ( { activeRole, item, isBig, onClick, } ) => {
         </Tooltip>
         <Tooltip
           distance={ 25 }
-          title={ isBig ? 'Ranging Issues' : item.status === 'Open' ? 'Open Issue Submitted' : 'Ranging Issue' }
+          title={ isBig ? 'Ranging Issues' : status === 'Open' ? 'Open Issue Submitted' : 'Ranging Issue' }
           touchHold>
           <ActionIcon
             icon='exclamation'
@@ -53,14 +53,14 @@ const ArticleActions = ( { activeRole, item, isBig, onClick, } ) => {
               } )
             }
             style={ {
-              color  : isBig ? '#fff' : item.status === 'Open' ? '#d3d3d3' : '#000',
-              cursor : item.status === 'Open' && !isBig ? 'not-allowed' : 'pointer',
+              color  : isBig ? '#fff' : status === 'Open' ? '#d3d3d3' : '#000',
+              cursor : status === 'Open' && !isBig ? 'not-allowed' : 'pointer',
             } }
           />
         </Tooltip>
       </span>
     )
-  );
-};
+  )
+}
 
-export default ArticleActions;
+export default ArticleActions

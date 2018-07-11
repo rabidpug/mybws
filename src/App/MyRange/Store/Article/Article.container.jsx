@@ -1,167 +1,145 @@
-import { BounceBall, LoadBar, } from 'Common/components/Loaders';
-import React, { PureComponent, } from 'react';
+import { BounceBall, LoadBar, } from 'Common/components/Loaders'
+import React, { PureComponent, } from 'react'
 
-import ArticleActions from './components/ArticleActions';
-import MiniCard from 'Common/components/MiniCard';
-import PlanogramDetails from './components/PlanogramDetails';
-import SlideWrap from 'Common/styles/SlideWrap';
-import connectMyRangeStoreArticle from './Article.connect';
-import { getPath, } from 'utilibelt';
-import noProductImage from 'Assets/noProductImage.png';
-import { toast, } from 'react-toastify';
-import { userIsAuthenticated, } from 'Common/helpers/authWrapper';
-import { withRouter, } from 'react-router-dom';
+import ArticleActions from './components/ArticleActions'
+import MiniCard from 'Common/components/MiniCard'
+import PlanogramDetails from './components/PlanogramDetails'
+import SlideWrap from 'Common/styles/SlideWrap'
+import { getPath, } from 'utilibelt'
+import getStatus from './getStatus'
+import gqlMyRangeStoreArticle from './Article.gql'
+import noProductImage from 'Assets/noProductImage.png'
+import { toast, } from 'react-toastify'
+import { withRouter, } from 'react-router-dom'
 
 @SlideWrap
-@userIsAuthenticated
 @withRouter
-@connectMyRangeStoreArticle
+@gqlMyRangeStoreArticle
 export default class MyRangeStoreArticle extends PureComponent {
   constructor ( props ) {
-    super( props );
+    super( props )
 
     this.state = {
       gettingBig : false,
       swipe      : 0,
-    };
+    }
   }
 
   componentDidMount () {
-    const { item, store: { _id: store, } = {}, article: current = {}, match, fetchArticle, storeID, } = this.props;
-    const article = +( item || match.params._id );
+    const { item, } = this.props
 
-    if ( current._id !== article && !isNaN( article ) ) {
-      const timer = setTimeout( () => {
-        fetchArticle( {
-          article,
-          store: store || storeID,
-        } );
-      }, 600 );
-
-      this.setState( { timer, } );
-    }
-
-    current._id && current._id === +getPath( match, 'params._id' ) && this.setTitle();
+    !item && this.setTitle()
   }
 
   componentDidUpdate ( prevProps ) {
     const {
-      gettingItem,
-      article = {},
+      article: { error, } = {},
       history: { push, },
       location,
       match: { params = {}, },
-    } = this.props;
+    } = this.props
 
-    if ( prevProps.gettingItem && !gettingItem && !article._id && params._id ) {
-      toast.error( 'The provided article number does not exist' );
+    const { article: { error: pastError, } = {}, } = prevProps
 
-      push( location.pathname.replace( `/${params._id}`, '' ) );
+    if ( error !== pastError && error && params._id ) {
+      toast.error( 'The provided article number does not exist' )
+
+      push( location.pathname.replace( `/${params._id}`, '' ) )
     }
-    if (
-      article._id &&
-      ( getPath( prevProps, 'article._id' ) !== article._id || getPath( prevProps, 'match.params._id' ) !== params._id ) &&
-      article._id === +params._id
-    ) this.setTitle();
   }
 
   componentWillUnmount () {
-    const { timer, } = this.state;
+    const { timer, } = this.state
 
-    if ( timer ) clearTimeout( timer );
+    if ( timer ) clearTimeout( timer )
   }
 
   setTitle () {
-    const { article, } = this.props;
+    const { article, } = this.props
 
-    document.title = `myBWS ${article._id} - ${article.description} Range Details`;
+    document.title = `myBWS ${article._id} - ${article.description} Range Details`
   }
 
   render () {
     const {
-      activeRole,
-      article = {},
-      orgdist,
-      store,
-      bodyHeight,
+      article: {
+        getArticle: article = {},
+        getUser: { role, } = {},
+        getStore: store = {},
+        getPlanograms: planograms = [],
+        loading,
+      } = {},
       match = {},
-      planograms,
       history = {},
-      isBig,
       swipe,
       unmountMe,
       style,
-      item,
-    } = this.props;
-    const isLoading = +( item || match.params._id ) !== +article._id;
-    const altUrl = `https://edgmedia.bws.com.au/bws/media/products/${article._id}-1.png?impolicy=Prod_`;
-    const imgUrl = `https://media.danmurphys.com.au/dmo/product/${article._id}-1.png?impolicy=PROD_`;
+    } = this.props
+    const { organisation, district, } = store
+    const orgdist = `${organisation}.${district}`
+    const { status, supply, isBlocked, } = getStatus( article, planograms, store )
 
-    return isLoading ? (
-      <MiniCard isBig={ isBig } loading top>
-        <MiniCard.Header />
-        <MiniCard.Body>
-          <LoadBar />
-        </MiniCard.Body>
-      </MiniCard>
-    ) : (
+    if ( isBlocked ) article.blocked = isBlocked
+    const isBig = !!match.params._id
+    const altUrl = `https://edgmedia.bws.com.au/bws/media/products/${article.id}-1.png?impolicy=Prod_`
+    const imgUrl = `https://media.danmurphys.com.au/dmo/product/${article.id}-1.png?impolicy=PROD_`
+
+    return (
       <MiniCard
         isBig={ isBig }
-        loading={ isLoading }
-        screenOffset={ bodyHeight }
+        loading={ loading }
         style={
           isBig && swipe
             ? {
               ...style,
-              transform  : `translateY(-${swipe}px)`,
-              transition : swipe === bodyHeight ? 'transform 0.3s' : 'none',
+              transform: `translateY(-${swipe}px)`,
             }
             : style
         }
         top>
         <MiniCard.Header
           alt={ `${altUrl}Retina_SM` }
-          avatar={ isLoading ? null : `${imgUrl}RETINA_SM` }
+          avatar={ loading ? null : `${imgUrl}RETINA_SM` }
           data-for='global'
           description={
-            !isLoading &&
-            `${article._id}
+            !loading &&
+            `${article.id}
           ${article.group}`
           }
           noimg={ noProductImage }
-          onClick={ () => !isLoading && !isBig && history.push( `${match.url}/${article._id}` ) }
+          onClick={ () => !loading && !isBig && history.push( `${match.url}/${article.id}` ) }
           onCloseClick={
             isBig
               ? () => {
-                unmountMe( () => history.push( match.url.replace( `/${match.params._id}`, '' ) ) );
+                unmountMe( () => history.push( match.url.replace( `/${match.params._id}`, '' ) ) )
               }
               : null
           }
-          placeholder={ isLoading ? null : `${imgUrl}XS` }
-          ribbon={ !isLoading && ( article.status || 'Loading...' ) }
+          placeholder={ loading ? null : `${imgUrl}XS` }
+          ribbon={ !loading && ( status || 'Loading...' ) }
           ribbonColor={
             [
               'Pog Range',
               'Promo/Season',
               'Customer 1st',
-            ].includes( article.status )
+            ].includes( status )
               ? '#eda12a'
-              : article.status === 'Available'
+              : status === 'Available'
                 ? '#29dc3f'
                 : '#f34859'
           }
           stamp={
-            !isLoading &&
+            !loading &&
             `$${getPath( article,
                          `${orgdist}.price.mpk`,
                          getPath( article, `${orgdist}.price.ea`, getPath( article, `${orgdist}.price.car`, ' - ' ) ) )}`
           }
           title={ article.description || '' }>
           {isBig &&
-            ( planograms
+            ( planograms && article.description
               ? <PlanogramDetails
                 article={ article } orgdist={ orgdist } planograms={ planograms }
-                store={ store } />
+                supply={ supply } />
               : (
                 <div
                   style={ {
@@ -176,16 +154,17 @@ export default class MyRangeStoreArticle extends PureComponent {
         </MiniCard.Header>
         <MiniCard.Body
           isBig={ isBig }
-          message={ !isLoading && ArticleActions }
+          message={ !loading && ArticleActions }
           messageProps={ {
-            activeRole,
             isBig,
             item    : article,
             onClick : d => d,
+            role,
+            status,
           } }>
           <LoadBar />
         </MiniCard.Body>
       </MiniCard>
-    );
+    )
   }
 }

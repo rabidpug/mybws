@@ -1,8 +1,8 @@
-import styled, { css, } from 'styled-components';
+import styled, { css, } from 'styled-components'
 
-import styles from 'Common/styles';
+import styles from 'Common/styles'
 
-const { get: { colours, }, } = styles;
+const { get: { colours, }, } = styles
 
 const full = css`
   height: 100%;
@@ -10,7 +10,7 @@ const full = css`
   max-height: 100%;
   max-width: 100%;
   width: 100%;
-`;
+`
 
 export const CardBody = styled.div`
   display: block;
@@ -21,18 +21,18 @@ export const CardBody = styled.div`
   overflow: auto;
   ${styles.get.scrollBar};
   overflow-x: hidden;
-`;
+`
 export const CardFooter = styled.div`
   background-color: ${colours.white};
   box-shadow: 0 0.125rem 0.375rem 0 rgba(0, 0, 0, 0.2);
   padding: 0.625rem 0;
-`;
+`
 export const CardHeader = styled.div`
   background-color: ${colours.whiteL1};
   padding-top: 0.225rem;
   padding-bottom: 0.225rem;
   user-select: none;
-`;
+`
 export const CardWrapper = styled.div`
   background-color: ${colours.whiteL2};
   box-shadow: 0 0.25rem 0.375rem 0 rgba(0, 0, 0, 0.2);
@@ -55,4 +55,4 @@ export const CardWrapper = styled.div`
     ${full};
   }
   ${( { fullScreen, } ) => fullScreen && full};
-`;
+`

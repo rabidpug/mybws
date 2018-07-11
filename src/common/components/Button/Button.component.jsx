@@ -1,10 +1,10 @@
-import { HrefButton, StyledButton, TextSpan, } from './Button.styles';
+import { HrefButton, StyledButton, TextSpan, } from './Button.styles'
 
-import PopIcon from '../PopIcon/PopIcon.component';
-import React from 'react';
+import PopIcon from '../PopIcon/PopIcon.component'
+import React from 'react'
 
 const Button = ( { disabled, children, icon, href, ...props } ) => {
-  const Component = href ? HrefButton : StyledButton;
+  const Component = href ? HrefButton : StyledButton
 
   return (
     <Component { ...props } disabled={ disabled } href={ href }>
@@ -13,7 +13,7 @@ const Button = ( { disabled, children, icon, href, ...props } ) => {
         {children}
       </TextSpan>
     </Component>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

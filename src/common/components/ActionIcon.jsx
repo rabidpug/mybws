@@ -1,7 +1,7 @@
-import styled, { keyframes, } from 'styled-components';
+import styled, { keyframes, } from 'styled-components'
 
-import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome'
+import React from 'react'
 
 const hoverAnimation = keyframes`
 0% {
@@ -13,7 +13,7 @@ const hoverAnimation = keyframes`
 100% {
   box-shadow: 0 1px 4px 0 rgba(168,192,252,0.24), 0 5px 1px -2px rgba(0,0,0,0.22), 0 2px 5px 0 rgba(0,0,0,0.4);
 }
-`;
+`
 const Wrapper = styled.div`
   font-size: 1.3rem;
   border-radius: 50%;
@@ -31,11 +31,11 @@ const Wrapper = styled.div`
     transform: scale(1.1);
     animation: ${hoverAnimation} 1s ease-in-out infinite;
   }
-`;
+`
 const ActionIcon = ( { icon, ...props } ) => (
   <Wrapper { ...props }>
     <FontAwesomeIcon icon={ icon } />
   </Wrapper>
-);
+)
 
-export default ActionIcon;
+export default ActionIcon

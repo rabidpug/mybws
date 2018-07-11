@@ -1,30 +1,66 @@
-import 'react-hot-loader';
+import 'react-hot-loader'
 
-import { history, store, } from 'Store';
+import React, { PureComponent, } from 'react'
+import { ThemeProvider, injectGlobal, } from 'styled-components'
 
-import $ from 'redux-methods';
-import App from './App';
-import { ConnectedRouter, } from 'react-router-redux';
-import NODE_ENV from './env';
-import { Provider, } from 'react-redux';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Themer from 'Common/containers/Themer';
-import { injectGlobal, } from 'styled-components';
-import registerServiceWorker from './registerServiceWorker';
+import { ApolloProvider, } from 'react-apollo'
+import App from './App'
+import { InMemoryCache, } from 'apollo-cache-inmemory'
+import LoggingIn from './App/components/LoggingIn'
+import { Router, } from 'react-router-dom'
+import apollo from './graphql'
+import createHistory from 'history/createBrowserHistory'
+import { persistCache, } from 'apollo-cache-persist'
+import registerServiceWorker from './registerServiceWorker'
+import { render, } from 'react-dom'
+import styles from 'Common/styles'
 
-NODE_ENV !== 'production' &&
-  module.hot &&
-  module.hot.accept( './store', () => store.replaceReducer( require( './store' ).store ) );
+const history = createHistory()
 
-ReactDOM.render( <Provider store={ store }>
-  <Themer>
-    <ConnectedRouter history={ history }>
-      <App />
-    </ConnectedRouter>
-  </Themer>
-</Provider>,
-                 document.getElementById( 'root' ) );
+class Index extends PureComponent {
+  state = {
+    client : null,
+    loaded : false,
+  }
+
+  async componentDidMount () {
+    const cache = new InMemoryCache()
+
+    const client = apollo( cache )
+
+    try {
+      await persistCache( {
+        cache,
+        maxSize : false,
+        storage : window.localStorage,
+      } )
+    } catch ( error ) {
+      console.error('Error restoring Apollo cache', error) //eslint-disable-line
+    }
+
+    this.setState( {
+      client,
+      loaded: true,
+    } )
+  }
+
+  render () {
+    const { client, loaded, } = this.state
+
+    return loaded ? (
+      <ApolloProvider client={ client }>
+        <ThemeProvider theme={ styles.themes.main }>
+          <Router history={ history }>
+            <App />
+          </Router>
+        </ThemeProvider>
+      </ApolloProvider>
+    )
+      : <LoggingIn />
+  }
+}
+
+render( <Index />, document.getElementById( 'root' ) )
 
 injectGlobal`
 *,
@@ -52,10 +88,6 @@ ul, menu, dir {
     -webkit-margin-after: 0;
     -webkit-padding-start: 0;
 }
-`;
+`
 
-window.addEventListener( 'online', () => store.dispatch( $.ui.isOnline.set( true ) ) );
-
-window.addEventListener( 'offline', () => store.dispatch( $.ui.isOnline.set( false ) ) );
-
-registerServiceWorker();
+registerServiceWorker()

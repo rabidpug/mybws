@@ -1,7 +1,7 @@
-import { Close, Description, HeaderWrapper, Title, TitleWrapper, } from '../MiniCard.styles';
+import { Close, Description, HeaderWrapper, Title, TitleWrapper, } from '../MiniCard.styles'
 
-import AvatarContainer from './AvatarContainer';
-import React from 'react';
+import AvatarContainer from './AvatarContainer'
+import React from 'react'
 
 const Header = ( {
   avatar,
@@ -30,7 +30,7 @@ const Header = ( {
     ribbonColor,
     stamp,
     top,
-  };
+  }
 
   return (
     <HeaderWrapper { ...props } isBig={ isBig } top={ top }>
@@ -45,7 +45,7 @@ const Header = ( {
       )}
       {alignRight && avatar && <AvatarContainer { ...AvatarProps } />}
     </HeaderWrapper>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

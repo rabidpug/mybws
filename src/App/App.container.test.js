@@ -1,10 +1,10 @@
-import App from './App.container';
-import React from 'react';
-import { shallow, } from 'enzyme';
-import toJson from 'enzyme-to-json';
+import App from './App.container'
+import React from 'react'
+import { shallow, } from 'enzyme'
+import toJson from 'enzyme-to-json'
 
 describe( 'App Container', () => {
-  const AppContainer = () => shallow( <App /> );
+  const AppContainer = () => shallow( <App /> )
 
   //======== TEST SHALLOW RENDERING ========//
   // it( 'has a TouchableOpacity classname', () => {
@@ -31,12 +31,12 @@ describe( 'App Container', () => {
 
   //======== TEST SNAPSHOT =========//
   it( 'should match the snapshot', () => {
-    expect( toJson( AppContainer() ) ).toMatchSnapshot();
-  } );
+    expect( toJson( AppContainer() ) ).toMatchSnapshot()
+  } )
 
   // it( 'snapshot when state loading is true', () => {
   //   const wrapper = appButton().setState( { loading: true, } );
 
   //   expect( toJson( wrapper ) ).toMatchSnapshot();
   // } );
-} );
+} )

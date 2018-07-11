@@ -1,26 +1,26 @@
-import React, { Component, } from 'react';
+import React, { Component, } from 'react'
 
-import { Animate, } from 'react-move';
-import { easeExpInOut, } from 'd3-ease';
+import { Animate, } from 'react-move'
+import { easeExpInOut, } from 'd3-ease'
 
 const FadeWrap = WrappedContainer =>
   class FadeWrap extends Component {
     constructor ( props ) {
-      super( props );
+      super( props )
 
-      this.state = { show: false, };
+      this.state = { show: false, }
     }
 
     componentDidMount () {
-      this.setState( { show: true, } );
+      this.setState( { show: true, } )
     }
 
     componentWillUnmount () {
-      this.setState( { show: false, } );
+      this.setState( { show: false, } )
     }
 
     render () {
-      const { show, } = this.state;
+      const { show, } = this.state
 
       return (
         <Animate
@@ -53,8 +53,8 @@ const FadeWrap = WrappedContainer =>
             style={ { opacity, } }
             { ...this.props } /> )}
         </Animate>
-      );
+      )
     }
-  };
+  }
 
-export default FadeWrap;
+export default FadeWrap

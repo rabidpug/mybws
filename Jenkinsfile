@@ -46,13 +46,6 @@ agent none
             }
 
             options { skipDefaultCheckout() }
-            when {
-                anyOf {
-                    branch 'master'
-                    branch 'next';
-                    branch 'debug'
-                    }
-                }
             steps {
                 echo 'publishing branch '  + env.BRANCH_NAME
                 sh 'chmod +x ./publish.sh'

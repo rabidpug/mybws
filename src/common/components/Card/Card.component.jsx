@@ -1,5 +1,5 @@
-import { CardBody, CardFooter, CardHeader, CardWrapper, } from './Card.styles';
-import React, { PureComponent, } from 'react';
+import { CardBody, CardFooter, CardHeader, CardWrapper, } from './Card.styles'
+import React, { PureComponent, } from 'react'
 
 export default class Card extends PureComponent {
   static Body = CardBody;
@@ -9,6 +9,6 @@ export default class Card extends PureComponent {
   static Header = CardHeader;
 
   render () {
-    return <CardWrapper { ...this.props } />;
+    return <CardWrapper { ...this.props } />
   }
 }

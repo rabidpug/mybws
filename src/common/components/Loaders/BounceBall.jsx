@@ -1,7 +1,7 @@
-import styled, { keyframes, } from 'styled-components';
+import styled, { keyframes, } from 'styled-components'
 
-import React from 'react';
-import styles from 'Common/styles';
+import React from 'react'
+import styles from 'Common/styles'
 
 const bounce = keyframes`
     0% {
@@ -18,7 +18,7 @@ const bounce = keyframes`
     100% {
       top: 0;
     }
-`;
+`
 const BounceBall = styled.div`
   position: relative;
   display: inline-block;
@@ -36,7 +36,7 @@ const BounceBall = styled.div`
     transform-origin: 50%;
     animation: ${bounce} 500ms alternate infinite ease;
   }
-`;
+`
 
 export const MidBounceBall = ( { message, bounce, } ) => (
   <div
@@ -55,6 +55,6 @@ export const MidBounceBall = ( { message, bounce, } ) => (
       {message}
     </span>
   </div>
-);
+)
 
-export default BounceBall;
+export default BounceBall

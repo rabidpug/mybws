@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const ModalHeader = ( { children, } ) => (
   <h3
@@ -8,6 +8,6 @@ const ModalHeader = ( { children, } ) => (
     } }>
     {children}
   </h3>
-);
+)
 
-export default ModalHeader;
+export default ModalHeader

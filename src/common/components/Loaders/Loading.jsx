@@ -1,8 +1,8 @@
-import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome'
+import React from 'react'
 
 const Loading = ( { error, timedOut, pastDelay = true, } ) => {
-  if ( error || timedOut ) window.location.reload();
+  if ( error || timedOut ) window.location.reload()
 
   return (
     pastDelay && (
@@ -22,7 +22,7 @@ const Loading = ( { error, timedOut, pastDelay = true, } ) => {
         } }
       />
     )
-  );
-};
+  )
+}
 
-export default Loading;
+export default Loading

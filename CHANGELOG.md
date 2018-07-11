@@ -1,8 +1,8 @@
 # CHANGELOG
 
-## v0.0.2-alpha.0
+## v0.0.2-alpha.1
 
-- initial version
+- Broke out backend to simplify package
 
 ## v0.0.1
 

@@ -1,12 +1,30 @@
-import $ from 'redux-methods';
-import TopBar from '../containers/TopBar';
-import { store, } from 'Store';
+import TopBar from '../containers/TopBar'
+import client from '../../graphql'
+import gql from 'graphql-tag'
+
+const toggleStatus = keys => {
+  client().mutate( {
+    mutation: gql`
+      mutation($keys: [String]) {
+        updateOpenKeysSet(keys: $keys) @client
+      }
+    `,
+    variables: { keys, },
+  } )
+}
 
 const actionMenu = [
   {
     actionMenuItems: [
       {
-        action          : () => store.dispatch( $.user.doLogOut() ),
+        action: () =>
+          client().mutate( {
+            mutation: gql`
+              mutation {
+                logout @client
+              }
+            `,
+          } ),
         icon            : 'sign-out-alt',
         isAuthenticated : true,
         key             : '1',
@@ -26,56 +44,56 @@ const actionMenu = [
         subMenu         : [
           {
             action: () =>
-              store.dispatch( $.query.toggleStatus( [
-                'filters.status.Pog Range',
-                'filters.status.Open Request',
-                'filters.status.Available',
-                'filters.status.Not Available',
-                'filters.status.Customer 1st',
-                'filters.status.Promo/Season',
-              ] ) ),
+              toggleStatus( [
+                'statusFilters.Pog Range',
+                'statusFilters.Open Request',
+                'statusFilters.Available',
+                'statusFilters.Not Available',
+                'statusFilters.Customer 1st',
+                'statusFilters.Promo/Season',
+              ] ),
             icon            : 'star',
             isAuthenticated : true,
             key             : 'status',
             label           : 'Status',
             subMenu         : [
               {
-                action          : () => store.dispatch( $.query.toggleStatus( 'filters.status.Pog Range' ) ),
+                action          : () => toggleStatus( [ 'statusFilters.Pog Range', ] ),
                 icon            : 'tasks',
                 isAuthenticated : true,
                 key             : 'Pog Range',
                 label           : 'My Planogram Range',
               },
               {
-                action          : () => store.dispatch( $.query.toggleStatus( 'filters.status.Promo/Season' ) ),
+                action          : () => toggleStatus( [ 'statusFilters.Promo/Season', ] ),
                 icon            : 'chart-line',
                 isAuthenticated : true,
                 key             : 'Promo/Season',
                 label           : 'My Promo/Season Range',
               },
               {
-                action          : () => store.dispatch( $.query.toggleStatus( 'filters.status.Customer 1st' ) ),
+                action          : () => toggleStatus( [ 'statusFilters.Customer 1st', ] ),
                 icon            : 'cart-plus',
                 isAuthenticated : true,
                 key             : 'Customer 1st',
                 label           : 'My Customer 1st Range',
               },
               {
-                action          : () => store.dispatch( $.query.toggleStatus( 'filters.status.Open Request' ) ),
+                action          : () => toggleStatus( [ 'statusFilters.Open Request', ] ),
                 icon            : 'clock',
                 isAuthenticated : true,
                 key             : 'Open Request',
                 label           : 'My Open Requests',
               },
               {
-                action          : () => store.dispatch( $.query.toggleStatus( 'filters.status.Available' ) ),
+                action          : () => toggleStatus( [ 'statusFilters.Available', ] ),
                 icon            : 'check-circle',
                 isAuthenticated : true,
                 key             : 'Available',
                 label           : 'My Available Products',
               },
               {
-                action          : () => store.dispatch( $.query.toggleStatus( 'filters.status.Not Available' ) ),
+                action          : () => toggleStatus( [ 'statusFilters.Not Available', ] ),
                 icon            : 'times-circle',
                 isAuthenticated : true,
                 key             : 'Not Available',
@@ -85,19 +103,19 @@ const actionMenu = [
           },
           {
             action: () =>
-              store.dispatch( $.query.toggleStatus( [
-                `filters.group.Wine - Red`,
-                `filters.group.Wine - White`,
-                `filters.group.Wine - Sparkling`,
-                `filters.group.Wine - Imported`,
-                `filters.group.Wine - Cask & Fortified`,
-                `filters.group.Spirits - Glass`,
-                `filters.group.Spirits - RTD & Cider`,
-                `filters.group.Non-Liquor - Cigarettes`,
-                `filters.group.Non-Liquor - Snackfoods`,
-                'filters.group.Non-Liquor - Soft Drinks',
-                'filters.group.Beer',
-              ] ) ),
+              toggleStatus( [
+                `groupFilters.Wine - Red`,
+                `groupFilters.Wine - White`,
+                `groupFilters.Wine - Sparkling`,
+                `groupFilters.Wine - Imported`,
+                `groupFilters.Wine - Cask & Fortified`,
+                `groupFilters.Spirits - Glass`,
+                `groupFilters.Spirits - RTD & Cider`,
+                `groupFilters.Non-Liquor - Cigarettes`,
+                `groupFilters.Non-Liquor - Snackfoods`,
+                'groupFilters.Non-Liquor - Soft Drinks',
+                'groupFilters.Beer',
+              ] ),
             icon            : 'boxes',
             isAuthenticated : true,
             key             : 'category',
@@ -105,48 +123,48 @@ const actionMenu = [
             subMenu         : [
               {
                 action: () =>
-                  store.dispatch( $.query.toggleStatus( [
-                    `filters.group.Wine - Red`,
-                    `filters.group.Wine - White`,
-                    `filters.group.Wine - Sparkling`,
-                    `filters.group.Wine - Imported`,
-                    `filters.group.Wine - Cask & Fortified`,
-                  ] ) ),
+                  toggleStatus( [
+                    `groupFilters.Wine - Red`,
+                    `groupFilters.Wine - White`,
+                    `groupFilters.Wine - Sparkling`,
+                    `groupFilters.Wine - Imported`,
+                    `groupFilters.Wine - Cask & Fortified`,
+                  ] ),
                 icon            : 'wine-glass',
                 isAuthenticated : true,
                 key             : 'Wine',
                 label           : 'Wine',
                 subMenu         : [
                   {
-                    action          : () => store.dispatch( $.query.toggleStatus( `filters.group.Wine - Red` ) ),
+                    action          : () => toggleStatus( [ `groupFilters.Wine - Red`, ] ),
                     icon            : 'map-pin',
                     isAuthenticated : true,
                     key             : 'Wine - Red',
                     label           : 'Wine - Red',
                   },
                   {
-                    action          : () => store.dispatch( $.query.toggleStatus( `filters.group.Wine - White` ) ),
+                    action          : () => toggleStatus( [ `groupFilters.Wine - White`, ] ),
                     icon            : 'map-pin',
                     isAuthenticated : true,
                     key             : 'Wine - White',
                     label           : 'Wine - White',
                   },
                   {
-                    action          : () => store.dispatch( $.query.toggleStatus( `filters.group.Wine - Sparkling` ) ),
+                    action          : () => toggleStatus( [ `groupFilters.Wine - Sparkling`, ] ),
                     icon            : 'map-pin',
                     isAuthenticated : true,
                     key             : 'Wine - Sparkling',
                     label           : 'Wine - Sparkling',
                   },
                   {
-                    action          : () => store.dispatch( $.query.toggleStatus( `filters.group.Wine - Imported` ) ),
+                    action          : () => toggleStatus( [ `groupFilters.Wine - Imported`, ] ),
                     icon            : 'map-pin',
                     isAuthenticated : true,
                     key             : 'Wine - Imported',
                     label           : 'Wine - Imported',
                   },
                   {
-                    action          : () => store.dispatch( $.query.toggleStatus( `filters.group.Wine - Cask & Fortified` ) ),
+                    action          : () => toggleStatus( [ `groupFilters.Wine - Cask & Fortified`, ] ),
                     icon            : 'map-pin',
                     isAuthenticated : true,
                     key             : 'Wine - Cask & Fortified',
@@ -155,25 +173,24 @@ const actionMenu = [
                 ],
               },
               {
-                action: () =>
-                  store.dispatch( $.query.toggleStatus( [
-                    `filters.group.Spirits - Glass`,
-                    `filters.group.Spirits - RTD & Cider`,
-                  ] ) ),
+                action: () => toggleStatus( [
+                  `groupFilters.Spirits - Glass`,
+                  `groupFilters.Spirits - RTD & Cider`,
+                ] ),
                 icon            : 'glass-martini',
                 isAuthenticated : true,
                 key             : 'Spirits',
                 label           : 'Spirits',
                 subMenu         : [
                   {
-                    action          : () => store.dispatch( $.query.toggleStatus( `filters.group.Spirits - Glass` ) ),
+                    action          : () => toggleStatus( [ `groupFilters.Spirits - Glass`, ] ),
                     icon            : 'map-pin',
                     isAuthenticated : true,
                     key             : 'Spirits - Glass',
                     label           : 'Spirits - Glass',
                   },
                   {
-                    action          : () => store.dispatch( $.query.toggleStatus( `filters.group.Spirits - RTD & Cider` ) ),
+                    action          : () => toggleStatus( [ `groupFilters.Spirits - RTD & Cider`, ] ),
                     icon            : 'map-pin',
                     isAuthenticated : true,
                     key             : 'Spirits - RTD & Cider',
@@ -183,11 +200,11 @@ const actionMenu = [
               },
               {
                 action: () =>
-                  store.dispatch( $.query.toggleStatus( [
-                    `filters.group.Non-Liquor - Cigarettes`,
-                    `filters.group.Non-Liquor - Snackfoods`,
-                    'filters.group.Non-Liquor - Soft Drinks',
-                  ] ) ),
+                  toggleStatus( [
+                    `groupFilters.Non-Liquor - Cigarettes`,
+                    `groupFilters.Non-Liquor - Snackfoods`,
+                    'groupFilters.Non-Liquor - Soft Drinks',
+                  ] ),
                 icon: [
                   'fab',
                   'gulp',
@@ -197,21 +214,21 @@ const actionMenu = [
                 label           : 'Non-Liquor',
                 subMenu         : [
                   {
-                    action          : () => store.dispatch( $.query.toggleStatus( `filters.group.Non-Liquor - Cigarettes` ) ),
+                    action          : () => toggleStatus( [ `groupFilters.Non-Liquor - Cigarettes`, ] ),
                     icon            : 'map-pin',
                     isAuthenticated : true,
                     key             : 'Non-Liquor - Cigarettes',
                     label           : 'Non-Liquor - Cigarettes',
                   },
                   {
-                    action          : () => store.dispatch( $.query.toggleStatus( `filters.group.Non-Liquor - Snackfoods` ) ),
+                    action          : () => toggleStatus( [ `groupFilters.Non-Liquor - Snackfoods`, ] ),
                     icon            : 'map-pin',
                     isAuthenticated : true,
                     key             : 'Non-Liquor - Snackfoods',
                     label           : 'Non-Liquor - Snackfoods',
                   },
                   {
-                    action          : () => store.dispatch( $.query.toggleStatus( `filters.group.Non-Liquor - Soft Drinks` ) ),
+                    action          : () => toggleStatus( [ `groupFilters.Non-Liquor - Soft Drinks`, ] ),
                     icon            : 'map-pin',
                     isAuthenticated : true,
                     key             : 'Non-Liquor - Soft Drinks',
@@ -220,7 +237,7 @@ const actionMenu = [
                 ],
               },
               {
-                action          : () => store.dispatch( $.query.toggleStatus( `filters.group.Beer` ) ),
+                action          : () => toggleStatus( [ `groupFilters.Beer`, ] ),
                 icon            : 'beer',
                 isAuthenticated : true,
                 key             : 'Beer',
@@ -237,35 +254,35 @@ const actionMenu = [
         label           : 'Sort',
         subMenu         : [
           {
-            action          : () => store.dispatch( $.query.toggleStatus( 'sort.isDescending' ) ),
+            action          : () => toggleStatus( [ 'descendingSort', ] ),
             icon            : 'sort-amount-down',
             isAuthenticated : true,
-            key             : 'isDescending',
+            key             : 'descendingSort',
             label           : 'Descending',
           },
           {
-            action          : () => store.dispatch( $.query.toggleStatus( 'sort.group' ) ),
+            action          : () => toggleStatus( [ 'sort.group', ] ),
             icon            : 'boxes',
             isAuthenticated : true,
             key             : 'group',
             label           : 'Category',
           },
           {
-            action          : () => store.dispatch( $.query.toggleStatus( 'sort.description' ) ),
+            action          : () => toggleStatus( [ 'sort.description', ] ),
             icon            : 'edit',
             isAuthenticated : true,
             key             : 'description',
             label           : 'Description',
           },
           {
-            action          : () => store.dispatch( $.query.toggleStatus( 'sort.price' ) ),
+            action          : () => toggleStatus( [ 'sort.price', ] ),
             icon            : 'hand-holding-usd',
             isAuthenticated : true,
             key             : 'price',
             label           : 'Price',
           },
           {
-            action          : () => store.dispatch( $.query.toggleStatus( 'sort.performance' ) ),
+            action          : () => toggleStatus( [ 'sort.performance', ] ),
             icon            : 'hand-holding-usd',
             isAuthenticated : true,
             key             : 'performance',
@@ -280,14 +297,14 @@ const actionMenu = [
         label           : 'Settings',
         subMenu         : [
           {
-            action          : () => store.dispatch( $.query.toggleStatus( 'isExact' ) ),
+            action          : () => toggleStatus( [ 'exactSearch', ] ),
             icon            : 'search-plus',
             isAuthenticated : true,
-            key             : 'isExact',
+            key             : 'exactSearch',
             label           : 'Search Complete Words',
           },
           {
-            action          : () => store.dispatch( $.query.toggleStatus( 'infiniteScroll' ) ),
+            action          : () => toggleStatus( [ 'infiniteScroll', ] ),
             icon            : 'spinner',
             isAuthenticated : true,
             key             : 'infiniteScroll',
@@ -296,18 +313,14 @@ const actionMenu = [
         ],
       },
     ],
-    component    : TopBar,
-    path         : '/myRange',
-    selectedKeys : state => ( {
-      ...state.query.params,
-      infiniteScroll: state.query.infiniteScroll,
-    } ),
+    component : TopBar,
+    path      : '/myRange',
   },
   {
     actionMenuItems : [],
     component       : TopBar,
     path            : '*',
   },
-];
+]
 
-export default actionMenu;
+export default actionMenu

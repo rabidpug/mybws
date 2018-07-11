@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import styles from 'Common/styles';
-const { get: { colours, }, } = styles;
+import styled from 'styled-components'
+import styles from 'Common/styles'
+const { get: { colours, }, } = styles
 
 const RadioButtonStyles = {
   Input: styled.input.attrs( { type: 'radio', } )`
@@ -52,6 +52,6 @@ const RadioButtonStyles = {
     }
     }
   `,
-};
+}
 
-export default RadioButtonStyles;
+export default RadioButtonStyles

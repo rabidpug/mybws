@@ -1,6 +1,6 @@
-import { darken, lighten, } from 'polished';
+import { darken, lighten, } from 'polished'
 
-import createSelector from 'selectorator';
+import createSelector from 'selectorator'
 
 const get = {
   colours: {
@@ -36,6 +36,6 @@ const get = {
     whiteL2         : createSelector( [ 'theme.colours.grey', ], colour => lighten( 0.44, colour ) ),
   },
   scrollBar: createSelector( [ 'theme.scrollBar', ] ),
-};
+}
 
-export default get;
+export default get

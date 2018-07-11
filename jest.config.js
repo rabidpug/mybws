@@ -1,13 +1,7 @@
 module.exports = {
-  collectCoverageFrom: [
-    'src/**/*.{js,jsx}',
-    'server/**/*.js',
-  ],
-  coveragePathIgnorePatterns: [
-    'src/index.jsx',
-    'server/index.js',
-  ],
-  moduleFileExtensions: [
+  collectCoverageFrom        : [ 'src/**/*.{js,jsx}', ],
+  coveragePathIgnorePatterns : [ 'src/index.jsx', ],
+  moduleFileExtensions       : [
     '/index.js',
     '/index.jsx',
     'js',
@@ -27,4 +21,4 @@ module.exports = {
   ],
   setupFiles                   : [ 'jest-localstorage-mock', ],
   setupTestFrameworkScriptFile : './testConfig.js',
-};
+}

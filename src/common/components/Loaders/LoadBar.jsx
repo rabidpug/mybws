@@ -1,6 +1,6 @@
-import styled, { keyframes, } from 'styled-components';
+import styled, { keyframes, } from 'styled-components'
 
-import React from 'react';
+import React from 'react'
 
 const loading = keyframes`
     from {
@@ -22,7 +22,7 @@ const loading = keyframes`
     to {
       left: 100%;
     }
-  `;
+  `
 const LoadBarTop = styled.div`
   height: 4px;
   width: 100%;
@@ -39,18 +39,18 @@ const LoadBarTop = styled.div`
     background-color: #2980b9;
     animation: ${loading} 2s linear infinite;
   }
-`;
+`
 const LoadBarWrap = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
   background-color: rgba(0, 0, 0, 0.2);
-`;
+`
 
 const LoadBar = () => (
   <LoadBarWrap>
     <LoadBarTop />
   </LoadBarWrap>
-);
+)
 
-export default LoadBar;
+export default LoadBar

@@ -1,89 +1,103 @@
-import React, { PureComponent, } from 'react';
+import React, { PureComponent, } from 'react'
 
-import ChangePublic from 'Common/components/ChangePublic';
-import ModalHeader from 'Common/components/ModalHeader';
-import { MyRangeStoreLoadable, } from './Store';
-import { Route, } from 'react-router-dom';
-import { Spinner, } from 'Common/components/Loaders';
-import connectMyRange from './MyRange.connect';
-import { toast, } from 'react-toastify';
-import { userIsAuthenticated, } from 'Common/helpers/authWrapper';
+import AddNewModal from '../MyProfile/containers/AddNewModal.component'
+import { LoadBar, } from 'Common/components/Loaders'
+import { MyRangeStoreLoadable, } from './Store'
+import { Route, } from 'react-router-dom'
+import gqlMyRange from './MyRange.gql'
+import subMyRange from './MyRange.sub'
+import { toast, } from 'react-toastify'
 
-@userIsAuthenticated
-@connectMyRange
+@gqlMyRange
+@subMyRange
 export default class MyRange extends PureComponent {
-  componentDidMount () {
-    document.title = 'myBWS Range';
+  state = { showModal: false, }
 
-    this.checkPath();
+  componentDidMount () {
+    document.title = 'myBWS Range'
+
+    this.checkPath()
   }
 
   componentDidUpdate ( prevProps ) {
-    this.checkPath( prevProps );
+    this.checkPath( prevProps )
   }
 
   checkPath = ( prevProps = {} ) => {
     const {
-      gettingProfile,
-      history: { replace, push, },
-      isSocketConnected,
-      location = {},
-      setModal,
+      user = {},
       store = {},
+      history: { replace, },
+      location = {},
       match,
-      modal,
-    } = this.props;
-    const { location: oldLocation = {}, } = prevProps;
+    } = this.props
+    const { location: oldLocation = {}, user: oldUser = {}, store: oldStore = {}, } = prevProps
 
-    if ( isSocketConnected && !gettingProfile && match.isExact && location.pathname !== oldLocation.pathname ) {
-      if ( store._id ) {
-        replace( `/myRange/${store._id}` );
+    if (
+      !user.loading &&
+      !store.loading &&
+      match.isExact &&
+      ( location.pathname !== oldLocation.pathname ||
+        oldUser.loading !== user.loading ||
+        oldStore.loading !== store.loading )
+    ) {
+      const { getStore = {}, } = store
 
-        document.title = `myBWS ${store.name} Range`;
-      } else {
-        setModal( {
-          body      : <ChangePublic field='stores' label='Store Number' onSubmit={ this.handleSubmit } />,
-          header    : <ModalHeader>Enter Store Number To View Range</ModalHeader>,
-          height    : 120,
-          showModal : true,
-        } );
-      }
+      if ( getStore.id ) {
+        replace( `/myRange/${getStore.id}` )
+
+        document.title = `myBWS ${getStore.name} Range`
+      } else this.setState( { showModal: true, } )
     }
-    if ( prevProps.modal && !modal && !store._id && match.isExact ) {
-      toast.error( 'A store number is required to view myRange' );
+  }
 
-      push( '/' );
-    }
-  };
+  closeModal = () => {
+    const { history: { push, }, } = this.props
+
+    this.setState( { showModal: false, } )
+
+    toast.error( 'A store number is required to view myRange' )
+
+    push( '/' )
+  }
 
   handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const {
-      history: { replace, },
-      setModal,
-    } = this.props;
-    const { target: { input, }, } = e;
-    let { value, } = input;
+    const { history: { replace, }, } = this.props
+    const { target: { input, }, } = e
+    let { value, } = input
 
-    value = isNaN( parseInt( value ) ) ? value : parseInt( value );
+    value = isNaN( parseInt( value ) ) ? value : parseInt( value )
 
-    input.value = '';
+    input.value = ''
 
-    replace( `/myRange/${value}` );
+    replace( `/myRange/${value}` )
 
-    setModal();
-  };
+    this.setState( { showModal: false, } )
+  }
 
   render () {
-    const { match, isSocketConnected, } = this.props;
+    const {
+      user = {},
+      store = {},
+      match: { url, },
+    } = this.props
+    const { showModal, } = this.state
 
-    const [
-      , , pathStore,
-    ] = location.pathname.split( '/' );
-
-    return isSocketConnected && +pathStore
-      ? <Route component={ MyRangeStoreLoadable } path={ `${match.url}/:store` } />
-      :       <Spinner />;
+    if ( user.loading || store.loading ) return <LoadBar />
+    if ( showModal ) {
+      return (
+        <AddNewModal
+          field='store'
+          handleSubmit={ this.handleSubmit }
+          header='Enter A Store Number'
+          label='Store Number'
+          onClose={ this.closeModal }
+          show={ showModal }
+        />
+      )
+    }
+    return <Route component={ MyRangeStoreLoadable } path={ `${url}/:store` } />
   }
 }

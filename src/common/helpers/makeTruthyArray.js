@@ -7,26 +7,26 @@ const makeTruthyArray = ( obj, data ) => {
           p = [
             ...p,
             data[n],
-          ];
+          ]
         } else {
           p = [
             ...p,
             n,
-          ];
+          ]
         }
 
-        return p;
-      }, [] );
+        return p
+      }, [] )
   }
-  if ( typeof data === 'object' && !data.every( v => typeof v !== 'object' ) ) data = data.reduce( makeTruthyArray, [] );
+  if ( typeof data === 'object' && !data.every( v => typeof v !== 'object' ) ) data = data.reduce( makeTruthyArray, [] )
   if ( Array.isArray( data ) ) {
     obj = [
       ...obj,
       ...data,
-    ];
-  } else obj.push( data );
+    ]
+  } else obj.push( data )
 
-  return obj;
-};
+  return obj
+}
 
-export default makeTruthyArray;
+export default makeTruthyArray

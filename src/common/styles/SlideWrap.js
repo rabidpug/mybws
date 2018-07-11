@@ -1,43 +1,43 @@
-import React, { Component, } from 'react';
+import React, { Component, } from 'react'
 
-import { Animate, } from 'react-move';
-import { easeExpInOut, } from 'd3-ease';
+import { Animate, } from 'react-move'
+import { easeExpInOut, } from 'd3-ease'
 
 const SlideWrap = WrappedContainer =>
   class SlideWrap extends Component {
     constructor ( props ) {
-      super( props );
+      super( props )
 
-      this.state = { show: false, };
+      this.state = { show: false, }
     }
 
     componentDidMount () {
-      this.setState( { show: true, } );
+      this.setState( { show: true, } )
     }
 
     componentDidUpdate ( prevProps ) {
-      const { forceUnmount, } = this.props;
+      const { forceUnmount, } = this.props
 
       if ( !prevProps.forceUnmount && forceUnmount ) {
-        this.setState( { show: false, } );
+        this.setState( { show: false, } )
 
-        setTimeout( () => forceUnmount(), 400 );
+        setTimeout( () => forceUnmount(), 400 )
       }
     }
 
     componentWillUnmount () {
-      this.setState( { show: false, } );
+      this.setState( { show: false, } )
     }
 
     doUnmount = cb => {
-      this.setState( { show: false, } );
+      this.setState( { show: false, } )
 
-      setTimeout( () => cb(), 400 );
+      setTimeout( () => cb(), 400 )
     };
 
     render () {
-      const { show, } = this.state;
-      const { item, } = this.props;
+      const { show, } = this.state
+      const { item, } = this.props
 
       return (
         <Animate
@@ -76,8 +76,8 @@ const SlideWrap = WrappedContainer =>
             />
           )}
         </Animate>
-      );
+      )
     }
-  };
+  }
 
-export default SlideWrap;
+export default SlideWrap

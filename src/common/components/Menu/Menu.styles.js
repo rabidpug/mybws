@@ -1,8 +1,8 @@
-import styled, { css, keyframes, } from 'styled-components';
+import styled, { css, keyframes, } from 'styled-components'
 
-import styles from 'Common/styles';
+import styles from 'Common/styles'
 
-const { get: { colours, }, } = styles;
+const { get: { colours, }, } = styles
 
 const isSelectedStyling = ( { isSelected, vertical, } ) =>
   isSelected && vertical
@@ -17,9 +17,9 @@ const isSelectedStyling = ( { isSelected, vertical, } ) =>
           background-position: left center;
           transition: background-size 0.3s ease-in-out;
         `
-      : '';
+      : ''
 const isOpenPadding = ( { vertical, showText, childCount = 0, } ) =>
-  vertical && showText ? `${1 + 0.5 * childCount}rem` : '1.3rem';
+  vertical && showText ? `${1 + 0.5 * childCount}rem` : '1.3rem'
 const orientationStyling = ( { vertical, childCount, isSubMenu, } ) =>
   vertical
     ? css`
@@ -43,7 +43,7 @@ const orientationStyling = ( { vertical, childCount, isSubMenu, } ) =>
           border-bottom: 2px solid ${colours.primary};
           color: ${colours.primary};
         }
-`;
+`
 const bounce = keyframes`
       0% {
         transform: translateY(0px);
@@ -53,7 +53,7 @@ const bounce = keyframes`
       }
       100% {
         transform: translateY(0px);
-      }`;
+      }`
 const liSubMenuStyling = ( { vertical, childCount, } ) =>
   vertical
     ? css`
@@ -65,7 +65,7 @@ const liSubMenuStyling = ( { vertical, childCount, } ) =>
         float: ${childCount === 1 && 'right'};
         color: ${colours.greyD1};
         margin: 0;
-      `;
+      `
 const subMenuOrientationStyling = ( { vertical, childCount, } ) =>
   vertical
     ? ''
@@ -79,7 +79,7 @@ const subMenuOrientationStyling = ( { vertical, childCount, } ) =>
           position: absolute;
           top: 3rem;
           right: 0;
-        `;
+        `
 
 export const MenuItemWrapper = styled.li`
   overflow: hidden;
@@ -95,7 +95,7 @@ export const MenuItemWrapper = styled.li`
   transition: background-size 0.3s ease-in-out;
   ${orientationStyling};
   ${isSelectedStyling};
-`;
+`
 export const MenuSubItem = styled.li`
   transition: all 0.2s;
   color: ${colours.whiteL2};
@@ -110,7 +110,7 @@ export const MenuSubItem = styled.li`
   transition: background-size 0.3s ease-in-out;
   ${isSelectedStyling};
   ${liSubMenuStyling};
-`;
+`
 export const MenuSubTitle = styled.span`
   transition: all 0.2s;
   padding: 0 ${isOpenPadding};
@@ -121,7 +121,7 @@ export const MenuSubTitle = styled.span`
   transition: background-size 0.3s ease-in-out;
   ${orientationStyling};
   ${isSelectedStyling};
-`;
+`
 export const MenuSubWrapper = styled.ul`
   padding: 0;
   transition: all 0.2s;
@@ -135,7 +135,7 @@ export const MenuSubWrapper = styled.ul`
   height: auto;
 
   ${subMenuOrientationStyling};
-`;
+`
 export const MenuText = styled.span`
   transition: all 0.2s;
   margin-left: 0.5rem;
@@ -144,7 +144,7 @@ export const MenuText = styled.span`
   font-family: 'Open Sans', sans-serif;
   display: inline-block;
   overflow: hidden;
-`;
+`
 export const MenuWrapper = styled.ul`
   list-style-type: none;
   cursor: pointer;
@@ -156,4 +156,4 @@ export const MenuWrapper = styled.ul`
   display: ${( { vertical, } ) => vertical ? 'block' : 'inline-block'};
   float: ${( { vertical, } ) => vertical ? 'none' : 'right'};
   flex: 1;
-`;
+`

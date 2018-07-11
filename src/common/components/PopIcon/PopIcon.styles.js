@@ -1,9 +1,9 @@
-import styled, { css, } from 'styled-components';
+import styled, { css, } from 'styled-components'
 
-import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
-import styles from 'Common/styles';
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome'
+import styles from 'Common/styles'
 
-const { get: { colours, }, } = styles;
+const { get: { colours, }, } = styles
 const PopIconStyles = {
   Icon: styled( FontAwesomeIcon )`
     position: relative;
@@ -45,6 +45,6 @@ const PopIconStyles = {
       transition: box-shadow 0.4s ease-in-out;
     }
   `,
-};
+}
 
-export default PopIconStyles;
+export default PopIconStyles

@@ -1,22 +1,22 @@
-import React from 'react';
-import { Tooltip, } from 'react-tippy';
-import { formatDate, } from 'Common/helpers/formatDate';
-import { getPath, } from 'utilibelt';
-const PlanogramDetails = ( { article, planograms, store, orgdist, } ) => {
+import React from 'react'
+import { Tooltip, } from 'react-tippy'
+import { formatDate, } from 'Common/helpers/formatDate'
+import { getPath, } from 'utilibelt'
+const PlanogramDetails = ( { article, planograms, orgdist, supply, } ) => {
   const planogramsNotes = planograms.reduce( ( p, n ) => {
     const [ matchedArticle, ] = getPath(
       n, 'articles.onshow', [], articles =>
-        articles.filter( art => article._id === art.article && ( art.notes || art.updated ) )
-    );
+        articles.filter( art => article.id === art.article && ( art.notes || art.updated ) )
+    )
 
-    if ( p && matchedArticle ) p = `${p}\n`;
+    if ( p && matchedArticle ) p = `${p}\n`
     if ( matchedArticle ) {
       p = `${p}${n.category}:\n${matchedArticle.notes ? `notes: ${matchedArticle.notes}` : ''}${
         matchedArticle.notes ? '\n' : ''
-      }${matchedArticle.updated ? `updated on: ${formatDate( matchedArticle.updated, 'dd/mm/yyyy' )}` : ''}`;
+      }${matchedArticle.updated ? `updated on: ${formatDate( matchedArticle.updated, 'dd/mm/yyyy' )}` : ''}`
     }
-    return p;
-  }, '' );
+    return p
+  }, '' )
   const ranging = {};
 
   [
@@ -24,20 +24,20 @@ const PlanogramDetails = ( { article, planograms, store, orgdist, } ) => {
     'dms',
   ].forEach( org => {
     if ( article[org] && Object.keys( article[org] ).some( dist => article[org][dist].storeCount > 0 ) ) {
-      if ( !ranging[org] ) ranging[org] = {};
+      if ( !ranging[org] ) ranging[org] = {}
 
       Object.keys( article[org] ).forEach( dist => {
-        if ( article[org][dist].storeCount > 0 ) ranging[org][dist] = article[org][dist].storeCount;
-      } );
+        if ( article[org][dist].storeCount > 0 ) ranging[org][dist] = article[org][dist].storeCount
+      } )
     }
-  } );
+  } )
 
   const storePlanograms = planograms.length > 0 && (
     <span style={ { borderBottom: planogramsNotes && '1px dashed black', } }>
       myPlanograms: {planograms.reduce( ( p, n ) => p ? `${p}, ${n.category}` : n.category, '' )}
       <br />
     </span>
-  );
+  )
   const detailedRanging = ( ranging.bws || ranging.dms ) && (
     <span>
       {ranging.bws && (
@@ -58,50 +58,40 @@ const PlanogramDetails = ( { article, planograms, store, orgdist, } ) => {
         </span>
       )}
     </span>
-  );
+  )
 
   const summaryRanging = (
     <span style={ { borderBottom: detailedRanging && '1px dashed black', } }>
       {`Ranging: ${
         ranging.bws
           ? Object.keys( ranging.bws ).reduce( ( p, n ) => {
-            p = p + ranging.bws[n];
+            p = p + ranging.bws[n]
 
-            return p;
+            return p
           }, 0 )
           : 0
       } BWS | ${
         ranging.dms
           ? Object.keys( ranging.dms ).reduce( ( p, n ) => {
-            p = p + ranging.dms[n];
+            p = p + ranging.dms[n]
 
-            return p;
+            return p
           }, 0 )
           : 0
       } Dans`}
     </span>
-  );
-  const priceEA = getPath( article, `${orgdist}.price.ea` );
-  const priceMPK = getPath( article, `${orgdist}.price.mpk` );
-  const priceCAR = getPath( article, `${orgdist}.price.car` );
+  )
+  const priceEA = getPath( article, `${orgdist}.price.ea` )
+  const priceMPK = getPath( article, `${orgdist}.price.mpk` )
+  const priceCAR = getPath( article, `${orgdist}.price.car` )
   const priceString =
     ( priceEA || priceMPK || priceCAR ) &&
     `Sell Price: ${priceEA ? `$${priceEA}ea` : ''}${priceEA && priceMPK ? ' | ' : ''}${
       priceMPK ? `$${priceMPK}mpk` : ''
-    }${( priceEA || priceMPK ) && priceCAR ? ' | ' : ''}${priceCAR ? `$${priceCAR}car` : ''}`;
+    }${( priceEA || priceMPK ) && priceCAR ? ' | ' : ''}${priceCAR ? `$${priceCAR}car` : ''}`
   const performanceString =
-    getPath( article, `${orgdist}.performance` ) && `Avg Store Sales: $${getPath( article, `${orgdist}.performance` )}pw`;
-  const supply = `Source of Supply: ${getPath(
-    article, `${orgdist}.dc`, false, dcs =>
-      dcs.reduce( ( p, dc ) => {
-        if ( p ) return p;
-        if ( dc === 3998 ) return 'National DC';
-        if ( ( dc !== 3985 || store.organisation !== 'bws' ) && store.dcs.includes( dc ) ) return 'State DC';
-        return false;
-      }, false )
-  ) || getPath(
-    article, `${orgdist}.dsd`, 'No Supply', dsds => dsds.length > 0 ? 'Direct Vendor' : 'No Supply'
-  )}`;
+    getPath( article, `${orgdist}.performance` ) && `Avg Store Sales: $${getPath( article, `${orgdist}.performance` )}pw`
+  const sourceOfSupply = `Source of Supply: ${supply || 'No Supply'}`
 
   return (
     <span
@@ -133,7 +123,7 @@ const PlanogramDetails = ( { article, planograms, store, orgdist, } ) => {
             : summaryRanging
           }
           <br />
-          {supply}
+          {sourceOfSupply}
         </div>
         <div style={ { display: 'inline-block', } }>
           {priceString}
@@ -150,7 +140,7 @@ const PlanogramDetails = ( { article, planograms, store, orgdist, } ) => {
             </a>
             {' | '}
             <a
-              href={ `https://www.danmurphys.com.au/product/DM_${article._id}` }
+              href={ `https://www.danmurphys.com.au/product/DM_${article.id}` }
               rel='noopener noreferrer'
               target='_blank'>
               danmurphys.com.au
@@ -159,7 +149,7 @@ const PlanogramDetails = ( { article, planograms, store, orgdist, } ) => {
         </div>
       </div>
     </span>
-  );
-};
+  )
+}
 
-export default PlanogramDetails;
+export default PlanogramDetails

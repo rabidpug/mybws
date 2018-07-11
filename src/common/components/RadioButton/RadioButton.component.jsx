@@ -1,8 +1,8 @@
-import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
-import RadioButtonStyles from './RadioButton.styles';
-import React from 'react';
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome'
+import RadioButtonStyles from './RadioButton.styles'
+import React from 'react'
 
-const { Label, Input, } = RadioButtonStyles;
+const { Label, Input, } = RadioButtonStyles
 const RadioButton = ( { disabled, id, children, ...props } ) => (
   <Label disabled={ disabled } htmlFor={ id } { ...props }>
     {disabled && (
@@ -27,6 +27,6 @@ const RadioButton = ( { disabled, id, children, ...props } ) => (
       <Input id={ id } name={ id } { ...props } />
     </span>
   </Label>
-);
+)
 
-export default RadioButton;
+export default RadioButton

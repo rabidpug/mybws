@@ -1,10 +1,26 @@
-import styled, { css, keyframes, } from 'styled-components';
+import styled, { css, keyframes, } from 'styled-components'
 
-import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
-import styles from 'Common/styles';
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome'
+import styles from 'Common/styles'
 
-const { get: { colours, }, } = styles;
-
+const { get: { colours, }, } = styles
+const ifModal = ( { modal, show, } ) =>
+  modal
+    ? css`
+        display: block;
+        left: 0;
+        margin: auto;
+        max-width: 95%;
+        min-width: 300;
+        position: absolute;
+        right: 0;
+        top: ${show ? 50 : 0}%;
+        transform: translateY(-100%);
+        transition: top 0.3s ease-in-out 0.2s;
+        width: 30%;
+        z-index: 99999;
+      `
+    : ''
 const dogEar = css`
   border: 22px solid;
   border-color: ${colours.white} transparent transparent;
@@ -15,7 +31,7 @@ const dogEar = css`
   top: 0;
   width: 0;
   z-index: -1;
-`;
+`
 
 const jump = keyframes`
 0% {
@@ -27,7 +43,7 @@ const jump = keyframes`
 100% {
   transform: scale(1);
 }
-`;
+`
 
 const ifBigPrice = ( { isBig, } ) =>
   isBig &&
@@ -38,7 +54,7 @@ const ifBigPrice = ( { isBig, } ) =>
     padding: 0.2rem;
     font-size: ${( { children, } ) => `${4.2 / children.length + 0.4}rem`};
     transition: all 0.7s ease-in-out;
-  `;
+  `
 const ifBigWrapper = ( { isBig, isBigWait, } ) =>
   isBig && !isBigWait
     ? css`
@@ -74,14 +90,14 @@ const ifBigWrapper = ( { isBig, isBigWait, } ) =>
           &:hover {
             box-shadow: 0 0.225rem 0.475rem 0.1rem rgba(0, 0, 0, 0.2);
           }
-        `;
+        `
 const ifBigAvatar = ( { isBig, } ) =>
   isBig &&
   css`
     width: 176px;
     height: 220px;
     transition: all 0.7s ease-in-out;
-  `;
+  `
 const ifBigTitle = ( { isBig, } ) =>
   isBig &&
   css`
@@ -91,7 +107,7 @@ const ifBigTitle = ( { isBig, } ) =>
     @media (min-width: 768px) {
       font-size: 1.4rem;
     }
-  `;
+  `
 const ifBigTitleWrapper = ( { isBig, } ) =>
   isBig &&
   css`
@@ -103,7 +119,7 @@ const ifBigTitleWrapper = ( { isBig, } ) =>
     margin-right: 1.1rem;
     margin-left: 1rem;
     transition: all 0.7s ease-in-out;
-  `;
+  `
 const cardAlignment = ( { alignRight, top, isBig, } ) =>
   alignRight
     ? css`
@@ -126,11 +142,11 @@ const cardAlignment = ( { alignRight, top, isBig, } ) =>
             left: -20px;
             right: auto;
           }
-        `;
+        `
 const textAlign = ( { alignRight, top, } ) =>
   css`
     text-align: ${alignRight ? 'right' : top ? 'center' : 'left'};
-  `;
+  `
 const avatarTopOrNot = top
   ? css`
       width: 130px;
@@ -141,7 +157,7 @@ const avatarTopOrNot = top
       width: 40px;
       height: 40px;
       clip-path: circle(50%);
-    `;
+    `
 
 export const Avatar = styled.img`
   margin: auto;
@@ -155,22 +171,22 @@ export const Avatar = styled.img`
   transition: all 0.6s ease-in-out;
   ${avatarTopOrNot};
   ${ifBigAvatar};
-`;
+`
 export const AvatarWrapper = styled.div.attrs( { style: ( { placeholder, } ) => ( { backgroundImage: `url(${placeholder})`, } ), } )`
-  background-size: 2rem;
+  background-size: 100%;
   margin: auto;
   width: ${( { top, } ) => top ? '130px' : '40px'};
   height: ${( { top, } ) => top ? '160px' : '40px'};
   position: relative;
   user-select: none;
   ${ifBigAvatar};
-`;
+`
 export const BigSide = styled.div`
   flex: 1;
   display: ${( { isBig, showChildren, } ) => isBig || showChildren ? 'block' : 'none'};
   height: 100%;
   overflow: ${( { isBig, } ) => isBig ? 'auto' : 'hidden'};
-`;
+`
 export const BodyWrapper = styled.div`
   padding: ${( { isBig, } ) => isBig ? 0 : '0.2rem 0.5rem 0.5rem'};
   ${textAlign};
@@ -184,7 +200,7 @@ export const BodyWrapper = styled.div`
     height: 1.1rem;
     width: 1.1rem;
   }
-`;
+`
 export const Close = styled( FontAwesomeIcon )`
   position: absolute;
   top: 10px;
@@ -197,7 +213,7 @@ export const Close = styled( FontAwesomeIcon )`
   &:hover {
     transform: rotateZ(360deg);
   }
-`;
+`
 export const Description = styled.div`
   color: hsl(0, 0%, 45%);
   font-size: 0.7rem;
@@ -206,7 +222,7 @@ export const Description = styled.div`
   overflow: hidden;
   white-space: pre-line;
   ${ifBigTitle};
-`;
+`
 export const HeaderWrapper = styled.div`
   background-color: ${colours.white};
   border-radius: 0.7rem 0.7rem 0 0;
@@ -216,7 +232,7 @@ export const HeaderWrapper = styled.div`
   flex-direction: ${( { top, isBig, } ) => top && !isBig ? 'column' : 'row'};
   height: ${( { top, } ) => top ? '240px' : 'auto'};
   padding: 0.5rem;
-`;
+`
 export const Ribbon = styled.div`
   background-color: ${( { ribbonColor, } ) => ribbonColor};
   position: absolute;
@@ -228,7 +244,7 @@ export const Ribbon = styled.div`
   font-size: 0.8rem;
   font-family: 'Open Sans', sans-serif;
   transform: translateX(-50%) rotateZ(-45deg) translateY(${( { children, } ) => children.length * 10}%);
-`;
+`
 export const Stamp = styled.div`
   position: absolute;
   right: 0;
@@ -245,7 +261,7 @@ export const Stamp = styled.div`
   font-family: 'Open Sans', sans-serif;
   font-weight: 700;
   ${ifBigPrice};
-`;
+`
 export const Title = styled.div`
   color: hsl(0, 0%, 13%);
   font-family: 'Open Sans', sans-serif;
@@ -264,7 +280,7 @@ export const Title = styled.div`
     line-height: ${( { isBig, } ) => isBig && '1.8rem'};
     max-height: ${( { isBig, } ) => isBig && '3.6rem'};
   }
-`;
+`
 export const TitleWrapper = styled.div`
   flex: 1;
   margin-left: 0.5rem;
@@ -273,7 +289,7 @@ export const TitleWrapper = styled.div`
   user-select: none;
   ${textAlign};
   ${ifBigTitleWrapper};
-`;
+`
 export const TopSide = styled.div`
   width: ${( { isBig, } ) => isBig ? '4rem' : 'auto'};
   margin: ${( { isBig, } ) => isBig ? 0 : 'auto'};
@@ -281,7 +297,7 @@ export const TopSide = styled.div`
   background: ${colours.grey};
   background: ${( { isBig, } ) => !isBig && 'inherit'};
   height: 100%;
-`;
+`
 export const Wrapper = styled.div`
   background-color: ${colours.whiteL2};
   border-radius: 0.7rem;
@@ -297,4 +313,16 @@ export const Wrapper = styled.div`
     css`
       animation: ${jump} 0.4s ease-in-out;
     `};
-`;
+  ${ifModal};
+`
+export const ModalWrap = styled.div`
+  background-color: rgba(0, 0, 0, 0.2);
+  height: ${( { show, } ) => show ? '100vh' : '0vh'};
+  left: 0;
+  opacity: ${( { show, } ) => show ? 1 : 0};
+  position: fixed;
+  top: 0;
+  transition: opacity 0.2s ease-in-out;
+  width: 100vw;
+  z-index: 99998;
+`

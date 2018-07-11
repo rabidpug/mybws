@@ -1,1 +1,1 @@
-export { default, } from './StrikeTitle.component';
+export { default, } from './StrikeTitle.component'

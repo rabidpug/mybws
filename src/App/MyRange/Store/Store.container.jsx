@@ -1,228 +1,179 @@
-import React, { PureComponent, } from 'react';
+import React, { PureComponent, } from 'react'
 
-import Button from 'Common/components/Button';
-import Card from 'Common/components/Card';
-import { InfiniteArticleGrid, } from './containers/InfiniteArticleGrid';
-import Input from 'Common/components/Input';
-import { MidBounceBall, } from 'Common/components/Loaders';
-import { MyRangeStoreArticleLoadable, } from './Article';
-import PopIcon from 'Common/components/PopIcon';
-import { Route, } from 'react-router-dom';
-import SearchHelp from './Article/components/SearchHelp';
-import Swipeable from 'react-swipeable';
-import { Tooltip, } from 'react-tippy';
-import connectMyRangeStore from './Store.connect';
-import { getPath, } from 'utilibelt';
-import { hot, } from 'react-hot-loader';
-import { userIsAuthenticated, } from 'Common/helpers/authWrapper';
+import Card from 'Common/components/Card'
+import { HeaderWrapper, } from './Store.styled'
+import { MyRangeStoreArticleLoadable, } from './Article'
+import MyRangeStoreArticles from './containers/Articles/Articles.container'
+import MyRangeStorePager from './containers/Pager/Pager.container'
+import MyRangeStoreSearch from './containers/Search/Search.container'
+import { Route, } from 'react-router-dom'
+import Swipeable from 'react-swipeable'
+import gqlMyRangeStore from './Store.gql'
+import { hot, } from 'react-hot-loader'
+import storeFromPath from 'Common/helpers/storeFromPath'
 
 @hot( module )
-@userIsAuthenticated
-@connectMyRangeStore
+@gqlMyRangeStore
 export default class MyRangeStore extends PureComponent {
   constructor ( props ) {
-    super( props );
+    super( props )
 
     this.state = {
-      fetchTimer   : false,
       forceUnmount : false,
       swipe        : 0,
-    };
+    }
   }
 
   componentDidMount () {
-    const {
-      history: { push, },
-      fetchArticles,
-      store = {},
-      storeID,
-    } = this.props;
+    document.addEventListener( 'mousedown', this.handleClickOutside )
 
-    fetchArticles( storeID, push );
+    window.addEventListener( 'resize', this.checkAndSet, false )
 
-    document.addEventListener( 'mousedown', this.handleClickOutside );
+    this.checkAndSet()
 
-    window.addEventListener( 'resize', this.checkAndSet, false );
-
-    this.checkAndSet();
-
-    store._id === +storeID && this.setTitle();
+    this.setTitle()
   }
 
   componentDidUpdate ( prevProps ) {
-    const { forceUnmount, fetchTimer: timer, } = this.state;
+    const { forceUnmount, } = this.state
     const {
-      history: { push, },
       match: { isExact, },
-      params,
-      fetchArticles,
-      setGettingArticles,
+      location: { pathname, },
       store,
-      storeID,
-    } = this.props;
+    } = this.props
+    const { location: { pathname: oldPath, }, } = prevProps
+    const pathStore = storeFromPath( pathname )
 
-    if (
-      prevProps.match.isExact !== isExact ||
-      storeID !== prevProps.storeID ||
-      store !== prevProps.store && +storeID === getPath( prevProps, 'store._id' )
-    ) this.setTitle();
-    if ( JSON.stringify( prevProps.params ) !== JSON.stringify( params ) || prevProps.storeID !== storeID ) {
-      if ( timer ) clearTimeout( timer );
+    const oldStore = storeFromPath( oldPath )
 
-      setGettingArticles( true );
+    if ( prevProps.match.isExact !== isExact || pathStore !== oldStore || store !== prevProps.store ) this.setTitle()
+    if ( isExact && forceUnmount ) this.setState( { forceUnmount: false, } )
 
-      const fetchTimer = setTimeout( () => {
-        fetchArticles( storeID, push );
-
-        this.setState( { fetchTimer: false, } );
-      }, 600 );
-
-      this.setState( { fetchTimer, } );
-    }
-    if ( isExact && forceUnmount ) this.setState( { forceUnmount: false, } );
-
-    this.checkAndSet( prevProps );
+    this.checkAndSet( prevProps )
   }
 
   componentWillUnmount () {
-    document.removeEventListener( 'mousedown', this.handleClickOutside );
+    document.removeEventListener( 'mousedown', this.handleClickOutside )
 
-    window.removeEventListener( 'resize', this.checkAndSet, false );
+    window.removeEventListener( 'resize', this.checkAndSet, false )
   }
 
   setTitle () {
-    const { store, } = this.props;
+    const { store: { getStore = {}, } = {}, } = this.props
 
-    document.title = `myBWS ${store._id} - ${store.name} Range`;
+    document.title = `myBWS ${getStore.id} - ${getStore.name} Range`
   }
 
   onSwiped = (
     e, deltaX, deltaY, isFlick
   ) => {
-    const { swipe, } = this.state;
+    const { swipe, } = this.state
     const {
       history: { push, },
       match,
-    } = this.props;
+    } = this.props
 
     if ( swipe > window.innerHeight / 3 || isFlick ) {
-      this.setState( { swipe: window.innerHeight, } );
+      this.setState( { swipe: window.innerHeight, } )
 
       setTimeout( () => {
-        push( match.url );
+        push( match.url )
 
-        this.setState( { swipe: 0, } );
-      }, 400 );
-    } else this.setState( { swipe: 0, } );
-  };
+        this.setState( { swipe: 0, } )
+      }, 400 )
+    } else this.setState( { swipe: 0, } )
+  }
 
   onSwipingUp = ( e, swipe ) => {
-    this.setState( { swipe, } );
-  };
+    this.setState( { swipe, } )
+  }
 
   checkAndSet = ( prevProps = {} ) => {
     const {
       changePage,
-      isSidebarCollapsed,
-      handlePageDimensions,
-      page: oldPage = 0,
-      pageSize: oldPageSize,
-      articles,
-    } = this.props;
+      data: { browser, },
+      data: { ui: { isSidebarCollapsed, }, },
+      changeDimensions,
+      data: {
+        query: {
+          page: oldPage = 0,
+          dimensions: { pageSize: oldPageSize, },
+        },
+      },
+      range: { getRange: articles = [], } = {},
+    } = this.props
+    const {
+      range: { getRange = [], } = {},
+      data: {
+        browser: prevBrowser,
+        ui: { isSidebarCollapsed: prevIsCollapsed, } = {},
+        query: { dimensions: { pageSize: prevPageSize, } = {}, } = {},
+      } = {},
+    } = prevProps
+    const collapsed = browser > 1200 ? false : isSidebarCollapsed
+    const prevCollapsed = prevBrowser > 1200 ? false : prevIsCollapsed
 
     if (
       this.bodyRef &&
       this.bodyRef.clientHeight &&
-      ( isSidebarCollapsed !== prevProps.isSidebarCollapsed ||
-        prevProps.pageSize !== oldPageSize ||
+      ( collapsed !== prevCollapsed ||
+        prevPageSize !== oldPageSize ||
         this.bodyRef.clientHeight < this.bodyRef.scrollHeight )
     ) {
       setTimeout( () => {
         if ( this.bodyRef && this.bodyRef.clientHeight ) {
-          const columnSize = Math.floor( this.bodyRef.clientWidth / 182 );
-          const rowSize = Math.floor( this.bodyRef.clientHeight / 332 );
+          const columnSize = Math.floor( this.bodyRef.clientWidth / 182 )
+          const rowSize = Math.floor( this.bodyRef.clientHeight / 332 )
 
           if ( rowSize && columnSize && rowSize * columnSize !== oldPageSize ) {
-            let page = 0;
-            const pageSize = columnSize * rowSize;
+            let page = 0
+            const pageSize = columnSize * rowSize
 
             if ( oldPageSize ) {
-              const oldStartIndex = oldPage * oldPageSize;
+              const oldStartIndex = oldPage * oldPageSize
 
-              page = Math.ceil( Math.min( articles.length, Math.max( 0, oldStartIndex / pageSize ) ) );
+              page = Math.ceil( Math.min( articles.length, Math.max( 0, oldStartIndex / pageSize ) ) )
 
-              if ( oldPage ) while ( !( oldStartIndex >= pageSize * page && oldStartIndex < pageSize * page + pageSize ) ) oldStartIndex < pageSize * page ? page-- : page++;
+              if ( oldPage ) while ( !( oldStartIndex >= pageSize * page && oldStartIndex < pageSize * page + pageSize ) ) oldStartIndex < pageSize * page ? page-- : page++
             }
 
-            handlePageDimensions( {
-              columnSize,
-              pageSize,
-              rowSize,
-            } );
+            changeDimensions( {
+              variables: {
+                columnSize,
+                pageSize,
+                rowSize,
+              },
+            } )
 
-            changePage( page );
+            changePage( { variables: { page, }, } )
           }
         }
-      }, 200 );
-    }
-  };
+      }, 200 )
+    } else if ( articles.length !== getRange.length ) changePage( 0 )
+  }
 
   handleClickOutside = e => {
     const {
       match,
       history: { push, },
-    } = this.props;
+    } = this.props
 
-    if ( !match.isExact && !( this.wrapperRef && this.wrapperRef.contains( e.target ) ) ) this.setState( { forceUnmount: () => push( match.url ), } );
-  };
-
-  articleRenderer = () => {
-    const { articles = [], page = 0, pageSize = 8, } = this.props;
-    const startIndex = page * pageSize;
-
-    return articles
-      .slice( startIndex, startIndex + pageSize )
-      .map( ( item, i ) => <MyRangeStoreArticleLoadable fetch item={ item } key={ item || `*^%${i}` } /> );
-  };
-
-  handleChangePageNo = value => {
-    const { changePage, articles, pageSize, page = 0, } = this.props;
-    let newValue;
-    const maxPage = Math.ceil( articles.length / pageSize );
-
-    if ( typeof value === 'object' ) newValue = value.target.value === '' ? value.target.value : value.target.value - 1;
-    else newValue = value ? page + 1 : page - 1;
-
-    changePage( newValue >= maxPage ? 0 : newValue < 0 ? maxPage - 1 : newValue );
-  };
+    if ( !match.isExact && !( this.wrapperRef && this.wrapperRef.contains( e.target ) ) ) this.setState( { forceUnmount: () => push( match.url ), } )
+  }
 
   render () {
     const {
-      articles = [],
-      handleSearchValue,
+      range: { getRange = [], loading, error: { message, } = '', } = {},
       match,
-      pageSize,
-      page = 0,
-      fetching,
-      message,
-      infiniteScroll,
-      params: { search, },
-    } = this.props;
-    const { swipe, forceUnmount, } = this.state;
-    const maxPage = articles.length;
+      data: { query: { infiniteScroll, }, },
+    } = this.props
+    const { swipe, forceUnmount, } = this.state
+    const maxPage = getRange.length
 
     return (
       <Card fullScreen>
         <Card.Header>
-          <span
-            style={ {
-              display    : 'block',
-              fontFamily : 'Open Sans, sans-serif',
-              fontSize   : '2rem',
-              margin     : '0.2rem',
-            } }>
-            myRange
-          </span>
+          <HeaderWrapper>myRange</HeaderWrapper>
         </Card.Header>
         <Card.Body>
           <div
@@ -232,80 +183,12 @@ export default class MyRangeStore extends PureComponent {
               margin : 'auto',
               width  : '100%',
             } }>
-            {infiniteScroll
-              ? <InfiniteArticleGrid />
-              :               !fetching && (
-                <Swipeable
-                  innerRef={ swipeRef => this.swipeRef = swipeRef }
-                  onSwipedLeft={ ( e, d, isFlick ) => isFlick && this.handleChangePageNo( true ) }
-                  onSwipedRight={ ( e, d, isFlick ) => isFlick && this.handleChangePageNo() }>
-                  {this.articleRenderer()}
-                </Swipeable>
-              )
-            }
-            {!infiniteScroll &&
-              <MidBounceBall bounce={ fetching } message={ fetching ? 'Searching the database...' : message } />
-            }
+            <MyRangeStoreArticles articles={ getRange } loading={ loading } message={ message } />
           </div>
         </Card.Body>
         <Card.Footer>
-          <div
-            style={ {
-              float     : 'left',
-              margin    : '0.4rem',
-              textAlign : 'center',
-            } }>
-            <Input
-              onChange={ e => handleSearchValue( e.target.value ) }
-              placeholder='Search'
-              style={ { paddingRight: '1rem', } }
-              value={ search }
-            />
-            <Tooltip html={ <SearchHelp /> } size='small' touchhold>
-              <span
-                style={ {
-                  left     : '-0.5rem',
-                  position : 'relative',
-                } }>
-                <PopIcon icon='question' only size='xs' />
-              </span>
-            </Tooltip>
-          </div>
-          {maxPage > 0 &&
-            !infiniteScroll && (
-            <div
-              style={ {
-                float     : 'right',
-                textAlign : 'center',
-              } }>
-              <Button onClick={ () => this.handleChangePageNo() } style={ { padding: 0, } } variant='tertiary'>
-                  Previous
-              </Button>
-              <div
-                style={ {
-                  display       : 'inline-block',
-                  margin        : 'auto',
-                  verticalAlign : 'middle',
-                  whiteSpace    : 'pre-line',
-                } }>
-                {'Page '}
-                <Input
-                  onChange={ this.handleChangePageNo }
-                  placeholder='Page'
-                  style={ {
-                    textAlign : 'center',
-                    width     : ( page + 1 ).toString().length * 20 + 20,
-                  } }
-                  value={ page === '' ? page : ( page + 1 ).toString() }
-                />
-                <br />
-                {` of ${Math.ceil( maxPage / pageSize )}`}
-              </div>
-              <Button onClick={ () => this.handleChangePageNo( true ) } style={ { padding: 0, } } variant='tertiary'>
-                  Next
-              </Button>
-            </div>
-          )}
+          <MyRangeStoreSearch />
+          {maxPage > 0 && !infiniteScroll && <MyRangeStorePager maxPage={ maxPage } />}
         </Card.Footer>
         <Swipeable
           innerRef={ wrapperRef => this.wrapperRef = wrapperRef }
@@ -317,6 +200,6 @@ export default class MyRangeStore extends PureComponent {
           />
         </Swipeable>
       </Card>
-    );
+    )
   }
 }
