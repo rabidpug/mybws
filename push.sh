@@ -4,7 +4,7 @@
 branch=$(git rev-parse --abbrev-ref HEAD)
 
 #get package name from package.json
-name=$(grep name package.json | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[:space:]')
+name=$(grep \"name\" package.json | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[:space:]')
 
 #get current version from package.json
 cur=$(grep version package.json | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[:space:]')
@@ -119,7 +119,7 @@ git push --tags origin "$branch";
 if [ -z "$nopublish" ];
   then
     data="{\"tag_name\":"\"v$ver\"",\"name\":"\"v$ver\"",\"body\":"\"$changelog\"",\"prerelease\":$prerelease}"
-    curl --user "$GITHUB_USER" --data "$data" https://api.github.com/repos/rabidpug/"$name"/releases;
+    curl --user "$GITHUB_USER" --data "$data" "https://api.github.com/repos/rabidpug/$name/releases";
 fi
 
 #checkout to branch if on master branch, -c flag provided, or user responded yes
