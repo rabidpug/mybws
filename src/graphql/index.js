@@ -89,7 +89,7 @@ export default function apollo ( cache ) {
     cache,
     link: ApolloLink.from( [
       onError( ( { graphQLErrors, } ) => {
-        if ( graphQLErrors ) graphQLErrors.map( ( { message, } ) => toast.error( message ) )
+        if ( graphQLErrors ) graphQLErrors.map( ( { message, } ) => !message.includes( 'Context creation failed: User not logged in' ) && toast.error( message ) )
       } ),
       stateLink,
       requestLink,
