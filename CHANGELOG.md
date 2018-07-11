@@ -1,10 +1,10 @@
 # CHANGELOG
 
-## v0.0.2-rc.2
+## v0.0.2-rc.3
 
 - Broke out backend to simplify package
 - Updated auth token and refresh handling
-- No persisted cache for now
+- Trialing persisted cache
 
 ## v0.0.1
 

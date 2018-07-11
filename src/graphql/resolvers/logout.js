@@ -1,4 +1,6 @@
 export default function logout ( _, args, { cache, } ) {
+  localStorage.removeItem( 'auth' )
+
   const data = {
     auth: {
       __typename      : 'auth',

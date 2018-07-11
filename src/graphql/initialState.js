@@ -2,7 +2,7 @@ const initialState = {
   auth: {
     __typename      : 'auth',
     JWT             : '',
-    isAuthenticated : false,
+    isAuthenticated : !!localStorage.getItem( 'auth' ),
     refreshToken    : '',
   },
   browser : window.innerWidth,

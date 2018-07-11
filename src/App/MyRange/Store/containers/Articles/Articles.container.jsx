@@ -34,6 +34,7 @@ export default class MyRangeStoreArticles extends PureComponent {
         },
       },
     } = this.props
+
     const startIndex = page * pageSize
 
     return articles

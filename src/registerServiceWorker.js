@@ -9,7 +9,7 @@ export default function registerServiceWorker () {
         const checkUpdate = () => {
           try {
             registration.update()
-          } catch (e) {} //eslint-disable-line
+          } catch ( e ) {}
         }
 
         window.onfocus = checkUpdate

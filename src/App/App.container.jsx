@@ -28,7 +28,6 @@ export default class App extends PureComponent {
 
   componentDidMount () {
     const { updateBrowser, updateIsOnline, loaded, } = this.props
-    console.log(loaded) //eslint-disable-line
 
     loaded && this.handleAuthRedirect()
 
@@ -65,7 +64,6 @@ export default class App extends PureComponent {
     const JWT = getQueryVariable( 'token', location )
 
     const refreshToken = getQueryVariable( 'refreshToken', location )
-    console.log({ JWT, refreshToken, loaded }) //eslint-disable-line
 
     if ( JWT || refreshToken && loaded ) {
       login( {
@@ -106,7 +104,7 @@ export default class App extends PureComponent {
   render () {
     const {
       location,
-      data: { browser, ui = {}, auth, loading, },
+      data: { browser, ui = {}, auth = {}, loading, },
     } = this.props
     const { isSidebarCollapsed, } = ui
     const { isAuthenticated, } = auth
@@ -115,7 +113,7 @@ export default class App extends PureComponent {
     const currentKey = location.pathname.split( '/' ).slice( 1, 2 ) || '/'
     const offset = browser > 1200 || swipeWidth || !isSidebarCollapsed ? '12rem' : '4rem'
 
-    return loading || typeof isAuthenticated !== 'boolean'
+    return loading
       ? <LoggingIn />
       : (
         <Layout parent>

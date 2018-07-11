@@ -11,11 +11,7 @@ import { withRouter, } from 'react-router-dom'
 export default class SideBar extends Component {
   render () {
     const {
-      data: {
-        ui: { isSidebarCollapsed, openKeys, },
-        browser,
-        auth: { isAuthenticated, },
-      },
+      data: { ui: { isSidebarCollapsed, openKeys, } = {}, browser, auth: { isAuthenticated, } = {}, },
       route: { menuItems, },
       history: { push, },
       location: { pathname, },
