@@ -33,6 +33,7 @@ export default class TopBar extends Component {
       updateIsSidebarCollapsed,
       route: { actionMenuItems, },
     } = this.props
+
     const { openKeys, } = this.state
     const selectedKeys = [
       ...query.params.groupFilters,

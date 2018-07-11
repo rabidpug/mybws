@@ -71,7 +71,7 @@ esac
 if [ ! "$preid" = "$previd" ] && [ ! "$preid" = "$newid" ];
   then
     echo -e "$warn"
-    exit 1;
+    exit 0;
 fi
 
 #determine new version
@@ -100,10 +100,10 @@ if [[ "$1$2$3" =~ (-n) ]] && [ ! "$branch" = "master" ] || [[ ! "$branch" =~ (be
 elif [ -z "$GITHUB_USER" ] || [ -z "$changelog" ];
   then
     if [ -z "$changelog" ];
-      then echo 'A changelog is required to publish. If you do not wish to publish, pass the ( -n | --no-publish ) flag.';
+      then echo "A changelog for v$ver is required to publish. If you do not wish to publish, pass the ( -n | --no-publish ) flag.";
       else echo 'GITHUB_USER must be set as environment variables to publish. If you do not wish to publish, pass the ( -n | --no-publish ) flag.';
     fi
-    exit 1;
+    exit 0;
 fi
 
 #prompt to continue

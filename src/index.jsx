@@ -10,6 +10,7 @@ import LoggingIn from './App/components/LoggingIn'
 import { Router, } from 'react-router-dom'
 import apollo from './graphql'
 import createHistory from 'history/createBrowserHistory'
+import localforage from 'localforage'
 import { persistCache, } from 'apollo-cache-persist'
 import registerServiceWorker from './registerServiceWorker'
 import { render, } from 'react-dom'
@@ -32,7 +33,7 @@ class Index extends PureComponent {
       await persistCache( {
         cache,
         maxSize : false,
-        storage : window.localStorage,
+        storage : localforage,
       } )
     } catch ( error ) {
       console.error('Error restoring Apollo cache', error) //eslint-disable-line

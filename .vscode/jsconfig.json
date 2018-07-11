@@ -3,19 +3,11 @@
     "target": "es2017",
     "module": "commonjs",
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "Animations/*": ["src/client/animations/*"],
-      "Assets/*": ["src/client/assets/*"],
-      "Client/*": ["src/client/*"],
-      "Components/*": ["src/client/components/*"],
-      "Containers/*": ["src/client/containers/*"],
-      "Routes/*": ["src/client/routes/*"],
-      "Scenes/*": ["src/client/scenes/*"],
-      "Server/*": ["src/server/*"],
-      "Shared/*": ["src/shared/*"],
-      "Store/*": ["src/client/store/*"],
-      "Styles/*": ["src/client/styles/*"]
+      "Assets/*": ["src/assets/*"],
+      "~/*": ["src/*"],
+      "Common/*": ["src/common/*"]
     }
   },
   "exclude": ["node_modules", "**/node_modules/**", "dist/", "__tests__"]

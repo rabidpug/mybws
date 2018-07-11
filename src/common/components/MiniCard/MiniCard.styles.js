@@ -172,7 +172,7 @@ export const Avatar = styled.img`
   ${avatarTopOrNot};
   ${ifBigAvatar};
 `
-export const AvatarWrapper = styled.div.attrs( { style: ( { placeholder, } ) => ( { backgroundImage: `url(${placeholder})`, } ), } )`
+export const AvatarWrapper = styled.div.attrs( { style: ( { placeholder, imgurl, } ) => ( { backgroundImage: imgurl === 'error' ? 'none' : `url(${placeholder})`, } ), } )`
   background-size: 100%;
   margin: auto;
   width: ${( { top, } ) => top ? '130px' : '40px'};

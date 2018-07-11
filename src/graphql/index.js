@@ -1,10 +1,11 @@
 import { ApolloLink, Observable, split, } from 'apollo-link'
+import { authEndpoint, graphqlEndpoint, subscriptionEndpoint, } from '../endpoints'
 
-import { API_ENDPOINT, } from '../env'
 import { ApolloClient, } from 'apollo-client'
-import { HttpLink, } from 'apollo-link-http'
+import { BatchHttpLink, } from 'apollo-link-batch-http'
 import { WebSocketLink, } from 'apollo-link-ws'
 import { getMainDefinition, } from 'apollo-utilities'
+import { getPath, } from 'utilibelt'
 import gql from 'graphql-tag'
 import initialState from './initialState'
 import { onError, } from 'apollo-link-error'
@@ -15,6 +16,94 @@ let client
 
 export default function apollo ( cache ) {
   if ( client ) return client
+  const customFetch = ( uri, options ) => {
+    let refreshingPromise = null
+
+    const initialRequest = fetch( uri, options )
+
+    return initialRequest.then( response => response.text() ).then( text => {
+      let json
+
+      try {
+        json = JSON.parse( text )
+      } catch ( e ) {}
+
+      if ( getPath( json, 'errors.0.message' ) === 'Context creation failed: User not logged in' ) {
+        if ( !refreshingPromise ) {
+          refreshingPromise = client
+            .query( {
+              query: gql`
+                query {
+                  auth @client {
+                    refreshToken
+                  }
+                }
+              `,
+            } )
+            .then( ( { data: { auth = {}, }, } ) => {
+              const refreshtoken = auth.refreshToken
+
+              return fetch( authEndpoint(), {
+                headers : { authorization: refreshtoken, },
+                method  : 'POST',
+              } ).then( refreshResponse => {
+                if ( refreshResponse.ok ) {
+                  return refreshResponse.text().then( refreshTEXT => {
+                    let refreshJSON
+
+                    try {
+                      refreshJSON = JSON.parse( refreshTEXT )
+                    } catch ( e ) {}
+
+                    return client
+                      .mutate( {
+                        mutation: gql`
+                          mutation UpdateLogin($JWT: String, $refreshToken: String) {
+                            login(JWT: $JWT, refreshToken: $refreshToken) @client
+                          }
+                        `,
+                        variables: {
+                          JWT          : refreshJSON.token,
+                          refreshToken : refreshJSON.refreshToken,
+                        },
+                      } )
+                      .then( () => refreshJSON.token )
+                  } )
+                } else {
+                  toast.warn( 'Your session has timed out. Please log in again.' )
+
+                  return client.mutate( {
+                    mutation: gql`
+                      mutation {
+                        logout @client
+                      }
+                    `,
+                  } )
+                }
+              } )
+            } )
+        }
+        return refreshingPromise.then( newAccessToken => {
+          refreshingPromise = null
+
+          options.headers.authorization = newAccessToken
+
+          return fetch( uri, options )
+        } )
+      }
+      const result = {}
+
+      result.ok = true
+
+      result.text = () =>
+        new Promise( resolve => {
+          resolve( text )
+        } )
+
+      return result
+    } )
+  }
+  /* eslint-enable */
   const stateLink = withClientState( {
     cache,
     defaults  : initialState,
@@ -66,11 +155,10 @@ export default function apollo ( cache ) {
         },
         login ( _, { JWT = '', refreshToken = '', }, { cache, } ) {
           const isAuthenticated = !!JWT
-          console.log('login') //eslint-disable-line
 
           localStorage.setItem( 'JWT', JWT )
 
-          localStorage.setItem( 'refreshToken', refreshToken )
+          localStorage.setItem( 'RFT', refreshToken )
 
           const data = {
             auth: {
@@ -86,11 +174,9 @@ export default function apollo ( cache ) {
           return null
         },
         logout ( _, args, { cache, } ) {
-          console.log('logout') //eslint-disable-line
-
           localStorage.removeItem( 'JWT' )
 
-          localStorage.removeItem( 'refreshToken' )
+          localStorage.removeItem( 'RFT' )
 
           const data = {
             auth: {
@@ -242,13 +328,8 @@ export default function apollo ( cache ) {
     },
   } )
 
-  const request = async operation => {
-    /* eslint-disable */
-    if (!operation.operationName) console.log('req', operation)
-    const {
-      data: { auth = {} },
-    } = await client.query({
-      /* eslint-enable */
+  const authOperation = async operation => {
+    const { data: { auth = {}, }, } = await client.query( {
       query: gql`
         query {
           auth @client {
@@ -259,17 +340,9 @@ export default function apollo ( cache ) {
       `,
     } )
 
-    const Authorization = auth.JWT
-    const refreshtoken = auth.refreshToken
+    const authorization = auth.JWT
 
-    if ( Authorization && refreshtoken ) {
-      operation.setContext( {
-        headers: {
-          Authorization,
-          refreshtoken,
-        },
-      } )
-    }
+    operation.setContext( { headers: { authorization, }, } )
   }
 
   const requestLink = new ApolloLink( ( operation, forward ) =>
@@ -277,7 +350,7 @@ export default function apollo ( cache ) {
       let handle
 
       Promise.resolve( operation )
-        .then( oper => request( oper ) )
+        .then( op => authOperation( op ) )
         .then( () => {
           handle = forward( operation ).subscribe( {
             complete : observer.complete.bind( observer ),
@@ -291,15 +364,17 @@ export default function apollo ( cache ) {
         if ( handle ) handle.unsubscribe()
       }
     } ) )
-  const httpLink = new HttpLink( {
+  const httpLink = new BatchHttpLink( {
+    batchMax    : 30,
     credentials : 'same-origin',
-    uri         : `${API_ENDPOINT}/v2`,
+    fetch       : customFetch,
+    uri         : graphqlEndpoint(),
   } )
   const wsLink = new WebSocketLink( {
     options: {
       connectionParams () {
         const authToken = localStorage.getItem( 'JWT' )
-        const refreshToken = localStorage.getItem( 'Tn' )
+        const refreshToken = localStorage.getItem( 'RFT' )
 
         return {
           authToken,
@@ -309,7 +384,7 @@ export default function apollo ( cache ) {
       reconnect : true,
       timeout   : 30000,
     },
-    uri: `wss://${API_ENDPOINT.replace( /^(.*:\/\/)/, '' )}/graphql`,
+    uri: subscriptionEndpoint(),
   } )
 
   const link = split( ( { query, } ) => {
@@ -322,13 +397,10 @@ export default function apollo ( cache ) {
 
   client = new ApolloClient( {
     cache,
-    link: ApolloLink.from( [
-      onError( ( { graphQLErrors, networkError, operation, } ) => {
+    fetchPolicy : 'cache-and-network',
+    link        : ApolloLink.from( [
+      onError( ( { graphQLErrors, } ) => {
         if ( graphQLErrors ) graphQLErrors.map( ( { message, } ) => toast.error( message ) )
-
-        if (networkError) console.log(networkError, operation) //eslint-disable-line
-        return null
-        // return forward( operation )
       } ),
       stateLink,
       requestLink,

@@ -7,7 +7,5 @@ suppress_comment= \\(.\\|\n\\)*\\flow-disable-next-line
 module.file_ext=.js
 module.file_ext=.jsx
 module.name_mapper='^Assets\(.*\)$' -> '<PROJECT_ROOT>/src/assets/\1'
-module.name_mapper='^Store\(.*\)$' -> '<PROJECT_ROOT>/src/store/\1'
 module.name_mapper='^Common\(.*\)$' -> '<PROJECT_ROOT>/src/common/\1'
-module.name_mapper='^Components\(.*\)$' -> '<PROJECT_ROOT>/src/components/\1'
 module.name_mapper='^~\(.*\)$' -> '<PROJECT_ROOT>/src/\1'
