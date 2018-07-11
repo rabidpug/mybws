@@ -14,13 +14,13 @@ export default class UserPanel extends Component {
     const { user = {}, store = {}, data = {}, } = this.props
 
     if ( !data.auth || !data.auth.isAuthenticated ) return null
-    const { getUser = {}, } = user
+    const { getUser, } = user
     const { ui: { isOnline, }, } = data
-    const { getStore = {}, } = store
+    const { getStore, } = store
 
     if ( !getUser ) return null
-    const { photo, name, role, } = getUser
-    const { id, organisation, name: storeName, } = getStore
+    const { photo, name, role, } = getUser || {}
+    const { id, organisation, name: storeName, } = getStore || {}
 
     return (
       <span>
