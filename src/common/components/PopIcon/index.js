@@ -1,1 +1,1 @@
-export { default, } from './PopIcon.component'
+export { default, } from './PopIcon.component';

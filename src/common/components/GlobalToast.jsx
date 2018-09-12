@@ -1,9 +1,9 @@
-import { Flip, ToastContainer, } from 'react-toastify'
-import React, { PureComponent, } from 'react'
+import { Flip, ToastContainer, } from 'react-toastify';
+import React, { PureComponent, } from 'react';
 
 export default class GlobalToast extends PureComponent {
   render () {
-    const { offset, } = this.props
+    const { offset, } = this.props;
 
     return (
       <ToastContainer
@@ -16,6 +16,6 @@ export default class GlobalToast extends PureComponent {
         } }
         transition={ Flip }
       />
-    )
+    );
   }
 }

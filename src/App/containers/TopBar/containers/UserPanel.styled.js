@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const Title = styled.div`
   color: hsl(0, 0%, 13%);
   font-family: 'Open Sans', sans-serif;
@@ -8,7 +8,7 @@ export const Title = styled.div`
   max-height: 1.8rem;
   text-overflow: ellipsis;
   overflow: hidden;
-`
+`;
 export const Description = styled.div`
   color: hsl(0, 0%, 45%);
   font-size: 0.7rem;
@@ -16,8 +16,8 @@ export const Description = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: pre-line;
-`
+`;
 export const ProfileHeader = styled.h2`
   display: inline-block;
   margin: 0.4rem;
-`
+`;

@@ -1,6 +1,6 @@
-import { compose, graphql, } from 'react-apollo'
+import { compose, graphql, } from 'react-apollo';
 
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 const gqlMyRangeStoreSearch = compose( graphql( gql`
     query SearchParams {
@@ -16,6 +16,6 @@ const gqlMyRangeStoreSearch = compose( graphql( gql`
         changeSearch(search: $search) @client
       }
     `,
-                                                { name: 'changeSearch', } ) )
+                                                { name: 'changeSearch', } ) );
 
-export default gqlMyRangeStoreSearch
+export default gqlMyRangeStoreSearch;

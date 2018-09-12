@@ -1,11 +1,11 @@
-import { Redirect, Route, Switch, } from 'react-router-dom'
+import { Redirect, Route, Switch, } from 'react-router-dom';
 
-import { MyHomeLoadable, } from '../MyHome'
-import { MyProfileLoadable, } from '../MyProfile'
-import { MyRangeLoadable, } from '../MyRange'
-import React from 'react'
-import { SignInLoadable, } from '../SignIn'
-import getQueryVariable from '../../common/helpers/getQueryVariable'
+import { MyHomeLoadable, } from '../MyHome';
+import { MyProfileLoadable, } from '../MyProfile';
+import { MyRangeLoadable, } from '../MyRange';
+import React from 'react';
+import { SignInLoadable, } from '../SignIn';
+import getQueryVariable from '../../common/helpers/getQueryVariable';
 
 const PrivateRoute = ( { component: Component, isAuthenticated, ...props } ) => (
   <Route
@@ -23,7 +23,7 @@ const PrivateRoute = ( { component: Component, isAuthenticated, ...props } ) => 
 
     }
   />
-)
+);
 const PublicRoute = ( { component: Component, isAuthenticated, ...props } ) => (
   <Route
     { ...props }
@@ -40,7 +40,7 @@ const PublicRoute = ( { component: Component, isAuthenticated, ...props } ) => (
 
     }
   />
-)
+);
 const ContentSwitch = ( { location, isAuthenticated, } ) => (
   <Switch location={ location }>
     <PrivateRoute
@@ -56,6 +56,6 @@ const ContentSwitch = ( { location, isAuthenticated, } ) => (
       component={ SignInLoadable } isAuthenticated={ isAuthenticated } key='signin'
       path='/signin' />
   </Switch>
-)
+);
 
-export default ContentSwitch
+export default ContentSwitch;

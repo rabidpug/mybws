@@ -1,6 +1,6 @@
-import { compose, graphql, } from 'react-apollo'
+import { compose, graphql, } from 'react-apollo';
 
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 const gqlTopBar = compose( graphql( gql`
     query LocalAuth {
@@ -36,6 +36,6 @@ const gqlTopBar = compose( graphql( gql`
         updateOpenKeys(key: $key) @client
       }
     `,
-                                    { name: 'updateOpenKeys', } ) )
+                                    { name: 'updateOpenKeys', } ) );
 
-export default gqlTopBar
+export default gqlTopBar;

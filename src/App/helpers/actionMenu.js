@@ -1,6 +1,6 @@
-import TopBar from '../containers/TopBar'
-import client from '../../graphql'
-import gql from 'graphql-tag'
+import TopBar from '../containers/TopBar';
+import client from '../../graphql';
+import gql from 'graphql-tag';
 
 const toggleStatus = keys => {
   client().mutate( {
@@ -10,8 +10,8 @@ const toggleStatus = keys => {
       }
     `,
     variables: { keys, },
-  } )
-}
+  } );
+};
 
 const actionMenu = [
   {
@@ -321,6 +321,6 @@ const actionMenu = [
     component       : TopBar,
     path            : '*',
   },
-]
+];
 
-export default actionMenu
+export default actionMenu;

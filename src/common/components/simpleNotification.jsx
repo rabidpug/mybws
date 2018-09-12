@@ -1,6 +1,6 @@
-import Button from './Button'
-import React from 'react'
-import { toast, } from 'react-toastify'
+import Button from './Button';
+import React from 'react';
+import { toast, } from 'react-toastify';
 
 const NotiComponent = ( { message, description, buttonLabel, closeToast, } ) => (
   <span>
@@ -9,9 +9,9 @@ const NotiComponent = ( { message, description, buttonLabel, closeToast, } ) => 
     {buttonLabel && (
       <Button
         onClick={ () => {
-          closeToast()
+          closeToast();
 
-          window.location.reload()
+          window.location.reload();
         } }
         size='small'
         type='primary'>
@@ -19,14 +19,14 @@ const NotiComponent = ( { message, description, buttonLabel, closeToast, } ) => 
       </Button>
     )}
   </span>
-)
+);
 const simpleNotification = (
   message, description, buttonLabel, noDismiss
 ) => {
   toast.warning( <NotiComponent buttonLabel={ buttonLabel } description={ description } message={ message } />, {
     autoClose    : !noDismiss,
     closeOnClick : false,
-  } )
-}
+  } );
+};
 
-export default simpleNotification
+export default simpleNotification;

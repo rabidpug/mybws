@@ -1,15 +1,15 @@
-import styled, { css, } from 'styled-components'
+import styled, { css, } from 'styled-components';
 
-import styles from 'Common/styles'
+import styles from 'Common/styles';
 
-const { get: { colours, }, } = styles
+const { get: { colours, }, } = styles;
 const sideWidth = ( { collapsed, isSmallDisplay, newMount, } ) =>
-  isSmallDisplay && collapsed || newMount ? '0rem' : collapsed ? '4rem' : '12rem'
+  isSmallDisplay && collapsed || newMount ? '0rem' : collapsed ? '4rem' : '12rem';
 const smallDisplay = ( { isSmallDisplay, } ) =>
   isSmallDisplay &&
   css`
     overflow: hidden;
-  `
+  `;
 const swipeWidth = ( { swipeWidth, } ) =>
   swipeWidth > 0 &&
   swipeWidth < 194 &&
@@ -18,7 +18,7 @@ const swipeWidth = ( { swipeWidth, } ) =>
     max-width: ${swipeWidth}px;
     min-width: ${swipeWidth}px;
     flex: 0 0 ${swipeWidth}px;
-  `
+  `;
 
 export const LayoutContent = styled.div`
   padding: 0.75rem 0.5rem;
@@ -33,7 +33,7 @@ export const LayoutContent = styled.div`
   @media (max-width: 767.98px) {
     padding: 0;
   }
-`
+`;
 export const LayoutHeader = styled.div`
   background: rgb(255, 255, 255);
   padding: 0px;
@@ -43,7 +43,7 @@ export const LayoutHeader = styled.div`
   min-height: 3.5rem;
   flex: 0 0 auto;
   display: flex;
-`
+`;
 export const LayoutSideBar = styled.div`
   transition: all 0.2s;
   position: relative;
@@ -55,7 +55,7 @@ export const LayoutSideBar = styled.div`
   width: ${sideWidth};
   ${smallDisplay};
   ${swipeWidth};
-`
+`;
 export const LayoutWrapper = styled.div`
   display: flex;
   flex-direction: ${( { parent, } ) => parent ? 'row' : 'column'};
@@ -66,4 +66,4 @@ export const LayoutWrapper = styled.div`
   position: relative;
   transition: all 0.2s;
   overflow: hidden;
-`
+`;

@@ -1,6 +1,6 @@
-import gql from 'graphql-tag'
-import { graphql, } from 'react-apollo'
-import storeFromPath from 'Common/helpers/storeFromPath'
+import gql from 'graphql-tag';
+import { graphql, } from 'react-apollo';
+import storeFromPath from 'Common/helpers/storeFromPath';
 
 const district = `
     dc
@@ -12,7 +12,7 @@ const district = `
       mpk
       car
     }
-`
+`;
 const organisation = `
 nsw {
   ${district}
@@ -35,7 +35,7 @@ wa {
 qld {
   ${district}
 }
-`
+`;
 
 const gqlMyRangeStoreArticle = graphql( gql`
     query ArticleDetails($id: Int $store: Int) {
@@ -99,18 +99,18 @@ const gqlMyRangeStoreArticle = graphql( gql`
                                         {
                                           name: 'article',
                                           options ( { match, item = +match.params._id, location: { pathname, }, } ) {
-                                            const pathStore = storeFromPath( pathname )
+                                            const pathStore = storeFromPath( pathname );
 
                                             return {
                                               variables: {
                                                 id    : item,
                                                 store : pathStore,
                                               },
-                                            }
+                                            };
                                           },
-                                          skip ( { match, item = +match.params._id, } ) {
-                                            return !item
+                                          skip ( { fetch, match, item = +match.params._id, } ) {
+                                            return !item && fetch;
                                           },
-                                        } )
+                                        } );
 
-export default gqlMyRangeStoreArticle
+export default gqlMyRangeStoreArticle;

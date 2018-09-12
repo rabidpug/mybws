@@ -1,22 +1,22 @@
-import 'react-hot-loader'
+import 'react-hot-loader';
 
-import React, { PureComponent, } from 'react'
-import { ThemeProvider, injectGlobal, } from 'styled-components'
+import React, { PureComponent, } from 'react';
+import { ThemeProvider, injectGlobal, } from 'styled-components';
 
-import { ApolloProvider, } from 'react-apollo'
-import App from './App'
-import { InMemoryCache, } from 'apollo-cache-inmemory'
-import LoggingIn from './App/components/LoggingIn'
-import { Router, } from 'react-router-dom'
-import apollo from './graphql'
-import createHistory from 'history/createBrowserHistory'
-import localforage from 'localforage'
-import { persistCache, } from 'apollo-cache-persist'
-import registerServiceWorker from './registerServiceWorker'
-import { render, } from 'react-dom'
-import styles from 'Common/styles'
+import { ApolloProvider, } from 'react-apollo';
+import App from './App';
+import { InMemoryCache, } from 'apollo-cache-inmemory';
+import LoggingIn from './App/components/LoggingIn';
+import { Router, } from 'react-router-dom';
+import apollo from './graphql';
+import createHistory from 'history/createBrowserHistory';
+import localforage from 'localforage';
+import { persistCache, } from 'apollo-cache-persist';
+import registerServiceWorker from './registerServiceWorker';
+import { render, } from 'react-dom';
+import styles from 'Common/styles';
 
-const history = createHistory()
+const history = createHistory();
 
 class Index extends PureComponent {
   state = {
@@ -25,16 +25,16 @@ class Index extends PureComponent {
   }
 
   async componentDidMount () {
-    const cache = new InMemoryCache()
+    const cache = new InMemoryCache();
 
-    const client = apollo( cache )
+    const client = apollo( cache );
 
     try {
       await persistCache( {
         cache,
         maxSize : false,
         storage : localforage,
-      } )
+      } );
     } catch ( error ) {
       console.error('Error restoring Apollo cache', error) //eslint-disable-line
     }
@@ -42,11 +42,11 @@ class Index extends PureComponent {
     this.setState( {
       client,
       loaded: true,
-    } )
+    } );
   }
 
   render () {
-    const { client, loaded, } = this.state
+    const { client, loaded, } = this.state;
 
     return loaded ? (
       <ApolloProvider client={ client }>
@@ -57,11 +57,11 @@ class Index extends PureComponent {
         </ThemeProvider>
       </ApolloProvider>
     )
-      : <LoggingIn />
+      : <LoggingIn />;
   }
 }
 
-render( <Index />, document.getElementById( 'root' ) )
+render( <Index />, document.getElementById( 'root' ) );
 
 injectGlobal`
 *,
@@ -89,6 +89,6 @@ ul, menu, dir {
     -webkit-margin-after: 0;
     -webkit-padding-start: 0;
 }
-`
+`;
 
-registerServiceWorker()
+registerServiceWorker();

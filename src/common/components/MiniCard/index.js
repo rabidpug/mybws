@@ -1,1 +1,1 @@
-export { default, } from './MiniCard.component'
+export { default, } from './MiniCard.component';

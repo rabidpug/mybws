@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 export default function updateOpenKeys ( _, { key, }, { cache, } ) {
   const query = gql`
     query {
@@ -6,8 +6,8 @@ export default function updateOpenKeys ( _, { key, }, { cache, } ) {
         openKeys
       }
     }
-  `
-  const { ui: { openKeys: prevOpenKeys, }, } = cache.readQuery( { query, } )
+  `;
+  const { ui: { openKeys: prevOpenKeys, }, } = cache.readQuery( { query, } );
 
   const data = {
     ui: {
@@ -17,9 +17,9 @@ export default function updateOpenKeys ( _, { key, }, { cache, } ) {
         key,
       ],
     },
-  }
+  };
 
-  cache.writeData( { data, } )
+  cache.writeData( { data, } );
 
-  return null
+  return null;
 }

@@ -1,4 +1,4 @@
-import { css, } from 'styled-components'
+import { css, } from 'styled-components';
 const main = {
   colours: {
     complementary : '#1C9B78',
@@ -25,7 +25,7 @@ const main = {
       box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     }
   `,
-}
+};
 const purple = {
   colours: {
     complementary : '#C0E428',
@@ -51,10 +51,10 @@ const purple = {
       box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     }
   `,
-}
+};
 const themes = {
   main,
   purple,
-}
+};
 
-export default themes
+export default themes;

@@ -1,48 +1,48 @@
-import React, { Component, } from 'react'
+import React, { Component, } from 'react';
 
-import AddNewModal from './AddNewModal.component'
-import PopIcon from 'Common/components/PopIcon'
-import RadioButton from 'Common/components/RadioButton'
-import StrikeTitle from 'Common/components/StrikeTitle'
-import SubText from 'Common/components/SubText'
-import gqlProfileItem from './Item.gql'
-import { subscribePush, } from '../../../webpush'
+import AddNewModal from './AddNewModal.component';
+import PopIcon from 'Common/components/PopIcon';
+import RadioButton from 'Common/components/RadioButton';
+import StrikeTitle from 'Common/components/StrikeTitle';
+import SubText from 'Common/components/SubText';
+import gqlProfileItem from './Item.gql';
+import { subscribePush, } from '../../../webpush';
 
 @gqlProfileItem
 export default class ProfileItem extends Component {
   state = { showModal: false, }
 
   handleSubmit = e => {
-    const { title, updateUser, dbname = title.toLowerCase(), items, } = this.props
-    const isChange = typeof e !== 'object'
-    let value = e.target ? e.target.input.value : e
+    const { title, updateUser, dbname = title.toLowerCase(), items, } = this.props;
+    const isChange = typeof e !== 'object';
+    let value = e.target ? e.target.input.value : e;
 
     if ( !isChange ) {
-      e.preventDefault()
+      e.preventDefault();
 
-      e.stopPropagation()
+      e.stopPropagation();
     }
 
-    value = isNaN( parseInt( value ) ) ? value : parseInt( value )
+    value = isNaN( parseInt( value ) ) ? value : parseInt( value );
 
     if ( dbname === 'Device Name' ) {
       if ( isChange ) {
-        const [ { dbname, deviceName, }, ] = items.filter( sub => sub.deviceName === value )
+        const [ { dbname, deviceName, }, ] = items.filter( sub => sub.deviceName === value );
 
-        subscribePush( deviceName, dbname )
-      } else subscribePush( value )
-    } else updateUser( { variables: { [dbname]: value, }, } )
+        subscribePush( deviceName, dbname );
+      } else subscribePush( value );
+    } else updateUser( { variables: { [dbname]: value, }, } );
 
-    !isChange && this.setState( { showModal: false, } )
+    !isChange && this.setState( { showModal: false, } );
   }
 
   toggleModal = value => {
-    this.setState( { showModal: value, } )
+    this.setState( { showModal: value, } );
   }
 
   render () {
-    const { title = '', description, items = [], dbname = title.toLowerCase(), getName, } = this.props
-    const { showModal, } = this.state
+    const { title = '', description, items = [], dbname = title.toLowerCase(), getName, } = this.props;
+    const { showModal, } = this.state;
 
     return (
       <span>
@@ -59,10 +59,10 @@ export default class ProfileItem extends Component {
                 dbname === 'role' && item.selected
                   ? null
                   : e => {
-                    e.stopPropagation()
+                    e.stopPropagation();
 
                     e.target.tagName === 'INPUT' &&
-                        this.handleSubmit( dbname === 'pushSubscriptions' ? item.deviceName : item.value )
+                        this.handleSubmit( dbname === 'pushSubscriptions' ? item.deviceName : item.value );
                   }
               }>
               {dbname === 'store'
@@ -82,15 +82,17 @@ export default class ProfileItem extends Component {
             </RadioButton>
           ),
         ]}
-        <AddNewModal
-          field={ dbname }
-          handleSubmit={ this.handleSubmit }
-          header={ dbname === 'pushSubscriptions' ? 'Enter A Name For This Device' : `Set New ${title}` }
-          label={ `New ${dbname === 'pushSubscriptions' ? 'Device Name' : title}` }
-          onClose={ () => this.toggleModal( false ) }
-          show={ showModal }
-        />
+        {showModal && (
+          <AddNewModal
+            field={ dbname }
+            handleSubmit={ this.handleSubmit }
+            header={ dbname === 'pushSubscriptions' ? 'Enter A Name For This Device' : `Set New ${title}` }
+            label={ `New ${dbname === 'pushSubscriptions' ? 'Device Name' : title}` }
+            onClose={ () => this.toggleModal( false ) }
+            show={ showModal }
+          />
+        )}
       </span>
-    )
+    );
   }
 }

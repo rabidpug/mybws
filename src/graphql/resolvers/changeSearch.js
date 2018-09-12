@@ -7,9 +7,9 @@ export default function changeSearch ( _, { search, }, { cache, } ) {
         search,
       },
     },
-  }
+  };
 
-  cache.writeData( { data, } )
+  cache.writeData( { data, } );
 
-  return null
+  return null;
 }

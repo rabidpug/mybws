@@ -1,14 +1,5 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "commonjs",
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
-    "paths": {
-      "Assets/*": ["src/assets/*"],
-      "~/*": ["src/*"],
-      "Common/*": ["src/common/*"]
-    }
-  },
-  "exclude": ["node_modules", "**/node_modules/**", "dist/", "__tests__"]
+    "module": "commonjs"
+  }
 }

@@ -1,6 +1,6 @@
-import React from 'react'
-import { Spinner, } from 'Common/components/Loaders'
-import logo from '../../assets/logo.webp'
+import React from 'react';
+import { Spinner, } from 'Common/components/Loaders';
+import logo from '../../assets/logo.webp';
 
 const LoggingIn = () => (
   <div
@@ -21,6 +21,6 @@ const LoggingIn = () => (
     />
     <Spinner style={ { top: '60%', } } />
   </div>
-)
+);
 
-export default LoggingIn
+export default LoggingIn;

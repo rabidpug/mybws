@@ -1,8 +1,8 @@
-import React, { PureComponent, } from 'react'
+import React, { PureComponent, } from 'react';
 
-import MenuItem from './components/Item'
-import { MenuWrapper, } from './Menu.styles'
-import SubMenu from './components/SubMenu'
+import MenuItem from './components/Item';
+import { MenuWrapper, } from './Menu.styles';
+import SubMenu from './components/SubMenu';
 
 export default class Menu extends PureComponent {
   static Item = MenuItem;
@@ -10,7 +10,7 @@ export default class Menu extends PureComponent {
   static SubMenu = SubMenu;
 
   render () {
-    const { children, selectedKeys, openKeys, subMenuAction, itemAction, showText, vertical, } = this.props
+    const { children, selectedKeys, openKeys, subMenuAction, itemAction, showText, vertical, } = this.props;
 
     const childProps = {
       itemAction,
@@ -19,10 +19,10 @@ export default class Menu extends PureComponent {
       showText,
       subMenuAction,
       vertical,
-    }
+    };
     const childrenWithProps = React.Children.map( children,
-                                                  child => typeof child.type === 'string' ? child : React.cloneElement( child, childProps ) )
+                                                  child => typeof child.type === 'string' ? child : React.cloneElement( child, childProps ) );
 
-    return <MenuWrapper { ...this.props }>{childrenWithProps}</MenuWrapper>
+    return <MenuWrapper { ...this.props }>{childrenWithProps}</MenuWrapper>;
   }
 }

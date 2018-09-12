@@ -1,2 +1,2 @@
-export { default, } from './Menu.component'
+export { default, } from './Menu.component';
 // !TODO: Clean this

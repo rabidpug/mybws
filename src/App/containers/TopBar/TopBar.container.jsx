@@ -1,12 +1,12 @@
-import React, { Component, } from 'react'
+import React, { Component, } from 'react';
 
-import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome'
-import HamButton from './HamButton.styled'
-import Layout from 'Common/components/Layout'
-import Menu from 'Common/components/Menu'
-import UserPanel from './containers/UserPanel'
-import gqlTopBar from './TopBar.gql'
-import mappedMenus from '../../helpers/mappedMenus'
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
+import HamButton from './HamButton.styled';
+import Layout from 'Common/components/Layout';
+import Menu from 'Common/components/Menu';
+import UserPanel from './containers/UserPanel';
+import gqlTopBar from './TopBar.gql';
+import mappedMenus from '../../helpers/mappedMenus';
 
 @gqlTopBar
 export default class TopBar extends Component {
@@ -14,12 +14,12 @@ export default class TopBar extends Component {
 
   toggleSubMenu = key => {
     this.setState( prevState => {
-      const openKeys = [ ...prevState.openKeys, ]
+      const openKeys = [ ...prevState.openKeys, ];
 
-      openKeys.includes( key ) ? openKeys.splice( openKeys.indexOf( key ), 1 ) : openKeys.push( key )
+      openKeys.includes( key ) ? openKeys.splice( openKeys.indexOf( key ), 1 ) : openKeys.push( key );
 
-      return { openKeys, }
-    } )
+      return { openKeys, };
+    } );
   }
 
   render () {
@@ -32,9 +32,9 @@ export default class TopBar extends Component {
       },
       updateIsSidebarCollapsed,
       route: { actionMenuItems, },
-    } = this.props
+    } = this.props;
 
-    const { openKeys, } = this.state
+    const { openKeys, } = this.state;
     const selectedKeys = [
       ...query.params.groupFilters,
       ...query.params.statusFilters,
@@ -42,8 +42,8 @@ export default class TopBar extends Component {
       query.infiniteScroll && 'infiniteScroll',
       query.params.descendingSort && 'descendingSort',
       query.params.exactSearch && 'exactSearch',
-    ].filter( v => v )
-    const isLargeDisplay = browser > 1200
+    ].filter( v => v );
+    const isLargeDisplay = browser > 1200;
 
     return (
       <Layout.Header>
@@ -67,6 +67,6 @@ export default class TopBar extends Component {
           </Menu>
         )}
       </Layout.Header>
-    )
+    );
   }
 }

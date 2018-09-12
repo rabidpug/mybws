@@ -1,11 +1,11 @@
 export default function updateBrowser ( _, args, { cache, } ) {
   return new Promise( resolve => {
     setTimeout( () => {
-      const data = { browser: window.innerWidth, }
+      const data = { browser: window.innerWidth, };
 
-      cache.writeData( { data, } )
+      cache.writeData( { data, } );
 
-      resolve( null )
-    }, 400 )
-  } )
+      resolve( null );
+    }, 400 );
+  } );
 }

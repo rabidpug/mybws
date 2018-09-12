@@ -1,6 +1,6 @@
-import { getPath, } from 'utilibelt'
-import gql from 'graphql-tag'
-import graphqlSubscriber from '../../../../graphql/Subscriber'
+import { getPath, } from 'utilibelt';
+import gql from 'graphql-tag';
+import graphqlSubscriber from '../../../../graphql/Subscriber';
 const subUserPanel = graphqlSubscriber( gql`
     subscription UserModifiedSub($googleid: String) {
       userModified(googleid: $googleid) {
@@ -17,6 +17,6 @@ const subUserPanel = graphqlSubscriber( gql`
                                           propName  : 'getUser',
                                           queryName : 'user',
                                           variables : ownProps => ( { googleid: getPath( ownProps, 'user.getUser.googleid' ), } ),
-                                        } )
+                                        } );
 
-export default subUserPanel
+export default subUserPanel;

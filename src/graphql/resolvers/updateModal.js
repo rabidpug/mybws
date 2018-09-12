@@ -11,9 +11,9 @@ export default function updateModal ( _, { modal = {}, }, { cache, } ) {
         header: modal && modal.header,
       },
     },
-  }
+  };
 
-  cache.writeData( { data, } )
+  cache.writeData( { data, } );
 
-  return null
+  return null;
 }

@@ -1,6 +1,6 @@
-import { compose, graphql, } from 'react-apollo'
+import { compose, graphql, } from 'react-apollo';
 
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 const gqlMyRangeStoreArticles = compose( graphql( gql`
     query LocalArticlesParams {
@@ -9,6 +9,7 @@ const gqlMyRangeStoreArticles = compose( graphql( gql`
         page
         dimensions {
           pageSize
+          columnSize
         }
       }
     }
@@ -18,6 +19,6 @@ const gqlMyRangeStoreArticles = compose( graphql( gql`
         changePage(page: $page) @client
       }
     `,
-                                                  { name: 'changePage', } ) )
+                                                  { name: 'changePage', } ) );
 
-export default gqlMyRangeStoreArticles
+export default gqlMyRangeStoreArticles;

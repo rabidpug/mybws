@@ -1,9 +1,5 @@
 {
-  "js-import.alias": {
-    "Assets": "src/assets",
-    "Common": "src/common",
-    "~": "src"
-  },
+  "js-import.root": "src",
   "files.exclude": {
     "**.vscode": true,
     "**dist": true,

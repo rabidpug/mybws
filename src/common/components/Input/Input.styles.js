@@ -1,13 +1,13 @@
-import styled from 'styled-components'
-import styles from 'Common/styles'
-const { get: { colours, }, } = styles
+import styled from 'styled-components';
+import styles from 'Common/styles';
+const { get: { colours, }, } = styles;
 
-const lines = /\n\r|\n|\r/g
-const fontSize = ( { size, } ) => `${size === 'small' ? 1 : size === 'large' ? 2 : 1.5}rem`
+const lines = /\n\r|\n|\r/g;
+const fontSize = ( { size, } ) => `${size === 'small' ? 1 : size === 'large' ? 2 : 1.5}rem`;
 const getHeight = ( { value = '', fitContent, size, } ) =>
   typeof value === 'string' && value.match( lines ) && fitContent
     ? `${value.match( lines ).length * ( size === 'small' ? 1 : size === 'large' ? 2 : 1.5 ) + 2}rem`
-    : `${size === 'small' ? 1.25 : size === 'large' ? 2.25 : 1.75}rem`
+    : `${size === 'small' ? 1.25 : size === 'large' ? 2.25 : 1.75}rem`;
 
 export const InputWrapper = styled.input`
   resize: both;
@@ -44,6 +44,6 @@ export const InputWrapper = styled.input`
   &::placeholder {
     color: ${colours.grey};
   }
-`
+`;
 
-export const TextArea = InputWrapper.withComponent( 'textarea' )
+export const TextArea = InputWrapper.withComponent( 'textarea' );

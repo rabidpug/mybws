@@ -1,10 +1,10 @@
-import React, { PureComponent, } from 'react'
+import React, { PureComponent, } from 'react';
 
-import Card from 'Common/components/Card'
+import Card from 'Common/components/Card';
 
 export default class MyHome extends PureComponent {
   componentDidMount () {
-    document.title = 'myBWS'
+    document.title = 'myBWS';
   }
 
   render () {
@@ -17,6 +17,6 @@ export default class MyHome extends PureComponent {
           <p>Welcome to the one stop shop for all BWS teams adhoc tasks and requests.</p>
         </Card.Body>
       </Card>
-    )
+    );
   }
 }

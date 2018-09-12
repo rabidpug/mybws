@@ -1,7 +1,8 @@
-import { darken, lighten, } from 'polished'
+import { darken, lighten, transparentize, } from 'polished';
 
-import createSelector from 'selectorator'
+import createSelector from 'selectorator';
 
+const opacifier = opacity => colour => typeof opacity === 'undefined' ? colour : transparentize( 1 - opacity, colour );
 const get = {
   colours: {
     complementary   : createSelector( [ 'theme.colours.complementary', ] ),
@@ -34,8 +35,10 @@ const get = {
     whiteD2         : createSelector( [ 'theme.colours.grey', ], colour => lighten( 0.3, colour ) ),
     whiteL1         : createSelector( [ 'theme.colours.grey', ], colour => lighten( 0.42, colour ) ),
     whiteL2         : createSelector( [ 'theme.colours.grey', ], colour => lighten( 0.44, colour ) ),
+    withOpacity     : ( opacity, name ) => createSelector( [ get.colours[name], ], opacifier( opacity ) ),
   },
-  scrollBar: createSelector( [ 'theme.scrollBar', ] ),
-}
 
-export default get
+  scrollBar: createSelector( [ 'theme.scrollBar', ] ),
+};
+
+export default get;

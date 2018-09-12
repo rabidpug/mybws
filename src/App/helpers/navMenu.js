@@ -1,4 +1,4 @@
-import SideBar from '../containers/SideBar'
+import SideBar from '../containers/SideBar';
 
 const navMenu = [
   {
@@ -35,6 +35,6 @@ const navMenu = [
     ],
     path: '*',
   },
-]
+];
 
-export default navMenu
+export default navMenu;

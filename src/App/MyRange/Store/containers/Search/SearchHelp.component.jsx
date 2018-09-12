@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 const SearchHelp = () => (
   <div>
     Enter an Article Number to search for a specific article.
@@ -10,6 +10,6 @@ const SearchHelp = () => (
     search each individual letter instead (eg the search &quot;chv rgl ult&quot; will return &quot;Chivas Regal
     Ultis&quot;)
   </div>
-)
+);
 
-export default SearchHelp
+export default SearchHelp;

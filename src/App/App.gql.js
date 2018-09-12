@@ -1,6 +1,6 @@
-import { compose, graphql, } from 'react-apollo'
+import { compose, graphql, } from 'react-apollo';
 
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 const gqlApp = compose(
   graphql( gql`
@@ -38,6 +38,6 @@ const gqlApp = compose(
       }
     `,
            { name: 'login', } )
-)
+);
 
-export default gqlApp
+export default gqlApp;

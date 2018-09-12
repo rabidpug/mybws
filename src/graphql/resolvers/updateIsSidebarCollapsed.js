@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 export default function updateIsSidebarCollapsed ( _, args = {}, { cache, } ) {
   const query = gql`
     query {
@@ -6,8 +6,8 @@ export default function updateIsSidebarCollapsed ( _, args = {}, { cache, } ) {
         isSidebarCollapsed
       }
     }
-  `
-  const previous = cache.readQuery( { query, } )
+  `;
+  const previous = cache.readQuery( { query, } );
 
   const data = {
     ui: {
@@ -17,9 +17,9 @@ export default function updateIsSidebarCollapsed ( _, args = {}, { cache, } ) {
           ? args.isSidebarCollapsed
           : !previous.ui.isSidebarCollapsed,
     },
-  }
+  };
 
-  cache.writeData( { data, } )
+  cache.writeData( { data, } );
 
-  return null
+  return null;
 }

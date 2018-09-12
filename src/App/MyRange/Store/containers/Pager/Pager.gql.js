@@ -1,6 +1,6 @@
-import { compose, graphql, } from 'react-apollo'
+import { compose, graphql, } from 'react-apollo';
 
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 const gqlMyRangeStorePager = compose( graphql( gql`
     query PagerParams {
@@ -17,6 +17,6 @@ const gqlMyRangeStorePager = compose( graphql( gql`
         changePage(page: $page) @client
       }
     `,
-                                               { name: 'changePage', } ) )
+                                               { name: 'changePage', } ) );
 
-export default gqlMyRangeStorePager
+export default gqlMyRangeStorePager;

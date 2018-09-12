@@ -4,9 +4,9 @@ export default function changePage ( _, { page, }, { cache, } ) {
       __typename: 'query',
       page,
     },
-  }
+  };
 
-  cache.writeData( { data, } )
+  cache.writeData( { data, } );
 
-  return null
+  return null;
 }

@@ -1,6 +1,6 @@
-import ActionIcon from 'Common/components/ActionIcon'
-import React from 'react'
-import { Tooltip, } from 'react-tippy'
+import ActionIcon from 'Common/components/ActionIcon';
+import React from 'react';
+import { Tooltip, } from 'react-tippy';
 
 const ArticleActions = ( { role, item, isBig, onClick, status, } ) => {
   const title = isBig
@@ -13,7 +13,7 @@ const ArticleActions = ( { role, item, isBig, onClick, status, } ) => {
           ? 'Request Ranging'
           : status === 'Store Request'
             ? 'Request Deranging'
-            : 'Action Not Available'
+            : 'Action Not Available';
 
   return (
     role === 'Store Team' && (
@@ -60,7 +60,7 @@ const ArticleActions = ( { role, item, isBig, onClick, status, } ) => {
         </Tooltip>
       </span>
     )
-  )
-}
+  );
+};
 
-export default ArticleActions
+export default ArticleActions;

@@ -1,8 +1,8 @@
-import { compose, } from 'redux'
-import { getPath, } from 'utilibelt'
-import gql from 'graphql-tag'
-import { graphql, } from 'react-apollo'
-import storeFromPath from 'Common/helpers/storeFromPath'
+import { compose, } from 'redux';
+import { getPath, } from 'utilibelt';
+import gql from 'graphql-tag';
+import { graphql, } from 'react-apollo';
+import storeFromPath from 'Common/helpers/storeFromPath';
 
 const gqlMyRange = compose( graphql( gql`
       query GetUserDetails {
@@ -24,15 +24,15 @@ const gqlMyRange = compose( graphql( gql`
                                      {
                                        name: 'store',
                                        options ( { user = {}, location: { pathname, }, } ) {
-                                         const pathStore = storeFromPath( pathname )
+                                         const pathStore = storeFromPath( pathname );
 
-                                         return { variables: { id: pathStore.length === 4 ? +pathStore : getPath( user, 'getUser.store' ), }, }
+                                         return { variables: { id: pathStore.length === 4 ? +pathStore : getPath( user, 'getUser.store' ), }, };
                                        },
                                        skip ( { user = {}, location: { pathname, }, } ) {
-                                         const pathStore = storeFromPath( pathname )
+                                         const pathStore = storeFromPath( pathname );
 
-                                         return !( pathStore.length === 4 ? +pathStore : getPath( user, 'getUser.store' ) )
+                                         return !( pathStore.length === 4 ? +pathStore : getPath( user, 'getUser.store' ) );
                                        },
-                                     } ) )
+                                     } ) );
 
-export default gqlMyRange
+export default gqlMyRange;

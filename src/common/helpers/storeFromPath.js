@@ -1,9 +1,9 @@
 const storeFromPath = pathname => {
   const [
     , pathStore = '',
-  ] = pathname.match( /(?:\/)([0-9]{4})(?:\/|$)/ ) || []
+  ] = pathname.match( /(?:\/)([0-9]{4})(?:\/|$)/ ) || [];
 
-  return pathStore
-}
+  return pathStore;
+};
 
-export default storeFromPath
+export default storeFromPath;

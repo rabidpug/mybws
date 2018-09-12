@@ -1,30 +1,30 @@
-import React, { Component, } from 'react'
+import React, { Component, } from 'react';
 
-import Card from 'Common/components/Card'
-import LoadBar from 'Common/components/Loaders/LoadBar'
-import ProfileItem from './containers/Item'
+import Card from 'Common/components/Card';
+import LoadBar from 'Common/components/Loaders/LoadBar';
+import ProfileItem from './containers/Item';
 
-import gqlMyProfile from './MyProfile.gql'
-import subMyProfile from './MyProfile.sub'
+import gqlMyProfile from './MyProfile.gql';
+import subMyProfile from './MyProfile.sub';
 
 @gqlMyProfile
 @subMyProfile
 export default class MyProfile extends Component {
   componentDidMount () {
-    document.title = 'myBWS Profile'
+    document.title = 'myBWS Profile';
   }
 
   getStoreName = value => {
-    const { stores: { getStores = [], }, } = this.props
+    const { stores: { getStores = [], }, } = this.props;
 
-    return getStores.reduce( ( p, n ) => n.id === +value ? n.name : p, '' )
+    return getStores.reduce( ( p, n ) => n.id === +value ? n.name : p, '' );
   }
 
   render () {
-    const { user = {}, stores: storelist = {}, } = this.props
+    const { user = {}, stores: storelist = {}, } = this.props;
 
-    if ( user.loading || storelist.loading ) return <LoadBar />
-    const { getUser: { photos, names, emails, stores, pushSubscriptions, roles, role, } = {}, } = user
+    if ( user.loading || storelist.loading ) return <LoadBar />;
+    const { getUser: { photos, names, emails, stores, pushSubscriptions, roles, role, } = {}, } = user;
 
     return (
       <Card>
@@ -67,6 +67,6 @@ export default class MyProfile extends Component {
         )}
         <Card.Footer />
       </Card>
-    )
+    );
   }
 }

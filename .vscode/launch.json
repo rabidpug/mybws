@@ -9,11 +9,11 @@
       "type": "chrome",
       "request": "launch",
       "userDataDir": true,
-      "skipFiles": ["node_modules"],
       "url": "http://localhost:9000",
       "webRoot": "${workspaceRoot}/src",
       "sourceMaps": true,
-      "skipFiles": ["${workspaceRoot}/node_modules/**/*.js", "<node_internals>/**/*.js"]
+      "skipFiles": ["${workspaceRoot}/node_modules/**/*.js", "<node_internals>/**/*.js"],
+      "preLaunchTask": "npm: dev"
     }
   ]
 }

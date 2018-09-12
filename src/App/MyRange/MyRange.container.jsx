@@ -1,12 +1,12 @@
-import React, { PureComponent, } from 'react'
+import React, { PureComponent, } from 'react';
 
-import AddNewModal from '../MyProfile/containers/AddNewModal.component'
-import { LoadBar, } from 'Common/components/Loaders'
-import { MyRangeStoreLoadable, } from './Store'
-import { Route, } from 'react-router-dom'
-import gqlMyRange from './MyRange.gql'
-import subMyRange from './MyRange.sub'
-import { toast, } from 'react-toastify'
+import AddNewModal from '../MyProfile/containers/AddNewModal.component';
+import { LoadBar, } from 'Common/components/Loaders';
+import { MyRangeStoreLoadable, } from './Store';
+import { Route, } from 'react-router-dom';
+import gqlMyRange from './MyRange.gql';
+import subMyRange from './MyRange.sub';
+import { toast, } from 'react-toastify';
 
 @gqlMyRange
 @subMyRange
@@ -14,13 +14,13 @@ export default class MyRange extends PureComponent {
   state = { showModal: false, }
 
   componentDidMount () {
-    document.title = 'myBWS Range'
+    document.title = 'myBWS Range';
 
-    this.checkPath()
+    this.checkPath();
   }
 
   componentDidUpdate ( prevProps ) {
-    this.checkPath( prevProps )
+    this.checkPath( prevProps );
   }
 
   checkPath = ( prevProps = {} ) => {
@@ -30,8 +30,8 @@ export default class MyRange extends PureComponent {
       history: { replace, },
       location = {},
       match,
-    } = this.props
-    const { location: oldLocation = {}, user: oldUser = {}, store: oldStore = {}, } = prevProps
+    } = this.props;
+    const { location: oldLocation = {}, user: oldUser = {}, store: oldStore = {}, } = prevProps;
 
     if (
       !user.loading &&
@@ -41,40 +41,40 @@ export default class MyRange extends PureComponent {
         oldUser.loading !== user.loading ||
         oldStore.loading !== store.loading )
     ) {
-      const { getStore = {}, } = store
+      const { getStore = {}, } = store;
 
       if ( getStore.id ) {
-        replace( `/myRange/${getStore.id}` )
+        replace( `/myRange/${getStore.id}` );
 
-        document.title = `myBWS ${getStore.name} Range`
-      } else this.setState( { showModal: true, } )
+        document.title = `myBWS ${getStore.name} Range`;
+      } else this.setState( { showModal: true, } );
     }
   }
 
   closeModal = () => {
-    const { history: { push, }, } = this.props
+    const { history: { push, }, } = this.props;
 
-    this.setState( { showModal: false, } )
+    this.setState( { showModal: false, } );
 
-    toast.error( 'A store number is required to view myRange' )
+    toast.error( 'A store number is required to view myRange' );
 
-    push( '/' )
+    push( '/' );
   }
 
   handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const { history: { replace, }, } = this.props
-    const { target: { input, }, } = e
-    let { value, } = input
+    const { history: { replace, }, } = this.props;
+    const { target: { input, }, } = e;
+    let { value, } = input;
 
-    value = isNaN( parseInt( value ) ) ? value : parseInt( value )
+    value = isNaN( parseInt( value ) ) ? value : parseInt( value );
 
-    input.value = ''
+    input.value = '';
 
-    replace( `/myRange/${value}` )
+    replace( `/myRange/${value}` );
 
-    this.setState( { showModal: false, } )
+    this.setState( { showModal: false, } );
   }
 
   render () {
@@ -82,10 +82,10 @@ export default class MyRange extends PureComponent {
       user = {},
       store = {},
       match: { url, },
-    } = this.props
-    const { showModal, } = this.state
+    } = this.props;
+    const { showModal, } = this.state;
 
-    if ( user.loading || store.loading ) return <LoadBar />
+    if ( user.loading || store.loading ) return <LoadBar />;
     if ( showModal ) {
       return (
         <AddNewModal
@@ -96,8 +96,8 @@ export default class MyRange extends PureComponent {
           onClose={ this.closeModal }
           show={ showModal }
         />
-      )
+      );
     }
-    return <Route component={ MyRangeStoreLoadable } path={ `${url}/:store` } />
+    return <Route component={ MyRangeStoreLoadable } path={ `${url}/:store` } />;
   }
 }

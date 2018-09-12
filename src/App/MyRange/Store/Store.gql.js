@@ -1,7 +1,7 @@
-import { compose, } from 'redux'
-import gql from 'graphql-tag'
-import { graphql, } from 'react-apollo'
-import storeFromPath from 'Common/helpers/storeFromPath'
+import { compose, } from 'redux';
+import gql from 'graphql-tag';
+import { graphql, } from 'react-apollo';
+import storeFromPath from 'Common/helpers/storeFromPath';
 
 const gqlMyRangeStore = compose(
   graphql( gql`
@@ -54,19 +54,19 @@ const gqlMyRangeStore = compose(
                location: { pathname, },
                data: { query: { params = {}, }, },
              } ) {
-               const pathStore = storeFromPath( pathname )
+               const pathStore = storeFromPath( pathname );
 
                return {
                  variables: {
                    ...params,
                    store: +pathStore,
                  },
-               }
+               };
              },
              skip ( { location: { pathname, }, } ) {
-               const pathStore = storeFromPath( pathname )
+               const pathStore = storeFromPath( pathname );
 
-               return !( pathStore.length === 4 && +pathStore )
+               return !( pathStore.length === 4 && +pathStore );
              },
            } ),
   graphql( gql`
@@ -83,16 +83,16 @@ const gqlMyRangeStore = compose(
              options ( { location: { pathname, }, } ) {
                const [
                  , pathStore = '',
-               ] = pathname.match( /(?:\/)([0-9]{4})(?:\/|$)/ ) || []
+               ] = pathname.match( /(?:\/)([0-9]{4})(?:\/|$)/ ) || [];
 
-               return { variables: { id: +pathStore, }, }
+               return { variables: { id: +pathStore, }, };
              },
              skip ( { location: { pathname, }, } ) {
                const [
                  , pathStore = '',
-               ] = pathname.match( /(?:\/)([0-9]{4})(?:\/|$)/ ) || []
+               ] = pathname.match( /(?:\/)([0-9]{4})(?:\/|$)/ ) || [];
 
-               return !( pathStore.length === 4 && +pathStore )
+               return !( pathStore.length === 4 && +pathStore );
              },
            } ),
   graphql( gql`
@@ -107,6 +107,6 @@ const gqlMyRangeStore = compose(
       }
     `,
            { name: 'changeDimensions', } )
-)
+);
 
-export default gqlMyRangeStore
+export default gqlMyRangeStore;

@@ -9,9 +9,9 @@ export default function changeDimensions ( _, { pageSize, rowSize, columnSize, }
         rowSize,
       },
     },
-  }
+  };
 
-  cache.writeData( { data, } )
+  cache.writeData( { data, } );
 
-  return null
+  return null;
 }

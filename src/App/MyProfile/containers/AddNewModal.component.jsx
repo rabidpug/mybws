@@ -1,28 +1,42 @@
-import React, { PureComponent, } from 'react'
+import React, { PureComponent, } from 'react';
 
-import Button from 'Common/components/Button'
-import Input from 'Common/components/Input'
-import MiniCard from 'Common/components/MiniCard/MiniCard.component'
-import ModalHeader from 'Common/components/ModalHeader'
-import PopIcon from 'Common/components/PopIcon/PopIcon.component'
+import Button from 'Common/components/Button';
+import Input from 'Common/components/Input';
+import MiniCard from 'Common/components/MiniCard/MiniCard.component';
+import ModalHeader from 'Common/components/ModalHeader';
+import PopIcon from 'Common/components/PopIcon/PopIcon.component';
 
 export default class AddNewModal extends PureComponent {
-  state = { value: '', }
+  state = {
+    focused  : false,
+    realShow : false,
+    value    : '',
+  }
+
+  componentDidMount () {
+    this.setState( { realShow: true, } );
+  }
 
   componentDidUpdate ( prevProps ) {
-    const { show, } = this.props
+    const { show, } = this.props;
+    const { focused, } = this.state;
 
     if ( prevProps.show && !show ) {
-      this.setState( { value: '', } )
+      this.setState( { value: '', } );
 
-      this.inputRef && this.inputRef.blur()
+      this.inputRef && this.inputRef.blur();
+    }
+    if ( !focused && this.inputRef ) {
+      this.inputRef.focus();
+
+      this.setState( { focused, } );
     }
   }
 
   componentWillUnmount () {
-    this.setState( { value: '', } )
+    this.setState( { value: '', } );
 
-    this.inputRef && this.inputRef.blur()
+    this.inputRef && this.inputRef.blur();
   }
 
   inputRef = React.createRef()
@@ -30,11 +44,11 @@ export default class AddNewModal extends PureComponent {
   handleChange = e => this.setState( { value: e.target.value, } )
 
   render () {
-    const { show, header, handleSubmit, onClose, field, label, } = this.props
-    const { value, } = this.state
+    const { header, handleSubmit, onClose, field, label, } = this.props;
+    const { value, realShow, } = this.state;
 
     return (
-      <MiniCard modal show={ show }>
+      <MiniCard modal show={ realShow }>
         <MiniCard.Header onCloseClick={ onClose }>
           <ModalHeader>{header}</ModalHeader>
         </MiniCard.Header>
@@ -60,6 +74,6 @@ export default class AddNewModal extends PureComponent {
           </form>
         </MiniCard.Body>
       </MiniCard>
-    )
+    );
   }
 }

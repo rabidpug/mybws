@@ -1,12 +1,12 @@
-import { BigSide, BodyWrapper, TopSide, } from '../MiniCard.styles'
-import React, { PureComponent, } from 'react'
+import { BigSide, BodyWrapper, TopSide, } from '../MiniCard.styles';
+import React, { PureComponent, } from 'react';
 
-import UrlMessage from 'Common/components/UrlMessage'
+import UrlMessage from 'Common/components/UrlMessage';
 
 export default class Body extends PureComponent {
   render () {
-    const { message: Top, children, isBig, messageProps, showChildren, ...props } = this.props
-    const check = typeof Top !== 'function'
+    const { message: Top, children, isBig, messageProps, showChildren, ...props } = this.props;
+    const check = typeof Top !== 'function';
 
     return (
       <BodyWrapper isBig={ isBig } { ...props }>
@@ -18,6 +18,6 @@ export default class Body extends PureComponent {
           {children}
         </BigSide>
       </BodyWrapper>
-    )
+    );
   }
 }

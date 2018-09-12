@@ -1,4 +1,4 @@
-import InfiniteGrid from 'Common/components/InfiniteGrid'
-const InfiniteArticleGrid = InfiniteGrid
+import InfiniteGrid from 'Common/components/InfiniteGrid';
+const InfiniteArticleGrid = InfiniteGrid;
 
-export default InfiniteArticleGrid
+export default InfiniteArticleGrid;

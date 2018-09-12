@@ -1,92 +1,92 @@
-import React, { PureComponent, } from 'react'
+import React, { PureComponent, } from 'react';
 
-import Card from 'Common/components/Card'
-import { HeaderWrapper, } from './Store.styled'
-import { MyRangeStoreArticleLoadable, } from './Article'
-import MyRangeStoreArticles from './containers/Articles/Articles.container'
-import MyRangeStorePager from './containers/Pager/Pager.container'
-import MyRangeStoreSearch from './containers/Search/Search.container'
-import { Route, } from 'react-router-dom'
-import Swipeable from 'react-swipeable'
-import gqlMyRangeStore from './Store.gql'
-import { hot, } from 'react-hot-loader'
-import storeFromPath from 'Common/helpers/storeFromPath'
+import Card from 'Common/components/Card';
+import { HeaderWrapper, } from './Store.styled';
+import { MyRangeStoreArticleLoadable, } from './Article';
+import MyRangeStoreArticles from './containers/Articles/Articles.container';
+import MyRangeStorePager from './containers/Pager/Pager.container';
+import MyRangeStoreSearch from './containers/Search/Search.container';
+import { Route, } from 'react-router-dom';
+import Swipeable from 'react-swipeable';
+import gqlMyRangeStore from './Store.gql';
+import { hot, } from 'react-hot-loader';
+import storeFromPath from 'Common/helpers/storeFromPath';
 
 @hot( module )
 @gqlMyRangeStore
 export default class MyRangeStore extends PureComponent {
   constructor ( props ) {
-    super( props )
+    super( props );
 
     this.state = {
       forceUnmount : false,
       swipe        : 0,
-    }
+    };
   }
 
   componentDidMount () {
-    document.addEventListener( 'mousedown', this.handleClickOutside )
+    document.addEventListener( 'mousedown', this.handleClickOutside );
 
-    window.addEventListener( 'resize', this.checkAndSet, false )
+    window.addEventListener( 'resize', this.checkAndSet, false );
 
-    this.checkAndSet()
+    this.checkAndSet();
 
-    this.setTitle()
+    this.setTitle();
   }
 
   componentDidUpdate ( prevProps ) {
-    const { forceUnmount, } = this.state
+    const { forceUnmount, } = this.state;
     const {
       match: { isExact, },
       location: { pathname, },
       store,
-    } = this.props
-    const { location: { pathname: oldPath, }, } = prevProps
-    const pathStore = storeFromPath( pathname )
+    } = this.props;
+    const { location: { pathname: oldPath, }, } = prevProps;
+    const pathStore = storeFromPath( pathname );
 
-    const oldStore = storeFromPath( oldPath )
+    const oldStore = storeFromPath( oldPath );
 
-    if ( prevProps.match.isExact !== isExact || pathStore !== oldStore || store !== prevProps.store ) this.setTitle()
-    if ( isExact && forceUnmount ) this.setState( { forceUnmount: false, } )
+    if ( prevProps.match.isExact !== isExact || pathStore !== oldStore || store !== prevProps.store ) this.setTitle();
+    if ( isExact && forceUnmount ) this.setState( { forceUnmount: false, } );
 
-    this.checkAndSet( prevProps )
+    this.checkAndSet( prevProps );
   }
 
   componentWillUnmount () {
-    document.removeEventListener( 'mousedown', this.handleClickOutside )
+    document.removeEventListener( 'mousedown', this.handleClickOutside );
 
-    window.removeEventListener( 'resize', this.checkAndSet, false )
+    window.removeEventListener( 'resize', this.checkAndSet, false );
   }
 
   setTitle () {
-    const { store: { getStore = {}, } = {}, } = this.props
+    const { store: { getStore, }, } = this.props;
 
-    document.title = `myBWS ${getStore.id} - ${getStore.name} Range`
+    if ( getStore ) document.title = `myBWS ${getStore.id} - ${getStore.name} Range`;
   }
 
   onSwiped = (
     e, deltaX, deltaY, isFlick
   ) => {
-    const { swipe, } = this.state
+    const { swipe, } = this.state;
     const {
       history: { push, },
       match,
-    } = this.props
+    } = this.props;
 
     if ( swipe > window.innerHeight / 3 || isFlick ) {
-      this.setState( { swipe: window.innerHeight, } )
+      this.setState( { swipe: window.innerHeight, } );
 
       setTimeout( () => {
-        push( match.url )
+        push( match.url );
 
-        this.setState( { swipe: 0, } )
-      }, 400 )
-    } else this.setState( { swipe: 0, } )
-  }
+        this.setState( { swipe: 0, } );
+      }, 400 );
+    } else this.setState( { swipe: 0, } );
+  };
 
   onSwipingUp = ( e, swipe ) => {
-    this.setState( { swipe, } )
-  }
+    this.setState( { swipe, } );
+  };
 
   checkAndSet = ( prevProps = {} ) => {
     const {
@@ -101,7 +101,7 @@ export default class MyRangeStore extends PureComponent {
         },
       },
       range: { getRange: articles = [], } = {},
-    } = this.props
+    } = this.props;
     const {
       range: { getRange = [], } = {},
       data: {
@@ -109,9 +109,9 @@ export default class MyRangeStore extends PureComponent {
         ui: { isSidebarCollapsed: prevIsCollapsed, } = {},
         query: { dimensions: { pageSize: prevPageSize, } = {}, } = {},
       } = {},
-    } = prevProps
-    const collapsed = browser > 1200 ? false : isSidebarCollapsed
-    const prevCollapsed = prevBrowser > 1200 ? false : prevIsCollapsed
+    } = prevProps;
+    const collapsed = browser > 1200 ? false : isSidebarCollapsed;
+    const prevCollapsed = prevBrowser > 1200 ? false : prevIsCollapsed;
 
     if (
       this.bodyRef &&
@@ -122,19 +122,19 @@ export default class MyRangeStore extends PureComponent {
     ) {
       setTimeout( () => {
         if ( this.bodyRef && this.bodyRef.clientHeight ) {
-          const columnSize = Math.floor( this.bodyRef.clientWidth / 182 )
-          const rowSize = Math.floor( this.bodyRef.clientHeight / 332 )
+          const columnSize = Math.floor( this.bodyRef.clientWidth / 182 );
+          const rowSize = Math.floor( this.bodyRef.clientHeight / 332 );
 
           if ( rowSize && columnSize && rowSize * columnSize !== oldPageSize ) {
-            let page = 0
-            const pageSize = columnSize * rowSize
+            let page = 0;
+            const pageSize = columnSize * rowSize;
 
             if ( oldPageSize ) {
-              const oldStartIndex = oldPage * oldPageSize
+              const oldStartIndex = oldPage * oldPageSize;
 
-              page = Math.ceil( Math.min( articles.length, Math.max( 0, oldStartIndex / pageSize ) ) )
+              page = Math.ceil( Math.min( articles.length, Math.max( 0, oldStartIndex / pageSize ) ) );
 
-              if ( oldPage ) while ( !( oldStartIndex >= pageSize * page && oldStartIndex < pageSize * page + pageSize ) ) oldStartIndex < pageSize * page ? page-- : page++
+              if ( oldPage ) while ( !( oldStartIndex >= pageSize * page && oldStartIndex < pageSize * page + pageSize ) ) oldStartIndex < pageSize * page ? page-- : page++;
             }
 
             changeDimensions( {
@@ -143,32 +143,32 @@ export default class MyRangeStore extends PureComponent {
                 pageSize,
                 rowSize,
               },
-            } )
+            } );
 
-            changePage( { variables: { page, }, } )
+            changePage( { variables: { page, }, } );
           }
         }
-      }, 200 )
-    } else if ( articles.length !== getRange.length ) changePage( 0 )
-  }
+      }, 200 );
+    } else if ( articles.length !== getRange.length ) changePage( 0 );
+  };
 
   handleClickOutside = e => {
     const {
       match,
       history: { push, },
-    } = this.props
+    } = this.props;
 
-    if ( !match.isExact && !( this.wrapperRef && this.wrapperRef.contains( e.target ) ) ) this.setState( { forceUnmount: () => push( match.url ), } )
-  }
+    if ( !match.isExact && !( this.wrapperRef && this.wrapperRef.contains( e.target ) ) ) this.setState( { forceUnmount: () => push( match.url ), } );
+  };
 
   render () {
     const {
       range: { getRange = [], loading, error: { message, } = '', } = {},
       match,
       data: { query: { infiniteScroll, }, },
-    } = this.props
-    const { swipe, forceUnmount, } = this.state
-    const maxPage = getRange.length
+    } = this.props;
+    const { swipe, forceUnmount, } = this.state;
+    const maxPage = getRange.length;
 
     return (
       <Card fullScreen>
@@ -200,6 +200,6 @@ export default class MyRangeStore extends PureComponent {
           />
         </Swipeable>
       </Card>
-    )
+    );
   }
 }

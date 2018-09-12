@@ -1,5 +1,5 @@
-import Swipeable from 'react-swipeable'
-import styled from 'styled-components'
+import Swipeable from 'react-swipeable';
+import styled from 'styled-components';
 
 const SwipeMask = styled( Swipeable )`
   position: absolute;
@@ -10,6 +10,6 @@ const SwipeMask = styled( Swipeable )`
   z-index: 6;
   background-color: white;
   opacity: 0.01;
-`
+`;
 
-export default SwipeMask
+export default SwipeMask;

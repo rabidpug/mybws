@@ -12,16 +12,46 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
 const isProd = process.env.NODE_ENV === 'production'
+const plugins = [
+  new CompressionPlugin(),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+  }),
+  new HtmlWebPackPlugin({
+    filename: 'index.html',
+    template: path.join(__dirname, 'src', 'index.html'),
+    title: 'myBWS',
+  }),
+  new MiniCssExtractPlugin({
+    chunkFilename: isProd ? 'styles/[id].[hash].css' : 'styles/[id].css',
+    filename: isProd ? 'styles/[name].[hash].css' : 'styles/[name].css',
+  }),
+  new ManifestPlugin({ fileName: 'asset-manifest.json' }),
+  new SWPrecacheWebpackPlugin({
+    dontCacheBustUrlsMatching: /\.\w{8}\./,
+    filename: 'service-worker.js',
+    importScripts: ['swPush.js'],
+    logger(message) {
+      if (message.indexOf('Total precache size is') === 0) return
 
+      console.log(message)
+    },
+    minify: true,
+    navigateFallback: '/index.html',
+    navigateFallbackWhitelist: [/^(?!.*v[1-9]{1,})/],
+    staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+  }),
+  new CopyWebpackPlugin([{ from: path.join(__dirname, 'src', 'static') }]),
+  new Critters(),
+  // new BundleAnalyzerPlugin(),
+]
+if (!isProd) plugins.push(new webpack.HotModuleReplacementPlugin())
 module.exports = {
   devServer: {
     historyApiFallback: true,
     hot: true,
     overlay: true,
     port: 9000,
-    proxy: {
-      '/v1': 'http://localhost:8090',
-    },
     watchOptions: { poll: true },
   },
   entry: {
@@ -132,40 +162,7 @@ module.exports = {
     path: path.resolve('dist'),
     publicPath: '/',
   },
-  plugins: [
-    new CompressionPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
-    new HtmlWebPackPlugin({
-      filename: 'index.html',
-      template: path.join(__dirname, 'src', 'index.html'),
-      title: 'myBWS',
-    }),
-    new MiniCssExtractPlugin({
-      chunkFilename: isProd ? 'styles/[id].[hash].css' : 'styles/[id].css',
-      filename: isProd ? 'styles/[name].[hash].css' : 'styles/[name].css',
-    }),
-    new ManifestPlugin({ fileName: 'asset-manifest.json' }),
-    new SWPrecacheWebpackPlugin({
-      dontCacheBustUrlsMatching: /\.\w{8}\./,
-      filename: 'service-worker.js',
-      importScripts: ['swPush.js'],
-      logger(message) {
-        if (message.indexOf('Total precache size is') === 0) return
-
-        console.log(message)
-      },
-      minify: true,
-      navigateFallback: '/index.html',
-      navigateFallbackWhitelist: [/^(?!.*v[1-9]{1,})/],
-      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-    }),
-    new CopyWebpackPlugin([{ from: path.join(__dirname, 'src', 'static') }]),
-    new Critters(),
-    ...(isProd ? [] : [new webpack.HotModuleReplacementPlugin()]),
-    // new BundleAnalyzerPlugin(),
-  ],
+  plugins: plugins,
   resolve: {
     alias: {
       Assets: path.join(__dirname, 'src', 'assets'),

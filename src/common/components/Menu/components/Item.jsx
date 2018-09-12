@@ -1,7 +1,7 @@
-import { MenuItemWrapper, MenuText, } from '../Menu.styles'
+import { MenuItemWrapper, MenuText, } from '../Menu.styles';
 
-import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
+import React from 'react';
 
 const Item = ( { icon, text, path, onClick, itemAction, selectedKeys, itemKey, vertical, showText, ...props } ) => (
   <MenuItemWrapper
@@ -21,6 +21,6 @@ const Item = ( { icon, text, path, onClick, itemAction, selectedKeys, itemKey, v
     )}
     <MenuText showText={ showText }>{text}</MenuText>
   </MenuItemWrapper>
-)
+);
 
-export default Item
+export default Item;

@@ -1,5 +1,5 @@
-import gql from 'graphql-tag'
-import { graphql, } from 'react-apollo'
+import gql from 'graphql-tag';
+import { graphql, } from 'react-apollo';
 
 const gqlProfileItem = graphql( gql`
     mutation($name: String, $email: String, $photo: String, $role: String, $store: Int) {
@@ -33,6 +33,6 @@ const gqlProfileItem = graphql( gql`
       }
     }
   `,
-                                { name: 'updateUser', } )
+                                { name: 'updateUser', } );
 
-export default gqlProfileItem
+export default gqlProfileItem;

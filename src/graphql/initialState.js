@@ -46,6 +46,6 @@ const initialState = {
     openKeys : [],
     theme    : 'main',
   },
-}
+};
 
-export default initialState
+export default initialState;

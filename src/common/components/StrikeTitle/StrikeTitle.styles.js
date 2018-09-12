@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import styles from 'Common/styles'
-const { get: { colours, }, } = styles
+import styled from 'styled-components';
+import styles from 'Common/styles';
+const { get: { colours, }, } = styles;
 
 export const Text = styled.span`
   position: relative;
@@ -24,11 +24,11 @@ export const Text = styled.span`
     left: 100%;
     margin-left: 5px;
   }
-`
+`;
 export const Wrapper = styled.div`
   display: block;
   text-align: center;
   overflow: hidden;
   white-space: nowrap;
   margin-bottom: 1rem;
-`
+`;

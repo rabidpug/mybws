@@ -1,7 +1,7 @@
 export default function login ( _, { JWT = '', refreshToken = '', }, { cache, } ) {
-  const isAuthenticated = !!JWT
+  const isAuthenticated = !!JWT;
 
-  localStorage.setItem( 'auth', 'y' )
+  localStorage.setItem( 'auth', 'y' );
 
   const data = {
     auth: {
@@ -10,9 +10,9 @@ export default function login ( _, { JWT = '', refreshToken = '', }, { cache, } 
       isAuthenticated,
       refreshToken,
     },
-  }
+  };
 
-  cache.writeData( { data, } )
+  cache.writeData( { data, } );
 
-  return null
+  return null;
 }

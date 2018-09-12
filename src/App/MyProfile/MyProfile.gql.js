@@ -1,7 +1,7 @@
-import { compose, } from 'redux'
-import { getPath, } from 'utilibelt'
-import gql from 'graphql-tag'
-import { graphql, } from 'react-apollo'
+import { compose, } from 'redux';
+import { getPath, } from 'utilibelt';
+import gql from 'graphql-tag';
+import { graphql, } from 'react-apollo';
 const gqlMyProfile = compose( graphql( gql`
       query GetUser {
         getUser {
@@ -53,6 +53,6 @@ const gqlMyProfile = compose( graphql( gql`
                                            },
                                          } ),
                                          skip: ( { user = {}, } ) => !user.getUser,
-                                       } ) )
+                                       } ) );
 
-export default gqlMyProfile
+export default gqlMyProfile;

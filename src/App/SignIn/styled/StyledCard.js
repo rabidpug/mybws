@@ -1,5 +1,5 @@
-import Card from 'Common/components/Card'
-import styled from 'styled-components'
+import Card from 'Common/components/Card';
+import styled from 'styled-components';
 const StyledCard = styled( Card )`
   background-color: transparent;
   display: flex;
@@ -8,6 +8,6 @@ const StyledCard = styled( Card )`
   margin: 0;
   width: 100%;
   min-width: 100%;
-`
+`;
 
-export default StyledCard
+export default StyledCard;

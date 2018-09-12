@@ -1,7 +1,7 @@
-import { MenuSubItem, MenuSubTitle, MenuSubWrapper, MenuText, } from '../Menu.styles'
+import { MenuSubItem, MenuSubTitle, MenuSubWrapper, MenuText, } from '../Menu.styles';
 
-import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
+import React from 'react';
 
 const SubMenu = ( {
   children,
@@ -19,24 +19,24 @@ const SubMenu = ( {
   itemAction,
   ...props
 } ) => {
-  childCount = childCount + 1
+  childCount = childCount + 1;
 
-  const isSubMenu = true
+  const isSubMenu = true;
 
   const liProps = {
     childCount,
     vertical,
-  }
-  const titleProps = {}
+  };
+  const titleProps = {};
 
-  const isOpen = openKeys.includes( itemKey )
+  const isOpen = openKeys.includes( itemKey );
 
   if ( !vertical ) {
-    liProps.onMouseEnter = () => !isOpen && subMenuAction( itemKey )
+    liProps.onMouseEnter = () => !isOpen && subMenuAction( itemKey );
 
-    liProps.onMouseLeave = () => isOpen && subMenuAction( itemKey )
+    liProps.onMouseLeave = () => isOpen && subMenuAction( itemKey );
 
-    titleProps.onClick = onClick ? onClick : null
+    titleProps.onClick = onClick ? onClick : null;
   }
   const childProps = {
     childCount,
@@ -47,7 +47,7 @@ const SubMenu = ( {
     showText,
     subMenuAction,
     vertical,
-  }
+  };
 
   return (
     <MenuSubItem { ...liProps } isOpen={ isOpen }>
@@ -86,7 +86,7 @@ const SubMenu = ( {
         {React.Children.map( children, child => React.cloneElement( child, childProps ) )}
       </MenuSubWrapper>
     </MenuSubItem>
-  )
-}
+  );
+};
 
-export default SubMenu
+export default SubMenu;

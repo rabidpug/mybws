@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 const MiniAvatar = styled.button`
   background-image: url(${( { src, } ) => src});
   background-size: 40px;
@@ -18,6 +18,6 @@ const MiniAvatar = styled.button`
     border: 2px solid ${( { isOnline, } ) => isOnline ? 'green' : 'red'};
     cursor: pointer;
   }
-`
+`;
 
-export default MiniAvatar
+export default MiniAvatar;

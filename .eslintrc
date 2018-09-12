@@ -337,7 +337,7 @@
     "rest-spread-spacing": ["error", "never"],
     "semi-spacing": "warn",
     "semi-style": "error",
-    "semi": ["warn", "never"],
+    "semi": ["warn", "always"],
     "sort-imports": "error",
     "sort-keys": [
       "error",

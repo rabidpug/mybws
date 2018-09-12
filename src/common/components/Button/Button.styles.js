@@ -1,8 +1,8 @@
-import styled, { css, } from 'styled-components'
+import styled, { css, } from 'styled-components';
 
-import styles from 'Common/styles'
+import styles from 'Common/styles';
 
-const { get: { colours, }, } = styles
+const { get: { colours, }, } = styles;
 
 const variantStyle = ( { variant, } ) => {
   switch ( variant ) {
@@ -20,7 +20,7 @@ const variantStyle = ( { variant, } ) => {
           color: ${colours.primaryD1};
           border-color: ${colours.primaryD1};
         }
-      `
+      `;
   case 'tertiary':
     return css`
         color: #000;
@@ -37,7 +37,7 @@ const variantStyle = ( { variant, } ) => {
         &:hover:after {
           transform: scaleX(1);
         }
-      `
+      `;
   default:
     return css`
         color: #fff;
@@ -57,14 +57,14 @@ const variantStyle = ( { variant, } ) => {
           opacity: 0.7;
           cursor: wait;
         }
-      `
+      `;
   }
-}
+};
 const isActive = ( { active, } ) =>
   active &&
   css`
     color: ${colours.primaryL1};
-  `
+  `;
 
 export const StyledButton = styled.button`
   border-radius: 0.25rem;
@@ -94,13 +94,13 @@ export const StyledButton = styled.button`
     text-decoration: none;
   }
   ${isActive};
-`
+`;
 export const TextSpan = styled.div`
   max-width: 100%;
   text-overflow: ellipsis;
   margin: 0;
   margin-left: ${( { icon, disabled, } ) => icon || disabled ? '0.7rem' : 0};
   overflow: hidden;
-`
+`;
 
-export const HrefButton = StyledButton.withComponent( 'a' )
+export const HrefButton = StyledButton.withComponent( 'a' );

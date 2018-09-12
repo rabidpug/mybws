@@ -1,9 +1,9 @@
-import { InfoWrapper, PagerWrapper, } from './Pager.styled'
-import React, { PureComponent, } from 'react'
+import { InfoWrapper, PagerWrapper, } from './Pager.styled';
+import React, { PureComponent, } from 'react';
 
-import Button from 'Common/components/Button'
-import Input from 'Common/components/Input'
-import gqlMyRangeStorePager from './Pager.gql'
+import Button from 'Common/components/Button';
+import Input from 'Common/components/Input';
+import gqlMyRangeStorePager from './Pager.gql';
 
 @gqlMyRangeStorePager
 export default class MyRangeStorePager extends PureComponent {
@@ -12,13 +12,13 @@ export default class MyRangeStorePager extends PureComponent {
       changePage,
       maxPage,
       data: { query: { page = 0, }, },
-    } = this.props
-    let newValue
+    } = this.props;
+    let newValue;
 
-    if ( typeof value === 'object' ) newValue = value.target.value === '' ? value.target.value : value.target.value - 1
-    else newValue = value ? page + 1 : page - 1
+    if ( typeof value === 'object' ) newValue = value.target.value === '' ? value.target.value : value.target.value - 1;
+    else newValue = value ? page + 1 : page - 1;
 
-    changePage( { variables: { page: newValue >= maxPage ? 0 : newValue < 0 ? maxPage - 1 : newValue, }, } )
+    changePage( { variables: { page: newValue >= maxPage ? 0 : newValue < 0 ? maxPage - 1 : newValue, }, } );
   }
 
   render () {
@@ -30,7 +30,7 @@ export default class MyRangeStorePager extends PureComponent {
           dimensions: { pageSize = 8, },
         },
       },
-    } = this.props
+    } = this.props;
 
     return (
       <PagerWrapper>
@@ -55,6 +55,6 @@ export default class MyRangeStorePager extends PureComponent {
           Next
         </Button>
       </PagerWrapper>
-    )
+    );
   }
 }

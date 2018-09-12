@@ -1,5 +1,5 @@
 export default function logout ( _, args, { cache, } ) {
-  localStorage.removeItem( 'auth' )
+  localStorage.removeItem( 'auth' );
 
   const data = {
     auth: {
@@ -8,9 +8,9 @@ export default function logout ( _, args, { cache, } ) {
       isAuthenticated : false,
       refreshToken    : '',
     },
-  }
+  };
 
-  cache.writeData( { data, } )
+  cache.writeData( { data, } );
 
-  return null
+  return null;
 }
