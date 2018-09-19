@@ -3,13 +3,12 @@ import React, { Component, } from 'react';
 import Card from 'Common/components/Card';
 import LoadBar from 'Common/components/Loaders/LoadBar';
 import ProfileItem from './containers/Item';
-
 import gqlMyProfile from './MyProfile.gql';
 import subMyProfile from './MyProfile.sub';
 
 @gqlMyProfile
 @subMyProfile
-export default class MyProfile extends Component {
+class MyProfile extends Component {
   componentDidMount () {
     document.title = 'myBWS Profile';
   }
@@ -18,7 +17,7 @@ export default class MyProfile extends Component {
     const { stores: { getStores = [], }, } = this.props;
 
     return getStores.reduce( ( p, n ) => n.id === +value ? n.name : p, '' );
-  }
+  };
 
   render () {
     const { user = {}, stores: storelist = {}, } = this.props;
@@ -70,3 +69,4 @@ export default class MyProfile extends Component {
     );
   }
 }
+export default MyProfile;

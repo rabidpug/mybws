@@ -8,7 +8,7 @@ import { Tooltip, } from 'react-tippy';
 import gqlMyRangeStoreSearch from './Search.gql';
 
 @gqlMyRangeStoreSearch
-export default class MyRangeStoreSearch extends PureComponent {
+class MyRangeStoreSearch extends PureComponent {
   render () {
     const {
       data: { query: { params: { search, }, }, },
@@ -32,3 +32,4 @@ export default class MyRangeStoreSearch extends PureComponent {
     );
   }
 }
+export default MyRangeStoreSearch;

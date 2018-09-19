@@ -14,7 +14,7 @@ import storeFromPath from 'Common/helpers/storeFromPath';
 
 @hot( module )
 @gqlMyRangeStore
-export default class MyRangeStore extends PureComponent {
+class MyRangeStore extends PureComponent {
   constructor ( props ) {
     super( props );
 
@@ -39,14 +39,17 @@ export default class MyRangeStore extends PureComponent {
     const {
       match: { isExact, },
       location: { pathname, },
-      store,
+      store: { getStore: store, },
     } = this.props;
-    const { location: { pathname: oldPath, }, } = prevProps;
+    const {
+      location: { pathname: oldPath, },
+      store: { getStore: prevStore, },
+    } = prevProps;
     const pathStore = storeFromPath( pathname );
 
     const oldStore = storeFromPath( oldPath );
 
-    if ( prevProps.match.isExact !== isExact || pathStore !== oldStore || store !== prevProps.store ) this.setTitle();
+    if ( prevProps.match.isExact !== isExact || pathStore !== oldStore || store !== prevStore ) this.setTitle();
     if ( isExact && forceUnmount ) this.setState( { forceUnmount: false, } );
 
     this.checkAndSet( prevProps );
@@ -59,9 +62,9 @@ export default class MyRangeStore extends PureComponent {
   }
 
   setTitle () {
-    const { store: { getStore, }, } = this.props;
+    const { store: { getStore: store, }, } = this.props;
 
-    if ( getStore ) document.title = `myBWS ${getStore.id} - ${getStore.name} Range`;
+    if ( store ) document.title = `myBWS ${store.id} - ${store.name} Range`;
   }
 
   onSwiped = (
@@ -203,3 +206,4 @@ export default class MyRangeStore extends PureComponent {
     );
   }
 }
+export default MyRangeStore;

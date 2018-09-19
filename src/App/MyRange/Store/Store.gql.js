@@ -59,7 +59,7 @@ const gqlMyRangeStore = compose(
                return {
                  variables: {
                    ...params,
-                   store: +pathStore,
+                   store: parseInt( pathStore ),
                  },
                };
              },

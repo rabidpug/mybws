@@ -25,7 +25,10 @@ const gqlUserPanel = compose( graphql( gql`
         }
       }
     `,
-                                       { name: 'user', } ),
+                                       {
+                                         name    : 'user',
+                                         options : { fetchPolicy: 'cache-and-network', },
+                                       } ),
                               graphql( gql`
       query getStoreDetails($id: Int) {
         getStore(id: $id) {

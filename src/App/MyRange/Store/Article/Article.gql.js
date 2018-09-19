@@ -104,7 +104,7 @@ const gqlMyRangeStoreArticle = graphql( gql`
                                             return {
                                               variables: {
                                                 id    : item,
-                                                store : pathStore,
+                                                store : parseInt( pathStore ),
                                               },
                                             };
                                           },

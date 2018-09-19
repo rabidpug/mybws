@@ -33,8 +33,8 @@ const gqlApp = compose(
     `,
            { name: 'updateBrowser', } ),
   graphql( gql`
-      mutation UpdateLogin($JWT: String, $refreshToken: String) {
-        login(JWT: $JWT, refreshToken: $refreshToken) @client
+      mutation UpdateLogin($JWT: String, $refreshToken: String, $redirect: String) {
+        login(JWT: $JWT, refreshToken: $refreshToken, redirect: $redirect) @client
       }
     `,
            { name: 'login', } )

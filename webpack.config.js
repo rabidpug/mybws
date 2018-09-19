@@ -1,17 +1,16 @@
 /* eslint-disable */
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const Critters = require('critters-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
-const ManifestPlugin = require('webpack-manifest-plugin')
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const CompressionPlugin = require('compression-webpack-plugin')
-const path = require('path')
-const webpack = require('webpack')
-const isProd = process.env.NODE_ENV === 'production'
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const isProd = process.env.NODE_ENV === 'production';
 const plugins = [
   new CompressionPlugin(),
   new webpack.DefinePlugin({
@@ -32,9 +31,9 @@ const plugins = [
     filename: 'service-worker.js',
     importScripts: ['swPush.js'],
     logger(message) {
-      if (message.indexOf('Total precache size is') === 0) return
+      if (message.indexOf('Total precache size is') === 0) return;
 
-      console.log(message)
+      console.log(message);
     },
     minify: true,
     navigateFallback: '/index.html',
@@ -42,10 +41,9 @@ const plugins = [
     staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
   }),
   new CopyWebpackPlugin([{ from: path.join(__dirname, 'src', 'static') }]),
-  new Critters(),
   // new BundleAnalyzerPlugin(),
-]
-if (!isProd) plugins.push(new webpack.HotModuleReplacementPlugin())
+];
+if (!isProd) plugins.push(new webpack.HotModuleReplacementPlugin());
 module.exports = {
   devServer: {
     historyApiFallback: true,
@@ -169,8 +167,8 @@ module.exports = {
       Common: path.join(__dirname, 'src', 'common'),
       '~': path.join(__dirname, 'src'),
     },
-    extensions: ['.js', '.jsx'],
+    extensions: ['.mjs', '.js', '.jsx'],
   },
   target: 'web',
   watch: !isProd,
-}
+};

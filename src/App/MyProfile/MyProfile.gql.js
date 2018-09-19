@@ -48,7 +48,7 @@ const gqlMyProfile = compose( graphql( gql`
                                          options : ( { user = {}, } ) => ( {
                                            variables: {
                                              ids: getPath(
-                                               user, 'getUser.stores', [], res => res.map( store => store.value )
+                                               user, 'getUser.stores', [], res => res.map( store => parseInt( store.value ) )
                                              ),
                                            },
                                          } ),

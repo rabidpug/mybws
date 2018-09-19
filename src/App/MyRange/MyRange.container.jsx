@@ -10,8 +10,8 @@ import { toast, } from 'react-toastify';
 
 @gqlMyRange
 @subMyRange
-export default class MyRange extends PureComponent {
-  state = { showModal: false, }
+class MyRange extends PureComponent {
+  state = { showModal: false, };
 
   componentDidMount () {
     document.title = 'myBWS Range';
@@ -49,7 +49,7 @@ export default class MyRange extends PureComponent {
         document.title = `myBWS ${getStore.name} Range`;
       } else this.setState( { showModal: true, } );
     }
-  }
+  };
 
   closeModal = () => {
     const { history: { push, }, } = this.props;
@@ -59,7 +59,7 @@ export default class MyRange extends PureComponent {
     toast.error( 'A store number is required to view myRange' );
 
     push( '/' );
-  }
+  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -75,7 +75,7 @@ export default class MyRange extends PureComponent {
     replace( `/myRange/${value}` );
 
     this.setState( { showModal: false, } );
-  }
+  };
 
   render () {
     const {
@@ -101,3 +101,4 @@ export default class MyRange extends PureComponent {
     return <Route component={ MyRangeStoreLoadable } path={ `${url}/:store` } />;
   }
 }
+export default MyRange;

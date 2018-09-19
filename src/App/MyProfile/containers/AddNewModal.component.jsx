@@ -11,7 +11,7 @@ export default class AddNewModal extends PureComponent {
     focused  : false,
     realShow : false,
     value    : '',
-  }
+  };
 
   componentDidMount () {
     this.setState( { realShow: true, } );
@@ -24,10 +24,10 @@ export default class AddNewModal extends PureComponent {
     if ( prevProps.show && !show ) {
       this.setState( { value: '', } );
 
-      this.inputRef && this.inputRef.blur();
+      this.inputRef && this.inputRef.current && this.inputRef.current.blur && this.inputRef.current.blur();
     }
-    if ( !focused && this.inputRef ) {
-      this.inputRef.focus();
+    if ( !focused && this.inputRef && this.inputRef.current && this.inputRef.current.focus ) {
+      this.inputRef.current.focus();
 
       this.setState( { focused, } );
     }
@@ -36,12 +36,12 @@ export default class AddNewModal extends PureComponent {
   componentWillUnmount () {
     this.setState( { value: '', } );
 
-    this.inputRef && this.inputRef.blur();
+    this.inputRef && this.inputRef.current && this.inputRef.current.blur && this.inputRef.current.blur();
   }
 
-  inputRef = React.createRef()
+  inputRef = React.createRef();
 
-  handleChange = e => this.setState( { value: e.target.value, } )
+  handleChange = e => this.setState( { value: e.target.value, } );
 
   render () {
     const { header, handleSubmit, onClose, field, label, } = this.props;
@@ -61,10 +61,10 @@ export default class AddNewModal extends PureComponent {
             } }>
             <Input
               autoFocus
-              innerRef={ e => this.inputRef = e }
               name='input'
               onChange={ this.handleChange }
               placeholder={ label }
+              ref={ this.inputRef }
               style={ { flex: 1, } }
               value={ value }
             />

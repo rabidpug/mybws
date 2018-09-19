@@ -1,4 +1,5 @@
-export default function login ( _, { JWT = '', refreshToken = '', }, { cache, } ) {
+import history from '../../history';
+export default function login ( _, { JWT = '', refreshToken = '', redirect = '', }, { cache, } ) {
   const isAuthenticated = !!JWT;
 
   localStorage.setItem( 'auth', 'y' );
@@ -13,6 +14,8 @@ export default function login ( _, { JWT = '', refreshToken = '', }, { cache, } 
   };
 
   cache.writeData( { data, } );
+
+  redirect && history.replace( redirect );
 
   return null;
 }

@@ -3,13 +3,13 @@ import { authEndpoint, signEndpoint, } from '../../endpoints';
 
 import Button from 'Common/components/Button';
 import ClearDiv from './styled/ClearDiv';
-// import { NODE_ENV, } from '../../env';
 import StyledCard from './styled/StyledCard';
 import { getPath, } from 'utilibelt';
 import gqlSignIn from './SignIn.gql';
 import { toast, } from 'react-toastify';
+
 @gqlSignIn
-export default class Signin extends Component {
+class Signin extends Component {
   componentDidMount () {
     const {
       location: { hash, },
@@ -36,8 +36,7 @@ export default class Signin extends Component {
             JWT: token,
             refreshToken,
           },
-        } )
-      ); //eslint-disable-line
+        } ) );
   };
 
   render () {
@@ -47,8 +46,6 @@ export default class Signin extends Component {
     } = this.props;
 
     const redirect = getPath( location, 'state.pathname', '' );
-    // const prop =
-    //   NODE_ENV === 'production' ? { href: signEndpoint( redirect === '/' ? '' : redirect ), } : { onClick: this.onClick, };
     const prop = { href: signEndpoint( redirect === '/' ? '' : redirect ), };
 
     return (
@@ -71,3 +68,4 @@ export default class Signin extends Component {
     );
   }
 }
+export default Signin;

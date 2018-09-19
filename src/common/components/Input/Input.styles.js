@@ -23,7 +23,7 @@ export const InputWrapper = styled.input`
   flex: 1;
   vertical-align: middle;
   min-height: ${( { rows = 1, size, } ) => `${rows * ( size === 'small' ? 1 : size === 'large' ? 2 : 1.5 ) + 0.5}rem`};
-  height: ${getHeight}
+  height: ${getHeight};
   touch-action: manipulation;
   overflow: visible;
   color: rgba(0, 0, 0, 0.65);

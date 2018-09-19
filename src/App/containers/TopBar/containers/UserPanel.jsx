@@ -9,7 +9,7 @@ import { withRouter, } from 'react-router-dom';
 @withRouter
 @gqlUserPanel
 @subUserPanel
-export default class UserPanel extends Component {
+class UserPanel extends Component {
   render () {
     const { user = {}, store = {}, data = {}, } = this.props;
 
@@ -33,3 +33,5 @@ export default class UserPanel extends Component {
     );
   }
 }
+
+export default UserPanel;

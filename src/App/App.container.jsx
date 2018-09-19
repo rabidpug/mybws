@@ -3,12 +3,14 @@ import 'react-tippy/dist/tippy.css';
 
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 import React, { PureComponent, } from 'react';
+
 import ContentSwitch from './components/ContentSwitch';
 import GlobalToast from 'Common/components/GlobalToast';
 import Layout from 'Common/components/Layout';
 import LoggingIn from './components/LoggingIn';
 import SwipeMask from 'Common/components/SwipeMask';
 import actionMenu from './helpers/actionMenu';
+import { createGlobalStyle, } from 'styled-components';
 import fadeTransition from 'Common/styles/fadeTransition.scss';
 import getQueryVariable from 'Common/helpers/getQueryVariable';
 import gqlApp from './App.gql';
@@ -20,10 +22,38 @@ import { withRouter, } from 'react-router-dom';
 
 iconLibrary();
 
+const GlobalStyle = createGlobalStyle`
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  width: 100%;
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+h1,h2,h3,h4,h5 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+}
+ul, menu, dir {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-padding-start: 0;
+}
+`;
+
 @hot( module )
 @withRouter
 @gqlApp
-export default class App extends PureComponent {
+class App extends PureComponent {
   state = { swipeWidth: 0, };
 
   componentDidMount () {
@@ -62,8 +92,7 @@ export default class App extends PureComponent {
     const {
       login,
       loaded,
-      history: { replace, },
-      location: { pathname, },
+      location: { pathname: redirect, },
     } = this.props;
 
     const JWT = getQueryVariable( 'token', location );
@@ -74,11 +103,10 @@ export default class App extends PureComponent {
       login( {
         variables: {
           JWT,
+          redirect,
           refreshToken,
         },
       } );
-
-      replace( pathname );
     }
   };
 
@@ -135,7 +163,9 @@ export default class App extends PureComponent {
               </CSSTransition>
             </TransitionGroup>
           </Layout>
+          <GlobalStyle />
         </Layout>
       );
   }
 }
+export default App;

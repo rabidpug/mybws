@@ -9,8 +9,8 @@ import gqlProfileItem from './Item.gql';
 import { subscribePush, } from '../../../webpush';
 
 @gqlProfileItem
-export default class ProfileItem extends Component {
-  state = { showModal: false, }
+class ProfileItem extends Component {
+  state = { showModal: false, };
 
   handleSubmit = e => {
     const { title, updateUser, dbname = title.toLowerCase(), items, } = this.props;
@@ -34,11 +34,11 @@ export default class ProfileItem extends Component {
     } else updateUser( { variables: { [dbname]: value, }, } );
 
     !isChange && this.setState( { showModal: false, } );
-  }
+  };
 
   toggleModal = value => {
     this.setState( { showModal: value, } );
-  }
+  };
 
   render () {
     const { title = '', description, items = [], dbname = title.toLowerCase(), getName, } = this.props;
@@ -77,8 +77,7 @@ export default class ProfileItem extends Component {
           ) ),
           dbname === 'photo' || dbname === 'role' ? null : (
             <RadioButton key='new' onClick={ () => this.toggleModal( true ) }>
-              <PopIcon icon='plus' only />
-              +
+              <PopIcon icon='plus' only />+
             </RadioButton>
           ),
         ]}
@@ -96,3 +95,4 @@ export default class ProfileItem extends Component {
     );
   }
 }
+export default ProfileItem;

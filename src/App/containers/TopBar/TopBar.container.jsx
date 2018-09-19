@@ -9,8 +9,8 @@ import gqlTopBar from './TopBar.gql';
 import mappedMenus from '../../helpers/mappedMenus';
 
 @gqlTopBar
-export default class TopBar extends Component {
-  state = { openKeys: [], }
+class TopBar extends Component {
+  state = { openKeys: [], };
 
   toggleSubMenu = key => {
     this.setState( prevState => {
@@ -20,7 +20,7 @@ export default class TopBar extends Component {
 
       return { openKeys, };
     } );
-  }
+  };
 
   render () {
     const {
@@ -70,3 +70,5 @@ export default class TopBar extends Component {
     );
   }
 }
+
+export default TopBar;

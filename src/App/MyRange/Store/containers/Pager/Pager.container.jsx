@@ -6,7 +6,7 @@ import Input from 'Common/components/Input';
 import gqlMyRangeStorePager from './Pager.gql';
 
 @gqlMyRangeStorePager
-export default class MyRangeStorePager extends PureComponent {
+class MyRangeStorePager extends PureComponent {
   handleChange = value => {
     const {
       changePage,
@@ -19,7 +19,7 @@ export default class MyRangeStorePager extends PureComponent {
     else newValue = value ? page + 1 : page - 1;
 
     changePage( { variables: { page: newValue >= maxPage ? 0 : newValue < 0 ? maxPage - 1 : newValue, }, } );
-  }
+  };
 
   render () {
     const {
@@ -58,3 +58,4 @@ export default class MyRangeStorePager extends PureComponent {
     );
   }
 }
+export default MyRangeStorePager;

@@ -282,8 +282,6 @@ export const Title = styled.div`
 `;
 export const TitleWrapper = styled.div`
   flex: 1;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
   overflow: hidden;
   user-select: none;
   ${textAlign};

@@ -7,11 +7,11 @@ const ArticleActions = ( { role, item, isBig, onClick, status, } ) => {
     ? 'De/Ranging Requests'
     : status === 'Open'
       ? 'Open Request Submitted'
-      : status === 'Available' && item.blockmsg
+      : status === 'Customer 1st' && item.blockmsg
         ? item.blockmsg
         : status === 'Available'
           ? 'Request Ranging'
-          : status === 'Store Request'
+          : status === 'Customer 1st'
             ? 'Request Deranging'
             : 'Action Not Available';
 
@@ -30,11 +30,11 @@ const ArticleActions = ( { role, item, isBig, onClick, status, } ) => {
             style={ {
               color: isBig
                 ? '#fff'
-                : status === 'Available' && !item.blocked || status === 'Store Request'
+                : status === 'Available' && !item.blocked || status === 'Customer 1st'
                   ? '#000'
                   : '#d3d3d3',
               cursor:
-                status === 'Available' && !item.blocked || status === 'Store Request' || isBig
+                status === 'Available' && !item.blocked || status === 'Customer 1st' || isBig
                   ? 'pointer'
                   : 'not-allowed',
             } }

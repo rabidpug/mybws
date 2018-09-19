@@ -16,8 +16,8 @@ const PopIconStyles = {
     transition: background-color 0.2s;
   `,
   Wrapper: styled.div`
-    ${( { only, } ) =>
-    only
+    ${( { justPop, } ) =>
+    justPop
       ? css`
             left: 50%;
             transform: translateX(-50%);

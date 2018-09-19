@@ -15,7 +15,7 @@ import { withRouter, } from 'react-router-dom';
 @SlideWrap
 @withRouter
 @gqlMyRangeStoreArticle
-export default class MyRangeStoreArticle extends PureComponent {
+class MyRangeStoreArticle extends PureComponent {
   constructor ( props ) {
     super( props );
 
@@ -38,7 +38,6 @@ export default class MyRangeStoreArticle extends PureComponent {
       location,
       match: { params = {}, },
     } = this.props;
-
     const { article: { error: pastError, } = {}, } = prevProps;
 
     if ( error !== pastError && error && params._id ) {
@@ -55,9 +54,9 @@ export default class MyRangeStoreArticle extends PureComponent {
   }
 
   setTitle () {
-    const { article, } = this.props;
+    const { article: { getArticle: article, }, } = this.props;
 
-    document.title = `myBWS ${article._id} - ${article.description} Range Details`;
+    document.title = `myBWS ${article.id} - ${article.description} Range Details`;
   }
 
   render () {
@@ -168,3 +167,4 @@ export default class MyRangeStoreArticle extends PureComponent {
     );
   }
 }
+export default MyRangeStoreArticle;

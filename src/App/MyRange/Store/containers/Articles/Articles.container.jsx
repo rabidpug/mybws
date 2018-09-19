@@ -9,7 +9,7 @@ import { withRouter, } from 'react-router-dom';
 
 @withRouter
 @gqlMyRangeStoreArticles
-export default class MyRangeStoreArticles extends PureComponent {
+class MyRangeStoreArticles extends PureComponent {
   handleChangePageNo = value => {
     const {
       changePage,
@@ -22,7 +22,7 @@ export default class MyRangeStoreArticles extends PureComponent {
     else newValue = value ? page + 1 : page - 1;
 
     changePage( { variables: { page: newValue >= maxPage ? 0 : newValue < 0 ? maxPage - 1 : newValue, }, } );
-  }
+  };
 
   articleRenderer = () => {
     const {
@@ -40,7 +40,7 @@ export default class MyRangeStoreArticles extends PureComponent {
     return articles
       .slice( startIndex, startIndex + pageSize )
       .map( item => <MyRangeStoreArticleLoadable item={ item } key={ item } /> );
-  }
+  };
 
   render () {
     const {
@@ -83,3 +83,4 @@ export default class MyRangeStoreArticles extends PureComponent {
     );
   }
 }
+export default MyRangeStoreArticles;

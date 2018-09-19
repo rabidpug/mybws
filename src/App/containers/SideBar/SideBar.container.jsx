@@ -8,7 +8,7 @@ import { withRouter, } from 'react-router-dom';
 
 @withRouter
 @gqlSideBar
-export default class SideBar extends Component {
+class SideBar extends Component {
   render () {
     const {
       data: { ui: { isSidebarCollapsed, openKeys, } = {}, browser, auth: { isAuthenticated, } = {}, },
@@ -66,3 +66,4 @@ export default class SideBar extends Component {
     );
   }
 }
+export default SideBar;

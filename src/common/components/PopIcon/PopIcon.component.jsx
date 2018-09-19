@@ -3,7 +3,7 @@ import React from 'react';
 
 const { Wrapper, Icon, } = PopIconStyles;
 const PopIcon = ( { only, ...props } ) => (
-  <Wrapper only={ only }>
+  <Wrapper justPop={ only }>
     <Icon { ...props } />
   </Wrapper>
 );
