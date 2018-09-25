@@ -14,8 +14,6 @@ class MyRange extends PureComponent {
   state = { showModal: false, };
 
   componentDidMount () {
-    document.title = 'myBWS Range';
-
     this.checkPath();
   }
 
@@ -43,11 +41,8 @@ class MyRange extends PureComponent {
     ) {
       const { getStore = {}, } = store;
 
-      if ( getStore.id ) {
-        replace( `/myRange/${getStore.id}` );
-
-        document.title = `myBWS ${getStore.name} Range`;
-      } else this.setState( { showModal: true, } );
+      if ( getStore.id ) replace( `/myRange/${getStore.id}` );
+      else this.setState( { showModal: true, } );
     }
   };
 

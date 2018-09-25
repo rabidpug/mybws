@@ -3,19 +3,22 @@ import React, { Component, } from 'react';
 const graphqlSubscriber = ( doc, config ) => WrappedComponent =>
   class extends Component {
     componentDidMount () {
-      const data = this.props[config.queryName || 'data'] //eslint-disable-line
+      const { props, } = this;
+      const data = props[config.queryName || 'data'];
 
       if ( !data.loading && !this.subscription ) this.subscribe();
     }
 
     componentDidUpdate () {
-      const data = this.props[config.queryName || 'data'] //eslint-disable-line
+      const { props, } = this;
+      const data = props[config.queryName || 'data'];
 
       if ( !data.loading && !this.subscription ) this.subscribe();
     }
 
     subscribe () {
-      const data = this.props[config.queryName || 'data'] //eslint-disable-line
+      const { props, } = this;
+      const data = props[config.queryName || 'data'];
 
       const { subscribeToMore, } = data;
 

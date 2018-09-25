@@ -7,7 +7,9 @@ const LoggingIn = () => (
     style={ {
       backgroundColor : '#968A83',
       height          : '100vh',
-      position        : 'relative',
+      left            : 0,
+      position        : 'fixed',
+      top             : 0,
       width           : '100vw',
     } }>
     <img

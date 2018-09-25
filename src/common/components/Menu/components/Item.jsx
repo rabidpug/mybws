@@ -14,8 +14,8 @@ const Item = ( { icon, text, path, onClick, itemAction, selectedKeys, itemKey, v
       <FontAwesomeIcon
         icon={ icon }
         style={ {
-          height     : vertical ? '2.2rem' : '3rem',
-          transition : 'all 0.2s',
+          // height     : vertical ? '2.2rem' : '3rem',
+          transition: 'all 0.2s',
         } }
       />
     )}

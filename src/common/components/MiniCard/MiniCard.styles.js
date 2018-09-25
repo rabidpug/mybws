@@ -226,7 +226,7 @@ export const HeaderWrapper = styled.div`
   background-color: ${colours.white};
   border-radius: 0.7rem 0.7rem 0 0;
   display: flex;
-  cursor: pointer;
+  cursor: ${( { isBig, } ) => isBig ? 'inherit' : 'pointer'};
   position: relative;
   flex-direction: ${( { top, isBig, } ) => top && !isBig ? 'column' : 'row'};
   height: ${( { top, } ) => top ? '240px' : 'auto'};

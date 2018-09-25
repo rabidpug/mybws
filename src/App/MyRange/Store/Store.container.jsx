@@ -38,8 +38,9 @@ class MyRangeStore extends PureComponent {
     const { forceUnmount, } = this.state;
     const {
       match: { isExact, },
+      history: { push, },
       location: { pathname, },
-      store: { getStore: store, },
+      store: { getStore: store, loading, },
     } = this.props;
     const {
       location: { pathname: oldPath, },
@@ -50,6 +51,7 @@ class MyRangeStore extends PureComponent {
     const oldStore = storeFromPath( oldPath );
 
     if ( prevProps.match.isExact !== isExact || pathStore !== oldStore || store !== prevStore ) this.setTitle();
+    if ( !loading && !store ) push( location.pathname.replace( `/${pathStore}`, '' ) );
     if ( isExact && forceUnmount ) this.setState( { forceUnmount: false, } );
 
     this.checkAndSet( prevProps );
@@ -64,7 +66,7 @@ class MyRangeStore extends PureComponent {
   setTitle () {
     const { store: { getStore: store, }, } = this.props;
 
-    if ( store ) document.title = `myBWS ${store.id} - ${store.name} Range`;
+    if ( store ) document.title = `myRange | ${store.id} - ${store.name}`;
   }
 
   onSwiped = (
@@ -168,10 +170,16 @@ class MyRangeStore extends PureComponent {
     const {
       range: { getRange = [], loading, error: { message, } = '', } = {},
       match,
-      data: { query: { infiniteScroll, }, },
+      data: {
+        query: {
+          infiniteScroll,
+          dimensions: { pageSize, },
+        },
+      },
     } = this.props;
     const { swipe, forceUnmount, } = this.state;
-    const maxPage = getRange.length;
+
+    const maxPage = Math.ceil( getRange.length / pageSize );
 
     return (
       <Card fullScreen>

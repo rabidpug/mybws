@@ -11,6 +11,7 @@ export const Title = styled.div`
 `;
 export const Description = styled.div`
   color: hsl(0, 0%, 45%);
+  user-select: none;
   font-size: 0.7rem;
   font-weight: 400;
   text-overflow: ellipsis;
@@ -18,6 +19,7 @@ export const Description = styled.div`
   white-space: pre-line;
 `;
 export const ProfileHeader = styled.h2`
-  display: inline-block;
+  float: left;
+  user-select: none;
   margin: 0.4rem;
 `;

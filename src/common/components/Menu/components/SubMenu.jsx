@@ -62,8 +62,8 @@ const SubMenu = ( {
           <FontAwesomeIcon
             icon={ icon }
             style={ {
-              height     : vertical ? '2.2rem' : '3rem',
-              transition : 'all 0.2s',
+              // height     : vertical ? '2.2rem' : '3rem',
+              transition: 'all 0.2s',
             } }
           />
         )}
@@ -74,8 +74,8 @@ const SubMenu = ( {
             icon={ isOpen ? 'chevron-up' : 'chevron-down' }
             size='xs'
             style={ {
-              float  : 'right',
-              height : '2rem',
+              float: 'right',
+              // height : '2rem',
             } }
           />
         )}

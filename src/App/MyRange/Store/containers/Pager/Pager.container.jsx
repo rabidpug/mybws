@@ -24,12 +24,7 @@ class MyRangeStorePager extends PureComponent {
   render () {
     const {
       maxPage,
-      data: {
-        query: {
-          page = 0,
-          dimensions: { pageSize = 8, },
-        },
-      },
+      data: { query: { page = 0, }, },
     } = this.props;
 
     return (
@@ -49,7 +44,7 @@ class MyRangeStorePager extends PureComponent {
             value={ page === '' ? page : ( page + 1 ).toString() }
           />
           <br />
-          {` of ${Math.ceil( maxPage / pageSize )}`}
+          {` of ${maxPage}`}
         </InfoWrapper>
         <Button onClick={ () => this.handleChange( true ) } style={ { padding: 0, } } variant='tertiary'>
           Next

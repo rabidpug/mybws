@@ -84,10 +84,12 @@ const subMenuOrientationStyling = ( { vertical, childCount, } ) =>
 export const MenuItemWrapper = styled.li`
   overflow: hidden;
   transition: all 0.2s ease-in-out;
+  cursor: pointer;
   margin: 0.3rem 0;
   padding: 0 ${isOpenPadding};
   flex: 1;
   float: ${( { vertical, } ) => vertical ? 'none' : 'right'};
+  position: relative;
   &:hover > svg:first-child {
     animation: ${bounce} 0.6s ease-in-out infinite;
   }
@@ -99,10 +101,12 @@ export const MenuItemWrapper = styled.li`
 export const MenuSubItem = styled.li`
   transition: all 0.2s;
   color: ${colours.whiteL2};
+  cursor: pointer;
   position: relative;
   z-index: 5;
   z-index: ${( { isOpen, } ) => isOpen ? 10 : 5};
   flex: 1;
+  position: relative;
   &:hover > span > svg:first-child {
     animation: ${bounce} 0.6s ease-in-out infinite;
   }
@@ -142,12 +146,10 @@ export const MenuText = styled.span`
   flex: 1;
   max-width: ${( { showText, } ) => showText ? '200px' : 0};
   font-family: 'Open Sans', sans-serif;
-  display: inline-block;
   overflow: hidden;
 `;
 export const MenuWrapper = styled.ul`
   list-style-type: none;
-  cursor: pointer;
   white-space: nowrap;
   padding: 0;
   transition: all 0.2s;
@@ -155,5 +157,6 @@ export const MenuWrapper = styled.ul`
   z-index: 5;
   display: ${( { vertical, } ) => vertical ? 'block' : 'inline-block'};
   float: ${( { vertical, } ) => vertical ? 'none' : 'right'};
+  margin: 0;
   flex: 1;
 `;

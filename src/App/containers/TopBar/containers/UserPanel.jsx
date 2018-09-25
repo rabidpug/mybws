@@ -24,7 +24,7 @@ class UserPanel extends Component {
 
     return (
       <span>
-        {photo && <MiniAvatar isOnline={ isOnline } src={ photo } />}
+        {photo && <MiniAvatar isOnline={ isOnline } src={ photo } style={ { float: 'left', } } />}
         <ProfileHeader>
           {name && <Title>{name}</Title>}
           {<Description>{id ? `${id} - ${organisation.toUpperCase()} ${storeName}` : role}</Description>}

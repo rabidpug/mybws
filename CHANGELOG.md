@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v0.0.2-rc.8
+## v0.0.2-rc.9
 
 - Broke out backend to simplify package
 - Updated auth token and refresh handling
@@ -8,6 +8,9 @@
 - changed auth redirect to work with incognito
 - Updated product image lazy loading
 - Updated auth redirects to return to original page
+- Updated page titles
+- Refined Article view rendering & props mapped
+- Fixed issue where pager wasn't calculating maxPage correctly
 
 ## v0.0.1
 

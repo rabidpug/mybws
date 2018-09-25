@@ -63,6 +63,7 @@ const gqlMyRangeStoreArticle = graphql( gql`
       }
       getStore(id: $store) {
         id
+        name
         area
         avgsales
         buildingarea
@@ -97,7 +98,6 @@ const gqlMyRangeStoreArticle = graphql( gql`
     }
   `,
                                         {
-                                          name: 'article',
                                           options ( { match, item = +match.params._id, location: { pathname, }, } ) {
                                             const pathStore = storeFromPath( pathname );
 
@@ -108,6 +108,14 @@ const gqlMyRangeStoreArticle = graphql( gql`
                                               },
                                             };
                                           },
+                                          props: ( { data: { error, getArticle: article, getUser: user, getStore: store, getPlanograms: planograms, loading, }, } ) => ( {
+                                            article,
+                                            error,
+                                            loading,
+                                            planograms,
+                                            store,
+                                            user,
+                                          } ),
                                           skip ( { fetch, match, item = +match.params._id, } ) {
                                             return !item && fetch;
                                           },

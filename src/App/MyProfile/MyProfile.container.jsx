@@ -10,7 +10,7 @@ import subMyProfile from './MyProfile.sub';
 @subMyProfile
 class MyProfile extends Component {
   componentDidMount () {
-    document.title = 'myBWS Profile';
+    document.title = 'myProfile';
   }
 
   getStoreName = value => {
