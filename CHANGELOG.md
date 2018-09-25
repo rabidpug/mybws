@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v0.0.2-rc.10
+## v0.0.2-rc.11
 
 - Broke out backend to simplify package
 - Updated auth token and refresh handling
