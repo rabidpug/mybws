@@ -10,8 +10,6 @@ const NotiComponent = ( { message, description, buttonLabel, closeToast, } ) => 
       <Button
         onClick={ () => {
           closeToast();
-
-          window.location.reload();
         } }
         size='small'
         type='primary'>
@@ -21,12 +19,15 @@ const NotiComponent = ( { message, description, buttonLabel, closeToast, } ) => 
   </span>
 );
 const simpleNotification = (
-  message, description, buttonLabel, noDismiss
+  message, description, buttonLabel, closeToast, noDismiss
 ) => {
-  toast.warning( <NotiComponent buttonLabel={ buttonLabel } description={ description } message={ message } />, {
-    autoClose    : !noDismiss,
-    closeOnClick : false,
-  } );
+  toast.warning( <NotiComponent
+    buttonLabel={ buttonLabel } closeToast={ closeToast } description={ description }
+    message={ message } />,
+                 {
+                   autoClose    : !noDismiss,
+                   closeOnClick : false,
+                 } );
 };
 
 export default simpleNotification;

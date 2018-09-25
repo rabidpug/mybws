@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v0.0.2-rc.9
+## v0.0.2-rc.10
 
 - Broke out backend to simplify package
 - Updated auth token and refresh handling
@@ -11,6 +11,7 @@
 - Updated page titles
 - Refined Article view rendering & props mapped
 - Fixed issue where pager wasn't calculating maxPage correctly
+- Fixed issue where install prompt was not displaying
 
 ## v0.0.1
 

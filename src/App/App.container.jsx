@@ -18,6 +18,7 @@ import { hot, } from 'react-hot-loader';
 import iconLibrary from './helpers/iconLibrary';
 import navMenu from './helpers/navMenu';
 import { renderRoutes, } from 'react-router-config';
+import simpleNotification from '../common/components/simpleNotification';
 import { withRouter, } from 'react-router-dom';
 
 iconLibrary();
@@ -63,8 +64,6 @@ class App extends PureComponent {
 
     window.addEventListener( 'beforeinstallprompt', this.handleAddToHome );
 
-    updateIsOnline();
-
     window.addEventListener( 'online', updateIsOnline );
 
     window.addEventListener( 'offline', updateIsOnline );
@@ -73,7 +72,9 @@ class App extends PureComponent {
   }
 
   componentDidUpdate () {
-    getQueryVariable( 'token', location ) && this.handleAuthRedirect();
+    const { loaded, } = this.props;
+
+    if ( loaded && getQueryVariable( 'token', location ) ) this.handleAuthRedirect();
   }
 
   componentWillUnmount () {
@@ -113,7 +114,13 @@ class App extends PureComponent {
   handleAddToHome = e => {
     e.preventDefault();
 
-    e.prompt();
+    simpleNotification(
+      'Install App',
+      'You can install the myBWS App to your phone for easier access',
+      'Install Now',
+      () => e.prompt(),
+      true
+    );
   };
 
   onSwipingRight = ( e, swipeWidth ) => {

@@ -73,7 +73,7 @@ class MyRangeStoreArticle extends PureComponent {
     const { status, supply, isBlocked, } = getStatus( article, planograms, store );
 
     if ( isBlocked ) article.blocked = isBlocked;
-    const imgUrl = `https://media.danmurphys.com.au/dmo/product/${article.id}-1.png?impolicy=PROD_RETINA_SM`;
+    const imgUrl = `https://media.danmurphys.com.au/dmo/product/${article.id}-1.png?impolicy=PROD_SM`;
     const ribbonColor = [
       'Pog Range',
       'Promo/Season',
