@@ -2,13 +2,15 @@ import Button from './Button';
 import React from 'react';
 import { toast, } from 'react-toastify';
 
-const NotiComponent = ( { message, description, buttonLabel, closeToast, } ) => (
+const NotiComponent = ( { message, description, buttonLabel, closeToast, handleClose, } ) => (
   <span>
     <h3>{message}</h3>
     <p>{description}</p>
     {buttonLabel && (
       <Button
         onClick={ () => {
+          handleClose();
+
           closeToast();
         } }
         size='small'
@@ -19,10 +21,10 @@ const NotiComponent = ( { message, description, buttonLabel, closeToast, } ) => 
   </span>
 );
 const simpleNotification = (
-  message, description, buttonLabel, closeToast, noDismiss
+  message, description, buttonLabel, handleClose, noDismiss
 ) => {
   toast.warning( <NotiComponent
-    buttonLabel={ buttonLabel } closeToast={ closeToast } description={ description }
+    buttonLabel={ buttonLabel } description={ description } handleClose={ handleClose }
     message={ message } />,
                  {
                    autoClose    : !noDismiss,

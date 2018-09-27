@@ -112,13 +112,15 @@ class App extends PureComponent {
   };
 
   handleAddToHome = e => {
+    const { prompt, } = e;
+
     e.preventDefault();
 
     simpleNotification(
       'Install App',
       'You can install the myBWS App to your phone for easier access',
       'Install Now',
-      () => e.prompt(),
+      prompt,
       true
     );
   };

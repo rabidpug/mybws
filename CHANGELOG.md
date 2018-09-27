@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v0.0.2-rc.11
+## v0.0.2-rc.12
 
 - Broke out backend to simplify package
 - Updated auth token and refresh handling
@@ -12,6 +12,7 @@
 - Refined Article view rendering & props mapped
 - Fixed issue where pager wasn't calculating maxPage correctly
 - Fixed issue where install prompt was not displaying
+- Fixed issue where the notification close function would not be called
 
 ## v0.0.1
 

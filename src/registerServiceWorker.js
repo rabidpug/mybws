@@ -26,7 +26,7 @@ export default function registerServiceWorker () {
                   'Update Available',
                   'There is an update available! Click below to update now, or reload the page later.',
                   'Update Now',
-                  () => window.location.reload(),
+                  window.location.reload,
                   true
                 );
               }
