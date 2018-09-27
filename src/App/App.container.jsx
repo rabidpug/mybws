@@ -112,7 +112,7 @@ class App extends PureComponent {
   };
 
   handleAddToHome = e => {
-    const { prompt, } = e;
+    const preservedEvent = e;
 
     e.preventDefault();
 
@@ -120,7 +120,7 @@ class App extends PureComponent {
       'Install App',
       'You can install the myBWS App to your phone for easier access',
       'Install Now',
-      prompt,
+      () => preservedEvent.prompt(),
       true
     );
   };
