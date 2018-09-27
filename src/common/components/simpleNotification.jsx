@@ -2,19 +2,12 @@ import Button from './Button';
 import React from 'react';
 import { toast, } from 'react-toastify';
 
-const NotiComponent = ( { message, description, buttonLabel, closeToast, handleClose, } ) => (
+const NotiComponent = ( { message, description, buttonLabel, handleClose, } ) => (
   <span>
     <h3>{message}</h3>
     <p>{description}</p>
     {buttonLabel && (
-      <Button
-        onClick={ () => {
-          handleClose();
-
-          closeToast();
-        } }
-        size='small'
-        type='primary'>
+      <Button onClick={ handleClose } size='small' type='primary'>
         {buttonLabel}
       </Button>
     )}
