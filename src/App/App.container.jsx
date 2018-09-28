@@ -126,7 +126,7 @@ class App extends PureComponent {
   };
 
   onSwipingRight = ( e, swipeWidth ) => {
-    const { data: { ui: { isSidebarCollapsed, }, }, } = this.props;
+    const { isSidebarCollapsed, } = this.props;
 
     if ( isSidebarCollapsed ) this.setState( { swipeWidth, } );
   };
@@ -134,10 +134,7 @@ class App extends PureComponent {
   onSwiped = (
     e, deltaX, deltaY, isFlick
   ) => {
-    const {
-      updateIsSidebarCollapsed,
-      data: { ui: { isSidebarCollapsed, }, },
-    } = this.props;
+    const { updateIsSidebarCollapsed, isSidebarCollapsed, } = this.props;
     const { swipeWidth, } = this.state;
 
     if ( ( swipeWidth > 100 || isFlick ) && isSidebarCollapsed ) updateIsSidebarCollapsed();
@@ -146,12 +143,7 @@ class App extends PureComponent {
   };
 
   render () {
-    const {
-      location,
-      data: { browser, ui = {}, auth = {}, loading, },
-    } = this.props;
-    const { isSidebarCollapsed, } = ui;
-    const { isAuthenticated, } = auth;
+    const { location, browser, isAuthenticated, isSidebarCollapsed, loading, } = this.props;
     const { swipeWidth, } = this.state;
 
     const currentKey = location.pathname.split( '/' ).slice( 1, 2 ) || '/';

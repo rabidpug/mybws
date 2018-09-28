@@ -102,7 +102,8 @@ const gqlMyRangeStoreArticle = graphql( gql`
                                             const pathStore = storeFromPath( pathname );
 
                                             return {
-                                              variables: {
+                                              fetchPolicy : 'cache-and-network',
+                                              variables   : {
                                                 id    : item,
                                                 store : parseInt( pathStore ),
                                               },

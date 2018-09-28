@@ -57,7 +57,8 @@ const gqlMyRangeStore = compose(
                const pathStore = storeFromPath( pathname );
 
                return {
-                 variables: {
+                 fetchPolicy : 'network-only',
+                 variables   : {
                    ...params,
                    store: parseInt( pathStore ),
                  },

@@ -2,18 +2,35 @@ import { compose, graphql, } from 'react-apollo';
 
 import gql from 'graphql-tag';
 
-const gqlApp = compose(
-  graphql( gql`
-    query LocalAuth {
-      auth @client {
-        isAuthenticated
-      }
-      browser @client
-      ui @client {
-        isSidebarCollapsed
-      }
+const localQuery = gql`
+  query LocalAuth {
+    auth @client {
+      isAuthenticated
     }
-  ` ),
+    browser @client
+    ui @client {
+      isSidebarCollapsed
+    }
+  }
+`;
+const localQueryMapDataToProps = ( {
+  data: {
+    auth: { isAuthenticated, },
+    browser,
+    ui: { isSidebarCollapsed, },
+    error,
+    loading,
+  },
+} ) => ( {
+  browser,
+  error,
+  isAuthenticated,
+  isSidebarCollapsed,
+  loading,
+} );
+
+const gqlApp = compose(
+  graphql( localQuery, { props: localQueryMapDataToProps, } ),
   graphql( gql`
       mutation UpdateOnline {
         updateIsOnline @client
